@@ -3081,7 +3081,7 @@ async function submitPackageOrder(o) {
   const usd = orderTotalUsd(o);
   if (usd == null || !(usd > 0)) { toast('السعر غير محدد حالياً لهذه الخدمة'); return; }
   if (!(state.rate > 0)) { toast('سعر الصرف غير محدد حالياً، جرّب بعد قليل'); return; }
-  const syp = Math.round(usd * state.rate), bal = (state.profile && state.profile.balance) || 0;
+  const syp = Math.round(usd * state.rate * 1000) / 1000, bal = (state.profile && state.profile.balance) || 0;
   if (bal < syp) {
     const go = await askDialog({ icon: '💳', title: 'رصيدك غير كافٍ', text: 'المطلوب ' + fmtC(syp) + ' ورصيدك ' + fmtC(bal) + '.', ok: 'شحن الرصيد', cancel: 'إغلاق' });
     if (go) location.hash = '#/topup';
@@ -3301,7 +3301,7 @@ const FB_VER = '10.14.1';
 
 const state = { fb: null, user: null, profile: null, deposits: [], ready: false, fbError: '', pendingName: null };
 const isAdmin = () => !!(state.user && state.user.emailVerified && CONFIG.ADMIN_EMAILS.includes((state.user.email || '').toLowerCase()));
-const fmt = n => Math.round(n || 0).toLocaleString('en-US') + ' ' + CONFIG.CURRENCY;
+const fmt = n => (Math.round((+n || 0) * 1000) / 1000).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 3 }) + ' ' + CONFIG.CURRENCY;
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 const tms = d => (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now();
 
@@ -3730,7 +3730,7 @@ async function reviewDeposit(id, action, amount, btn, reason) {
       if (action === 'approve') {
         const uref = fb.doc(fb.db, 'users', d.uid), us = await tx.get(uref);
         if (!us.exists()) throw new UserError('حساب الزبون غير موجود.');
-        tx.update(uref, { balance: (us.data().balance || 0) + amount });
+        tx.update(uref, { balance: Math.round(((us.data().balance || 0) + amount) * 1000) / 1000 });
         tx.update(dref, { status: 'approved', reviewedAt: fb.serverTimestamp(), amount });
       } else {
         tx.update(dref, { status: 'rejected', reviewedAt: fb.serverTimestamp(), rejectReason: String(reason || '').slice(0, 300) });
@@ -4168,7 +4168,7 @@ function getPrice(cat, name, idx) {
   return (typeof v === 'number' && isFinite(v) && v >= 0) ? v : null;
 }
 function fmtPrice(usd) {
-  if (state.cur === 'SYP' && state.rate > 0) return Math.round(usd * state.rate).toLocaleString('en-US') + ' ل.س';
+  if (state.cur === 'SYP' && state.rate > 0) return (Math.round(usd * state.rate * 1000) / 1000).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 }) + ' ل.س';
   return '$' + String(+usd.toFixed(2));
 }
 function updateOrderPrice() {
@@ -4473,7 +4473,7 @@ async function reviewOrder(id, action, btn, reason, delivery) {
       if (action === 'approve') { const upd = { status: 'approved', reviewedAt: fb.serverTimestamp() }; if (delivery && String(delivery).trim()) upd.delivery = String(delivery).trim().slice(0, 1500); tx.update(oref, upd); return; }
       const uref = fb.doc(fb.db, 'users', o.uid), us = await tx.get(uref);
       if (!us.exists()) throw new UserError('حساب الزبون غير موجود.');
-      tx.update(uref, { balance: (us.data().balance || 0) + (o.amount || 0) });
+      tx.update(uref, { balance: Math.round(((us.data().balance || 0) + (o.amount || 0)) * 1000) / 1000 });
       tx.update(oref, { status: 'rejected', reviewedAt: fb.serverTimestamp(), rejectReason: String(reason || '').slice(0, 300) });
     });
     toast(action === 'approve' ? '✅ تم تسجيل التنفيذ' : action === 'start' ? '⏳ تم تعليم الطلب: قيد التنفيذ' : 'تم الرفض وإرجاع المبلغ للزبون');
@@ -6304,7 +6304,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       await f.runTransaction(f.db, async tx => {
         const rref = f.doc(f.db, 'referrals', c.dataset.credit), uref = f.doc(f.db, 'users', c.dataset.ref), rs = await tx.get(rref), us = await tx.get(uref);
         if (!rs.exists() || rs.data().credited) throw new UserError('تمت مكافأة هالإحالة مسبقاً.'); if (!us.exists()) throw new UserError('حساب الزبون غير موجود.');
-        tx.update(uref, { balance: (us.data().balance || 0) + amt }); tx.update(rref, { credited: true, creditedAmount: amt, creditedAt: f.serverTimestamp() });
+        tx.update(uref, { balance: Math.round(((us.data().balance || 0) + amt) * 1000) / 1000 }); tx.update(rref, { credited: true, creditedAmount: amt, creditedAt: f.serverTimestamp() });
       });
       A.log('مكافأة إحالة', c.dataset.nm + ': ' + amt + ' ل.س'); toast('✅ تمت إضافة الرصيد'); A.loadRefs(); A.loadLog();
     } catch (err) { toast(errMsg(err)); c.disabled = false; }
@@ -6886,7 +6886,7 @@ ARMEX.admOrdTag = (o) => {
           if (!map) { map = {}; mgPrev.forEach(r => { map[r.id] = r.old; }); await f.setDoc(MG(), { done: false, at: f.serverTimestamp(), map, count: Object.keys(map).length }); }
           const cur = await f.getDocs(f.collection(f.db, 'users')), now = {}; cur.docs.forEach(d => { now[d.id] = +d.data().balance || 0; });
           const ids = Object.keys(map).filter(u => now[u] === map[u]); let w = 0;
-          for (let i = 0; i < ids.length; i += 400) { const b = f.writeBatch(f.db); ids.slice(i, i + 400).forEach(u => { b.update(f.doc(f.db, 'users', u), { balance: r2(map[u] / 100) }); }); await b.commit(); w += Math.min(400, ids.length - i); out.textContent = 'تم ' + w + ' / ' + ids.length; }
+          for (let i = 0; i < ids.length; i += 400) { const b = f.writeBatch(f.db); ids.slice(i, i + 400).forEach(u => { b.update(f.doc(f.db, 'users', u), { balance: Math.round(map[u] / 100 * 1000) / 1000 }); }); await b.commit(); w += Math.min(400, ids.length - i); out.textContent = 'تم ' + w + ' / ' + ids.length; }
           await f.setDoc(MG(), { done: true, doneAt: f.serverTimestamp() }, { merge: true });
           A.log('تحويل الأرصدة', ids.length + ' حساب (÷100)'); out.textContent = 'تم تحويل ' + ids.length + ' حساب.'; $('mgGo').disabled = true; $('mgUndo').hidden = false; return;
         }
@@ -6894,7 +6894,7 @@ ARMEX.admOrdTag = (o) => {
           const s = await f.getDoc(MG()); if (!s.exists()) return; const map = s.data().map || {};
           const a = await askDialog({ icon: '', title: 'التراجع عن تحويل الأرصدة', text: 'رح يرجع الرصيد القديم لكل حساب ما تغيّر رصيده بعد التحويل.', ok: 'تراجع', danger: true }); if (!a) return;
           const cur = await f.getDocs(f.collection(f.db, 'users')), now = {}; cur.docs.forEach(d => { now[d.id] = +d.data().balance || 0; });
-          const ids = Object.keys(map).filter(u => now[u] === r2(map[u] / 100)); let skipped = Object.keys(map).length - ids.length;
+          const ids = Object.keys(map).filter(u => now[u] === r2(map[u] / 100) || now[u] === Math.round(map[u] / 100 * 1000) / 1000); let skipped = Object.keys(map).length - ids.length;
           for (let i = 0; i < ids.length; i += 400) { const b = f.writeBatch(f.db); ids.slice(i, i + 400).forEach(u => { b.update(f.doc(f.db, 'users', u), { balance: map[u] }); }); await b.commit(); }
           await f.deleteDoc(MG()); A.log('تراجع عن تحويل الأرصدة', ids.length + ' حساب'); out.textContent = 'رجعت ' + ids.length + ' حساب' + (skipped ? ' (تجاهلت ' + skipped + ' تغيّر رصيدهم)' : ''); $('mgUndo').hidden = true; return;
         }

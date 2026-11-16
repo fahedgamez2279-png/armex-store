@@ -817,13 +817,13 @@ header::after,footer::before{animation-timing-function:steps(90,end)}
   box-shadow:0 0 40px rgba(138,43,226,0.45),0 0 14px rgba(255,215,0,0.15);
   transform:translateY(24px) scale(0.97);transition:transform .3s cubic-bezier(.2,.9,.3,1.15)}
 .order-overlay.open .order-modal{transform:none}
-.order-head{display:flex;align-items:center;gap:10px;margin-bottom:24px}
-.order-title{font-size:19px;font-weight:800;color:var(--gold);line-height:1.4}
-.order-heart{width:34px;height:34px;display:grid;place-items:center;border:none;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;flex:none}
-.order-heart svg{fill:rgba(255,255,255,0.32);transition:fill .25s ease,transform .25s ease}
+.order-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-bottom:16px}
+.order-title{font-size:16px;font-weight:800;color:var(--gold);line-height:1.4;flex:1 1 0;min-width:0;overflow-wrap:anywhere}
+.order-heart{width:30px;height:30px;overflow:visible;display:grid;place-items:center;border:none;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;flex:none}
+.order-heart svg{width:26px;height:26px;overflow:visible;fill:rgba(255,255,255,0.32);transition:fill .25s ease,transform .25s ease}
 .order-heart.on svg{fill:#ff4d6d;transform:scale(1.12)}
 .order-heart:active svg{transform:scale(0.9)}
-.order-price{margin-inline-start:auto;padding:8px 18px;border-radius:999px;font-weight:800;font-size:16px;color:#fff;
+.order-price{margin-inline-start:auto;padding:4px 12px;border-radius:999px;font-weight:800;font-size:13px;white-space:nowrap;color:#fff;
   background:linear-gradient(135deg,#6b21a8,#8A2BE2);border:1px solid rgba(255,215,0,0.45)}
 .order-input{display:block;width:100%;height:56px;padding:0 24px;border-radius:999px;direction:rtl;text-align:right;
   border:1.5px solid rgba(138,43,226,0.35);background:rgba(255,255,255,0.04);color:#fff;
@@ -941,7 +941,7 @@ header::after,footer::before{animation-timing-function:steps(90,end)}
   background-origin:border-box; background-clip:padding-box,border-box; box-shadow:0 0 26px rgba(138,43,226,0.65), 0 0 12px rgba(255,215,0,0.3); }
 .dw-name { font-size:18px; font-weight:900; color:#fff; line-height:1.5; word-break:break-word; }
 .dw-mail { font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px; word-break:break-all; }
-.dw-bal { display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:9px 20px; border-radius:999px; font-size:20px; font-weight:900; color:var(--gold);
+.dw-bal { display:inline-flex; align-items:center; gap:8px; margin-top:10px; padding:6px 16px; border-radius:999px; font-size:16px; font-weight:900; color:var(--gold);
   background:linear-gradient(135deg,rgba(74,26,143,0.7),rgba(42,15,85,0.7)); border:1.5px solid rgba(255,215,0,0.6); box-shadow:0 0 20px rgba(255,215,0,0.22); }
 .dw-guest p { font-size:13.5px; color:rgba(255,255,255,0.7); margin-bottom:14px; line-height:1.8; }
 .dw-gbtns { display:grid; gap:10px; }
@@ -1080,22 +1080,22 @@ header::after,footer::before{animation-timing-function:steps(90,end)}
 .light-mode .about-card p { color:#25104a; }
 
 /* ── وكلاؤنا ── */
-.agents { display:grid; gap:16px; }
-.agent { position:relative; display:flex; flex-direction:column; align-items:center; gap:6px; padding:28px 20px 22px; border-radius:26px; text-align:center; text-decoration:none; color:#fff; overflow:hidden;
+.agents { display:grid; gap:12px; }
+.agent { position:relative; display:flex; flex-direction:column; align-items:center; gap:6px; padding:16px 16px 14px; border-radius:22px; text-align:center; text-decoration:none; color:#fff; overflow:hidden;
   background:linear-gradient(180deg,rgba(28,11,56,0.96),rgba(12,4,26,0.98)); border:1.5px solid transparent;
   background-image:linear-gradient(180deg,rgba(28,11,56,0.97),rgba(12,4,26,0.99)),linear-gradient(135deg,#FFD700,#8A2BE2,#FFD700);
   background-origin:border-box; background-clip:padding-box,border-box; box-shadow:0 0 36px rgba(138,43,226,0.45); transition:transform .3s, box-shadow .3s; -webkit-tap-highlight-color:transparent; }
 .agent::before { content:''; position:absolute; top:-60%; left:-30%; width:160%; height:160%; background:conic-gradient(from 0deg,transparent 0 40%,rgba(255,215,0,0.07) 60%,transparent 80%); animation:shineSpin 9s linear infinite; pointer-events:none; }
 .agent:hover { transform:translateY(-4px); box-shadow:0 0 50px rgba(138,43,226,0.75), 0 0 20px rgba(255,215,0,0.25); }
 .agent > * { position:relative; }
-.agent-av { width:78px; height:78px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:36px; margin-bottom:6px;
+.agent-av { width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:2px;
   background:radial-gradient(circle at 30% 25%,#4a1a8f,#150832); border:2px solid rgba(255,215,0,0.6); box-shadow:0 0 24px rgba(138,43,226,0.7); }
-.agent-role { font-size:13px; font-weight:800; color:var(--gold); padding:4px 14px; border-radius:999px; background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.4); }
-.agent-name { font-size:22px; font-weight:900; margin-top:4px; }
-.agent-num { font-size:16px; font-weight:700; color:rgba(255,255,255,0.7); direction:ltr; letter-spacing:.5px; }
-.agent-wa { display:inline-flex; align-items:center; gap:10px; margin-top:12px; padding:13px 26px; border-radius:999px; font-weight:800; font-size:15.5px; color:#fff;
+.agent-role { font-size:12px; font-weight:800; color:var(--gold); padding:4px 14px; border-radius:999px; background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.4); }
+.agent-name { font-size:18px; font-weight:900; margin-top:2px; }
+.agent-num { font-size:14.5px; font-weight:700; color:rgba(255,255,255,0.7); direction:ltr; letter-spacing:.5px; }
+.agent-wa { display:inline-flex; align-items:center; gap:8px; margin-top:8px; padding:9px 22px; border-radius:999px; font-weight:800; font-size:14px; color:#fff;
   background:linear-gradient(135deg,#128c4a,#25d366); box-shadow:0 6px 22px rgba(37,211,102,0.45); }
-.agent-wa svg { width:22px; height:22px; fill:#fff; }
+.agent-wa svg { width:18px; height:18px; fill:#fff; }
 .light-mode .agent { color:#25104a; background-image:linear-gradient(180deg,#fff,#f6f0ff),linear-gradient(135deg,#FFD700,#8A2BE2,#FFD700); }
 .light-mode .agent-role { color:#8a6200; } .light-mode .agent-num { color:#5a4a7a; }
 
@@ -1202,11 +1202,12 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 .light-mode .dlg-t{color:#9a6f00}
 .op-card .orj,.hist-item .orj{margin-top:6px;font-size:12.5px;font-weight:700;line-height:1.6;color:#ff9aa8}
 .light-mode .op-card .orj,.light-mode .hist-item .orj{color:#c0264f}
-.wl-cards{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;scrollbar-width:none}
+.wl-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:2px 0 8px}
 .wl-cards::-webkit-scrollbar{display:none}
-.wl-card{flex:0 0 74%;max-width:250px;scroll-snap-align:start;padding:18px 14px;border-radius:20px;text-align:center;display:flex;flex-direction:column;gap:6px;background:var(--card-bg);border:1.5px solid var(--wc,rgba(138,43,226,0.5));box-shadow:0 0 22px var(--wg,rgba(138,43,226,0.25))}
-.wl-card b{font-size:22px;font-weight:900;color:#fff}
-.wl-card span{font-size:14px;font-weight:800;color:rgba(255,255,255,0.75)}
+.wl-card{min-width:0;padding:11px 8px;border-radius:16px;text-align:center;display:flex;flex-direction:column;gap:2px;background:var(--card-bg);border:1.5px solid var(--wc,rgba(138,43,226,0.5));box-shadow:0 0 22px var(--wg,rgba(138,43,226,0.25))}
+.wl-card b{font-size:16px;font-weight:900;color:#fff;overflow-wrap:anywhere}
+.wl-card.bal{grid-column:1/-1}.wl-card.bal b{font-size:19px}
+.wl-card span{font-size:12px;font-weight:800;color:rgba(255,255,255,0.75)}
 .wl-card.bal{--wc:rgba(255,215,0,0.65);--wg:rgba(255,215,0,0.22)}
 .wl-card.bal b{color:var(--gold)}
 .wl-card.pur{--wc:rgba(255,90,110,0.6);--wg:rgba(255,90,110,0.2)}
@@ -1256,9 +1257,9 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 #mfaSetup .pg-btn{margin-top:4px}
 
 /* ═════ Armex v2: ملاحظات النافذة بحجم ثابت وتنسحب ═════ */
-.order-notes-wrap{position:relative;margin-top:26px}
+.order-notes-wrap{position:relative;margin-top:18px}
 .order-notes-wrap::before{content:'';position:absolute;right:0;top:0;bottom:0;width:4px;border-radius:2px;background:linear-gradient(to bottom,#FFD700,#8A2BE2);z-index:2}
-.order-notes-wrap .order-notes{margin-top:0;height:150px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(138,43,226,.6) transparent;gap:18px;padding:4px 18px 8px 6px}
+.order-notes-wrap .order-notes{margin-top:0;height:auto;max-height:150px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(138,43,226,.6) transparent;gap:18px;padding:4px 18px 8px 6px}
 .order-notes-wrap .order-notes::before{display:none}
 .order-notes-wrap .order-notes::-webkit-scrollbar{width:4px}
 .order-notes-wrap .order-notes::-webkit-scrollbar-thumb{background:rgba(138,43,226,.6);border-radius:2px}
@@ -1376,6 +1377,24 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 
 .admin-card.stale{border-color:rgba(255,68,68,.75)!important;box-shadow:0 0 18px rgba(255,68,68,.28)}
 .admin-btns.three{grid-template-columns:1fr 1fr 1fr}
+
+/* ═════ v5: تصغير وتحسينات ═════ */
+.pr-box .pg-btn{padding:10px;font-size:14px}
+.pr-box .pg-btn.pr-link{width:auto;min-width:60%;margin-inline:auto;display:block;padding:8px 18px;font-size:13px;margin-bottom:6px}
+.lg-bar{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.lg-bar input[type=date]{flex:1;min-width:0;height:40px;padding:0 12px;border-radius:12px;border:1.5px solid rgba(138,43,226,.4);background:rgba(255,255,255,.05);color:inherit;font:14px 'Cairo',sans-serif;color-scheme:dark}
+.light-mode .lg-bar input[type=date]{color-scheme:light}
+.lg-more{display:block;width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px dashed rgba(138,43,226,.55);background:transparent;color:var(--gold);font:800 14px 'Cairo',sans-serif;cursor:pointer}
+.dw-avw{position:relative;width:70px;height:70px;margin:0 auto 10px}
+.dw-avw .dw-av{width:70px;height:70px;margin:0;padding:0;font-size:28px;cursor:pointer;overflow:hidden;font-family:inherit}
+.dw-av img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.dw-cam{position:absolute;bottom:-2px;left:-2px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:#2a0f55;border:1.5px solid var(--gold);pointer-events:none}
+.dw-head{padding:24px 20px 12px}
+.dw-credit{padding:0 16px 20px;text-align:center;font-size:12px;color:rgba(255,255,255,.55);line-height:1.8}
+.dw-credit b{color:var(--gold);font-weight:800}
+.dw-credit a{display:block;color:inherit;text-decoration:none;font-weight:700;letter-spacing:.4px}
+.dw-foot{padding:10px 16px 6px}
+.light-mode .dw-credit{color:#6a5a8a}.light-mode .dw-credit b{color:#8a6200}
 </style>
 </head>
 <body>
@@ -1954,6 +1973,7 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
   <div class="dw-soc" id="dwSoc"></div>
   <button type="button" class="dw-out" id="dwLogout" hidden>🚪 تسجيل الخروج</button>
   <div class="dw-foot">© 2026 <b>ARMEX STORE</b></div>
+  <div class="dw-credit">برمجة وتصميم <b>فهد إبراهيم</b><a href="https://wa.me/963985548376" target="_blank" rel="noopener noreferrer" dir="ltr">+963 985 548 376</a></div>
 </aside>
 
 <!-- ═════ التقويم ═════ -->
@@ -2982,9 +3002,9 @@ const escNote = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').repl
 const orderMailLabel = document.getElementById('orderMailLabel');
 const AIR_OPTS = orderSel.innerHTML;
 let orderCurrent = null;
-const FAV_KEY = 'armex_fav';
-function readFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '{}'); } catch (e) { return {}; } }
-function writeFavs(f) { try { localStorage.setItem(FAV_KEY, JSON.stringify(f)); } catch (e) {} }
+const favKey = () => 'armex_fav_' + ((state.user && state.user.uid) || 'guest');
+function readFavs() { try { return JSON.parse(localStorage.getItem(favKey()) || '{}'); } catch (e) { return {}; } }
+function writeFavs(f) { try { localStorage.setItem(favKey(), JSON.stringify(f)); } catch (e) {} }
 const ISP_NOTES = '<p>هذا المنتج يعمل بشكل يدوي</p><p>يحتاج بعض الوقت للتنفيذ</p><p>لخدمات <b class="adsl">ADSL</b> و (ليس هوائي)</p>';
 const NOTES = {
   auto: '<p>هذا المنتج يعمل <u>بشكل تلقائي</u> <b class="red">24 ساعة</b></p>',
@@ -3848,11 +3868,37 @@ const accName = () => { const p = state.profile || {}, u = state.user || {}; ret
 
 // ═════════ اللوحة الجانبية ═════════
 const dw = $('dw'), dwOv = $('dwOv'), menuBtn = $('menuBtn');
+// ── صورة الحساب (مصغّرة، تنحفظ بالحساب + نسخة بالجهاز) ──
+const photoKey = () => 'armex_photo_' + ((state.user && state.user.uid) || '');
+function myPhoto() { const p = state.profile || {}; if (p.photo) return p.photo; try { return localStorage.getItem(photoKey()) || ''; } catch (e) { return ''; } }
+function shrinkImage(file) {
+  return new Promise((res, rej) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => { const S = 160, c = document.createElement('canvas'); c.width = c.height = S; const x = c.getContext('2d'), m = Math.min(img.width, img.height), sx = (img.width - m) / 2, sy = (img.height - m) / 2; x.drawImage(img, sx, sy, m, m, 0, 0, S, S); URL.revokeObjectURL(url); res(c.toDataURL('image/jpeg', 0.82)); };
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('img')); };
+    img.src = url;
+  });
+}
+document.addEventListener('click', e => { if (e.target.closest('#dwAv')) { const f = document.getElementById('dwFile'); if (f) f.click(); } });
+document.addEventListener('change', async e => {
+  if (!e.target || e.target.id !== 'dwFile') return;
+  const file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file || !state.user) return;
+  if (!/^image\//.test(file.type)) { toast('اختار صورة فقط'); return; }
+  try {
+    const data = await shrinkImage(file);
+    try { localStorage.setItem(photoKey(), data); } catch (er) {}
+    if (state.profile) state.profile.photo = data;
+    renderDrawer();
+    try { await state.fb.setDoc(state.fb.doc(state.fb.db, 'users', state.user.uid), { photo: data }, { merge: true }); toast('✅ تم تغيير الصورة'); }
+    catch (er) { toast('انحفظت الصورة على جهازك بس'); }
+  } catch (er) { toast('تعذّر قراءة الصورة'); }
+});
 function renderDrawer() {
   const u = state.user, p = state.profile || {};
   if (u) {
     const nm = accName();
-    $('dwHead').innerHTML = `<div class="dw-av">${esc(nm.trim().charAt(0).toUpperCase() || '👤')}</div>
+    const ph = myPhoto();
+    $('dwHead').innerHTML = `<div class="dw-avw"><button type="button" class="dw-av" id="dwAv" aria-label="تغيير الصورة">${ph ? '<img src="' + esc(ph) + '" alt="">' : esc(nm.trim().charAt(0).toUpperCase() || '👤')}</button><span class="dw-cam" aria-hidden="true">📷</span><input type="file" id="dwFile" accept="image/*" hidden></div>
       <div class="dw-name">${nameHtml(nm, p.verified)}</div>
       <div class="dw-mail" dir="ltr">${esc(u.email || '')}</div>
       <div class="dw-bal" dir="ltr">${fmtC(p.balance)}</div>${ARMEX.levelHtml()}`;
@@ -6182,6 +6228,8 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
   }
   const route = (k) => { const m = (AP.smap.map || {})[k]; return m && m.r === 'api' && +m.sid > 0 ? 'api' : 'tg'; };
   function costUsd(m) { if (!m || !(+m.cost >= 0)) return null; const c = +m.cost * (+m.qm > 0 ? +m.qm : 1); return AP.smap.cur === 'SYP' ? (state.rate > 0 ? c / state.rate : null) : c; }
+  const f3 = n => (Math.round((+n || 0) * 1000) / 1000).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+  const r5 = n => Math.round((+n || 0) * 1e5) / 1e5;
   function drawApiList() {
     const box = $('apList'); if (!box) return;
     const q = AP.q.trim().toLowerCase(), map = A.pmap(), over = A.svc.over || {};
@@ -6191,7 +6239,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       if (AP.f === 'api') return r === 'api' && !na; if (AP.f === 'tg') return r === 'tg' && !na; if (AP.f === 'na') return na; return true;
     });
     const cnt = { all: Object.keys(map).length };
-    $('apChips').innerHTML = [['all', 'الكل'], ['api', '🔗 API'], ['tg', '📩 تلغرام'], ['na', 'غير متوفر']].map(([k, l]) => `<button type="button" class="ord-chip${AP.f === k ? ' on' : ''}" data-f="${k}">${l}</button>`).join('');
+    $('apChips').innerHTML = [['all', 'الكل'], ['api', '🔗 API'], ['tg', '📩 تلغرام'], ['na', 'غير متوفر']].map(([k, l]) => `<button type="button" class="ord-chip${AP.f === k ? ' on' : ''}" data-f="${k}">${l}</button>`).join('') + '<button type="button" class="ord-chip" id="apRefresh">🔄 تحديث تكلفة الجملة</button>';
     box.innerHTML = keys.slice(0, AP.limit).map(k => {
       const p = map[k], na = A.isNa(p.cat, p.name, p.idx, p.ex), r = route(k), m = (AP.smap.map || {})[k] || {}, ov = over[k] || {};
       const sell = state.prices[k], cu = costUsd(m);
@@ -6202,6 +6250,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
         <button type="button" data-act="excl" class="chip ${ov.excl ? 'off' : ''}">${ov.excl ? '🚫 بلا خصم' : '🏷 يدخل بالخصم'}</button></div>
         <div class="ap-sid">${m.sid ? '#' + esc(m.sid) + ' · ' + esc(m.pname || '') + (m.cost != null ? ' · تكلفة ' + esc(m.cost) : '') : 'غير مربوط بالمورّد'} <button type="button" data-act="pick" class="chip">اختيار من المورّد</button></div>
         ${m.sid ? '<div class="ap-sid">مضاعف الكمية: <input class="ap-qm" data-act="qm" type="number" min="1" step="1" value="' + (+m.qm > 0 ? +m.qm : 1) + '"></div>' : ''}
+        ${m.sid ? '<div class="ap-sid">نسبة الربح %: <input class="ap-qm" style="width:84px" data-act="pct" type="text" inputmode="decimal" value="' + (m.pct != null ? esc(m.pct) : '') + '" placeholder="' + (AP.smap.profitPct != null ? esc(AP.smap.profitPct) : '') + '"> أو سعر المفرّق (ل.س): <input class="ap-qm" style="width:104px" data-act="tgt" type="text" inputmode="decimal" placeholder="مثال 140.620"></div>' + (cu != null ? '<div class="ap-sid">تكلفة الجملة: ' + r5(cu) + '$' + (sell > 0 ? ' · سعرك الحالي: ' + r5(sell) + '$' + (state.rate > 0 ? ' = ' + f3(sell * state.rate) + ' ل.س' : '') : '') + '</div>' : '') : ''}
         ${mg != null ? '<div class="ap-mg ' + (mg < 0 ? 'neg' : '') + '">' + (mg < 0 ? '⚠️ بتبيع بخسارة: ' : 'هامش الربح: ') + mg + '%</div>' : ''}</div>`;
     }).join('') || '<div class="hist-empty">ما في نتائج</div>';
     if (keys.length > AP.limit) box.insertAdjacentHTML('beforeend', `<button type="button" class="pg-btn" id="apMore">عرض المزيد (${keys.length - AP.limit})</button>`);
@@ -6237,11 +6286,45 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
   $('body-apilink').addEventListener('input', e => { if (e.target.id === 'apQ') { AP.q = e.target.value; AP.limit = 40; drawApiList(); } });
   $('body-apilink').addEventListener('change', async e => {
     if (e.target.dataset.act === 'qm') { const row = e.target.closest('[data-k]'), v = Math.max(1, Math.round(+e.target.value || 1)); try { await saveMap(row.dataset.k, { qm: v }); A.log('مضاعف كمية', A.pmap()[row.dataset.k].name + ' ×' + v); } catch (err) { toast(errMsg(err)); } }
+    const act = e.target.dataset.act;
+    if (act === 'pct' || act === 'tgt') {
+      const row = e.target.closest('[data-k]'), k = row.dataset.k, m = ((AP.smap.map || {})[k]) || {}, cu = costUsd(m);
+      const raw = toLatinDigits(String(e.target.value || '')).replace(/[,٬]/g, '').replace('٫', '.').trim();
+      try {
+        if (!(cu > 0)) { toast('ما في تكلفة للمورّد لهالخدمة، اضغط "تحديث تكلفة الجملة" أول'); return; }
+        let pct;
+        if (act === 'pct' && raw === '') { await saveMap(k, { pct: null }); toast('رجعت للنسبة العامة'); return; }
+        if (act === 'tgt') { const t = +raw; if (!(t > 0) || !(state.rate > 0)) { toast('اكتب سعر المفرّق بالليرة، وتأكد من سعر الصرف'); return; } pct = ((t / state.rate) / cu - 1) * 100; }
+        else { pct = +raw; }
+        if (!isFinite(pct) || pct < -50 || pct > 500) { toast('النسبة خارج المجال (من -50 إلى 500)'); return; }
+        pct = Math.round(pct * 1e6) / 1e6;
+        const price = Math.round(cu * (1 + pct / 100) * 1e6) / 1e6, f = F();
+        state.prices[k] = price;
+        await saveMap(k, { pct });
+        await f.setDoc(f.doc(f.db, 'prices', 'main'), { items: { [k]: price } }, { merge: true });
+        A.log('نسبة ربح خاصة', A.pmap()[k].name + ' ' + pct + '% → $' + price);
+        toast('✅ السعر صار ' + (state.rate > 0 ? f3(price * state.rate) + ' ل.س' : '$' + r5(price)));
+        drawApiList();
+      } catch (err) { toast(errMsg(err)); }
+    }
   });
+  async function refreshCosts(btn) {
+    const old = btn.textContent; btn.disabled = true; btn.textContent = 'جاري الجلب...';
+    try {
+      AP.catalog = null; const cat = await loadCatalog(), byId = {}; cat.forEach(p => { byId[String(p.id)] = p; });
+      const map = AP.smap.map || {}, patch = {}; let n = 0, miss = 0, chg = 0;
+      Object.keys(map).forEach(k => { const m = map[k]; if (!m || m.r !== 'api' || !(+m.sid > 0)) return; const p = byId[String(m.sid)]; if (!p || !(+p.price >= 0)) { miss++; return; } n++; if (+m.cost !== +p.price) chg++; patch[k] = { cost: +p.price }; });
+      if (!n) { toast('ما في خدمات مربوطة بالمورّد'); return; }
+      const f = F(); await f.setDoc(f.doc(f.db, 'supplierMap', 'main'), { map: patch }, { merge: true });
+      A.log('تحديث تكلفة الجملة', n + ' خدمة (' + chg + ' تغيّرت)');
+      toast('✅ تحديث ' + n + ' خدمة، تغيّر سعر ' + chg + (miss ? ' · ' + miss + ' مو بالكتالوج' : ''));
+    } catch (err) { toast(errMsg(err)); } finally { btn.disabled = false; btn.textContent = old; }
+  }
   $('body-apilink').addEventListener('click', async e => {
     const f = F();
     const chip = e.target.closest('[data-f]'); if (chip && chip.classList.contains('ord-chip')) { AP.f = chip.dataset.f; AP.limit = 40; drawApiList(); return; }
     if (e.target.id === 'apMore') { AP.limit += 60; drawApiList(); return; }
+    if (e.target.id === 'apRefresh') { refreshCosts(e.target); return; }
     if (e.target.id === 'apTest') {
       const b = e.target; b.disabled = true; drawApiStat('⏳ جاري الاتصال...');
       try { const j = await A.call('/api/test', {}); drawApiStat('✅ الاتصال شغّال — رصيدك: <b>' + esc(j.balance) + '</b>' + (j.email ? ' (' + esc(j.email) + ')' : '')); }
@@ -6283,13 +6366,28 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       box.innerHTML = rows.length ? rows.map(r => `<div class="lv-cand"><div><b>${esc(r.referrerName || r.referrerEmail)}</b><small dir="ltr">${esc(r.referrerEmail || '')}</small><small>جاب: ${esc(r.newName || '')} <span dir="ltr">${esc(r.newEmail || '')}</span> · ${new Date(ms(r.at)).toLocaleDateString('ar')}</small>${r.credited ? '<small style="color:#6dffb0">✅ أُضيف ' + fmtC(r.creditedAmount) + '</small>' : ''}</div>${r.credited ? '' : `<button type="button" class="form-btn ok" data-credit="${esc(r.id)}" data-ref="${esc(r.referrer)}" data-nm="${esc(r.referrerName || r.referrerEmail)}">💰 إضافة رصيد</button>`}</div>`).join('') : '<div class="hist-empty">لا يوجد إحالات لسا</div>';
     } catch (e) { box.innerHTML = '<div class="msg-box err" style="display:block">' + esc(errMsg(e)) + '</div>'; }
   };
+  const LOG = { rows: [], shown: 3, day: '' };
+  const logDay = r => { const d = new Date(ms(r.at)); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  A.drawLog = function () {
+    const box = $('opLog'); if (!box) return;
+    const rows = LOG.day ? LOG.rows.filter(r => logDay(r) === LOG.day) : LOG.rows;
+    const list = rows.slice(0, LOG.shown);
+    box.innerHTML = '<div class="lg-bar"><input type="date" id="lgDay" value="' + esc(LOG.day) + '" aria-label="ابحث بتاريخ">' + (LOG.day ? '<button type="button" class="form-btn" id="lgClear">مسح</button>' : '') + '</div>' +
+      (list.length ? list.map(r => `<div class="st-u sm"><b>${esc(r.action)}</b><small>${esc(r.detail || '')}</small><small>${esc(r.by || '')} · ${new Date(ms(r.at)).toLocaleString('ar')}</small></div>`).join('') : '<div class="hist-empty">' + (LOG.day ? 'ما في عمليات بهالتاريخ' : 'السجل فاضي') + '</div>') +
+      (rows.length > list.length ? '<button type="button" class="lg-more" id="lgMore">عرض المزيد (' + (rows.length - list.length) + ')</button>' : '');
+  };
   A.loadLog = async function () {
     const box = $('opLog'); if (!box) return;
     try {
-      const rows = (await getAll(F().query(F().collection(F().db, 'adminLog'), F().limit(120)))).sort((a, b) => ms(b.at) - ms(a.at));
-      box.innerHTML = rows.length ? rows.map(r => `<div class="st-u sm"><b>${esc(r.action)}</b><small>${esc(r.detail || '')}</small><small>${esc(r.by || '')} · ${new Date(ms(r.at)).toLocaleString('ar')}</small></div>`).join('') : '<div class="hist-empty">السجل فاضي</div>';
+      LOG.rows = (await getAll(F().query(F().collection(F().db, 'adminLog'), F().limit(500)))).sort((a, b) => ms(b.at) - ms(a.at));
+      LOG.shown = 3; A.drawLog();
     } catch (e) { box.innerHTML = '<div class="msg-box err" style="display:block">' + esc(errMsg(e)) + '</div>'; }
   };
+  document.addEventListener('change', e => { if (e.target && e.target.id === 'lgDay') { LOG.day = e.target.value || ''; LOG.shown = 3; A.drawLog(); } });
+  document.addEventListener('click', e => {
+    if (e.target.id === 'lgMore') { LOG.shown += 5; A.drawLog(); }
+    else if (e.target.id === 'lgClear') { LOG.day = ''; LOG.shown = 3; A.drawLog(); }
+  });
   $('body-ops').addEventListener('click', async e => {
     const f = F();
     if (e.target.id === 'opSave') {
@@ -6346,10 +6444,10 @@ ARMEX.admOrdTag = (o) => {
 .gs-item,.fv-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-radius:16px;border:1.5px solid rgba(138,43,226,.3);background:var(--card-bg,rgba(255,255,255,.04));color:inherit;font:700 14px Cairo,sans-serif;cursor:pointer;text-align:right;width:100%}
 .gs-item small,.fv-item small{opacity:.6;font-weight:600;font-size:12px}.gs-item.na{opacity:.5;cursor:default}
 .lowbal{max-width:520px;margin:0 auto 14px;padding:12px 16px;border-radius:18px;border:1.5px solid rgba(255,170,0,.6);background:rgba(255,170,0,.1);display:flex;align-items:center;justify-content:space-between;gap:10px;font:700 14px Cairo,sans-serif}
-.lowbal a{padding:8px 16px;border-radius:999px;background:linear-gradient(90deg,#8a2be2,#c34bff);color:#fff;text-decoration:none;white-space:nowrap}.lowbal button{background:none;border:none;color:inherit;font-size:18px;cursor:pointer;opacity:.7}
+.lowbal .lb-acts{display:flex;align-items:center;gap:6px;flex:none}.lowbal a{padding:7px 14px;border-radius:999px;background:linear-gradient(90deg,#8a2be2,#c34bff);color:#fff;text-decoration:none;white-space:nowrap}.lowbal button{background:none;border:none;color:inherit;font-size:18px;cursor:pointer;opacity:.7}
 .nf-item{padding:12px 16px;border-radius:16px;border:1.5px solid rgba(138,43,226,.3);background:var(--card-bg,rgba(255,255,255,.04));font:700 14px Cairo,sans-serif}.nf-item small{display:block;opacity:.55;font-size:11px;margin-top:4px}
 .dw-cnt{margin-inline-start:auto;min-width:20px;padding:1px 7px;border-radius:99px;background:#ff3b5c;color:#fff;font:800 11px Cairo,sans-serif;text-align:center}.dw-cnt[hidden]{display:none}
-.order-share{border:none;background:none;font:700 12px Cairo,sans-serif;color:inherit;opacity:.8;cursor:pointer;padding:6px 8px}`;
+.order-share{flex:none;border:none;background:none;font:700 11.5px Cairo,sans-serif;color:inherit;opacity:.8;cursor:pointer;padding:6px 8px}`;
   document.head.appendChild(st);
 
   // ── 1) بحث عام من الرئيسية ──
@@ -6407,7 +6505,7 @@ ARMEX.admOrdTag = (o) => {
     const show = !!state.user && typeof bal === 'number' && bal < LOW_BALANCE && !lowHidden;
     if (!show) { if (b) b.remove(); return; }
     if (!b) { b = document.createElement('div'); b.id = 'lowBal'; b.className = 'lowbal'; const w = document.querySelector('#view-home .gs-wrap'); (w || hero).after(b); }
-    b.innerHTML = `<span>رصيدك قليل (${fmtC(bal)})</span><a href="#/topup">شحن الآن</a><button type="button" aria-label="إغلاق">×</button>`;
+    b.innerHTML = `<span>رصيدك قليل (${fmtC(bal)})</span><div class="lb-acts"><a href="#/topup">شحن الآن</a><button type="button" aria-label="إغلاق">×</button></div>`;
     b.querySelector('button').onclick = () => { lowHidden = true; b.remove(); };
   };
 
@@ -6513,19 +6611,20 @@ ARMEX.admOrdTag = (o) => {
       const v = Number(String(toLatinDigits($('pxPct').value)).replace(',', '.')); if (isFinite(v) && v >= 0) pct = v;
       const sm = await F().getDoc(F().doc(F().db, 'supplierMap', 'main')), smap = sm.exists() ? sm.data() : {}, map = smap.map || {};
       const cat = (await A.call('/api/catalog', {})).products || [], byId = {}; cat.forEach(p => { byId[String(p.id)] = p; });
-      const pm = A.pmap(), ch = [], skip = { nolink: 0, nocat: 0, norate: 0 };
+      const pm = A.pmap(), ch = [], costs = {}, skip = { nolink: 0, nocat: 0, norate: 0 };
       Object.keys(pm).forEach(k => {
         const m = map[k]; if (!m || m.r !== 'api' || !(+m.sid > 0)) { skip.nolink++; return; }
         const p = byId[String(m.sid)]; if (!p || !(+p.price >= 0)) { skip.nocat++; return; }
+        costs[k] = +p.price;
         let c = +p.price * (+m.qm > 0 ? +m.qm : 1);
         if (smap.cur === 'SYP') { if (!(state.rate > 0)) { skip.norate++; return; } c = c / state.rate; }
-        const nv = r2(c * (1 + pct / 100)), old = state.prices[k];
-        if (typeof old === 'number' && Math.abs(old - nv) < 0.0005) return;
+        const sp = (m.pct != null && isFinite(+m.pct)) ? +m.pct : pct, nv = Math.round(c * (1 + sp / 100) * 1e6) / 1e6, old = state.prices[k];
+        if (typeof old === 'number' && Math.abs(old - nv) < 1e-6) return;
         ch.push({ k, name: pm[k].name, old: typeof old === 'number' ? old : null, nv });
       });
       if (!ch.length) { toast('ما في أسعار تتغيّر'); return; }
-      ov.innerHTML = `<div class="px-box"><h3>معاينة: ${ch.length} خدمة</h3><div class="st-note">نسبة الربح ${pct}% — بالدولار</div>` +
-        ch.slice(0, 120).map(c => `<div class="px-row"><b>${esc(c.name)}</b><span class="${c.old != null && c.nv > c.old ? 'px-up' : 'px-dn'}">${c.old == null ? 'جديد' : c.old} ← ${c.nv}</span></div>`).join('') +
+      ov.innerHTML = `<div class="px-box"><h3>معاينة: ${ch.length} خدمة</h3><div class="st-note">النسبة العامة ${pct}% (الخدمة اللي إلها نسبة خاصة بتاخد نسبتها) — بالدولار</div>` +
+        ch.slice(0, 120).map(c => `<div class="px-row"><b>${esc(c.name)}</b><span class="${c.old != null && c.nv > c.old ? 'px-up' : 'px-dn'}">${c.old == null ? 'جديد' : Math.round(c.old * 1e5) / 1e5} ← ${Math.round(c.nv * 1e5) / 1e5}</span></div>`).join('') +
         (ch.length > 120 ? `<div class="px-sk">وأكتر (${ch.length - 120}) بتتطبق كمان</div>` : '') +
         `<div class="px-sk">تم تجاهل: غير مربوطة ${skip.nolink}، مو بالكتالوج ${skip.nocat}${skip.norate ? '، بلا سعر صرف ' + skip.norate : ''}</div>
         <div class="px-btns"><button type="button" class="form-btn ok" id="pxApply">تطبيق</button><button type="button" class="form-btn" data-x>إلغاء</button></div></div>`;
@@ -6535,7 +6634,7 @@ ARMEX.admOrdTag = (o) => {
         try {
           await saveBackup('قبل استرداد الأسعار من المورّد');
           const items = {}; ch.forEach(c => { items[c.k] = c.nv; });
-          await F().setDoc(REF(), { items, updatedAt: F().serverTimestamp() }, { merge: true }); await F().setDoc(SMR(), { profitPct: pct }, { merge: true });
+          await F().setDoc(REF(), { items, updatedAt: F().serverTimestamp() }, { merge: true }); const cm = {}; Object.keys(costs).forEach(k => { cm[k] = { cost: costs[k] }; }); await F().setDoc(SMR(), { profitPct: pct, map: cm }, { merge: true });
           A.log('استرداد الأسعار من المورّد', ch.length + ' خدمة، ربح ' + pct + '%'); closeOv(); toast('تم تحديث ' + ch.length + ' سعر'); load();
         } catch (e) { toast(err(e)); this.disabled = false; }
       };
@@ -6866,7 +6965,7 @@ ARMEX.admOrdTag = (o) => {
     c.innerHTML = `<h3>تحويل الأرصدة (حذف صفرين)</h3><p class="st-note">بيقسم رصيد كل زبون على 100 مرة وحدة. لازم تفعّل "إيقاف كل الشراء" فوق قبل التنفيذ، وبتنحفظ نسخة تقدر ترجع منها. التحويل ما بينعمل مرتين.</p>
       <div class="admin-btns"><button type="button" class="form-btn" id="mgPrev">معاينة</button><button type="button" class="form-btn ok" id="mgGo" disabled>تنفيذ التحويل</button></div>
       <div class="admin-btns"><button type="button" class="form-btn" id="mgUndo" hidden>تراجع عن التحويل</button></div><div id="mgOut" class="st-note"></div>`;
-    body.appendChild(c);
+    const first = body.querySelector('.st-card'); if (first) first.after(c); else body.prepend(c);
     F().getDoc(MG()).then(s => { const d = s.exists() ? s.data() : null; $('mgOut').textContent = d && d.done ? 'تم التحويل مسبقاً (' + (d.count || 0) + ' حساب). ما بيتكرر.' : (d ? 'في تحويل ناقص، شغّل المعاينة ثم التنفيذ لتكمله.' : ''); $('mgUndo').hidden = !(d && d.done); $('mgGo').dataset.done = d && d.done ? '1' : ''; }).catch(() => {});
     c.addEventListener('click', async e => {
       const id = e.target.id, f = F(), out = $('mgOut');

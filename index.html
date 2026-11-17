@@ -2,6 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#12002b">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ARMEX">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <script>
 (function(){var d=document.documentElement,ua=navigator.userAgent,
@@ -1429,6 +1435,27 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 .pr-box .pr-inline .pg-btn,.pr-box .pr-inline .pg-btn.pr-link{width:auto;flex:1 1 auto;min-width:0;margin:0;padding:0 12px;height:36px;font-size:12.5px;border-radius:12px;display:block}
 #pxCard{margin-bottom:10px}
 
+/* ═════ v8: كود الخصم + تثبيت التطبيق + حماية ═════ */
+.order-coupon{margin:2px 0 6px}
+.cp-toggle{background:none;border:none;padding:4px 0;color:var(--gold);font:700 12.5px 'Cairo',sans-serif;text-decoration:underline;cursor:pointer}
+.cp-box{display:flex;gap:6px;align-items:center}
+.cp-box .order-input{flex:1;min-width:0;height:38px;margin:0;font-size:14px;text-transform:uppercase;letter-spacing:.5px}
+.cp-box button{flex:none;height:38px;padding:0 16px;border-radius:12px;border:none;color:#fff;font:800 13px 'Cairo',sans-serif;cursor:pointer;background:linear-gradient(135deg,#6b21a8,#8A2BE2)}
+.cp-msg{font:600 12px 'Cairo',sans-serif;margin-top:4px}
+.cp-msg:empty{display:none}
+.cp-msg.ok{color:#4ade80}.cp-msg.err{color:#ff8a9a}
+.dw-install{display:block;width:calc(100% - 32px);margin:0 16px 12px;padding:9px 12px;border-radius:12px;border:1px dashed rgba(255,215,0,.65);background:rgba(255,215,0,.08);color:#FFD700;font:800 13px 'Cairo',sans-serif;cursor:pointer}
+.dw-install[hidden]{display:none!important}
+.light-mode .dw-install{color:#8a6200;border-color:rgba(138,98,0,.6);background:rgba(255,215,0,.16)}
+.mini-set{flex-wrap:wrap}
+.mini-set label{flex:1 1 30%}
+.cpn-row{display:flex;align-items:center;gap:6px;padding:8px 0;border-top:1px solid rgba(138,43,226,.25)}
+.cpn-row.off{opacity:.55}
+.cpn-i{flex:1;min-width:0;display:flex;flex-direction:column}
+.cpn-i b{font:800 14px 'Cairo',sans-serif;letter-spacing:.5px;text-align:right}
+.cpn-i small{font:600 11px 'Cairo',sans-serif;opacity:.8}
+.cpn-row .mb{height:30px;padding:0 10px;font-size:12px}
+
 .dw-acc{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:0 12px 10px}
 .dw-acc small{width:100%;text-align:center;font:700 11.5px 'Cairo',sans-serif;opacity:.7}
 .dw-acc button{width:34px;height:34px;border-radius:50%;border:2px solid transparent;color:#fff;font:800 13px 'Cairo',sans-serif;cursor:pointer;box-shadow:0 0 10px rgba(0,0,0,.35);-webkit-tap-highlight-color:transparent;transition:transform .15s}
@@ -2014,6 +2041,11 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
     <div class="order-field" id="orderMailWrap" hidden><label id="orderMailLabel" for="orderMail">البريد الالكتروني في اللعبة</label><input id="orderMail" type="email" dir="ltr" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
     <div class="order-field" id="orderPassWrap" hidden><label for="orderPass">كلمة السر</label><input id="orderPass" type="password" dir="ltr" autocomplete="new-password" autocapitalize="off" spellcheck="false"></div>
     <div class="order-field" id="orderExtraWrap" hidden><label id="orderExtraLabel" for="orderExtra">اسم المظهر</label><input id="orderExtra" dir="auto" autocomplete="off" spellcheck="false"></div>
+    <div class="order-coupon" id="orderCoupon" hidden>
+      <button type="button" class="cp-toggle" id="cpToggle">عندك كود خصم؟</button>
+      <div class="cp-box" id="cpBox" hidden><input class="order-input" id="cpInput" dir="ltr" maxlength="24" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="اكتب الكود"><button type="button" id="cpApply">تطبيق</button></div>
+      <div class="cp-msg" id="cpMsg" role="status"></div>
+    </div>
     <div class="order-err" id="orderErr" role="alert"></div>
     <div class="order-actions">
       <button type="button" class="order-btn cancel" id="orderCancel">إلغاء</button>
@@ -2036,6 +2068,7 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
   <div class="dw-cur" id="dwCur"><div class="dw-seg"><button type="button" data-cur="SYP">ل.س</button><button type="button" data-cur="USD">$ دولار</button></div></div>
   <div class="dw-cur-note" id="dwCurNote"></div>
   <div class="dw-acc" id="dwAcc"></div>
+  <button type="button" class="dw-install" id="dwInstall" hidden>تثبيت التطبيق على جوالك</button>
   <div class="dw-sep"></div>
   <nav class="dw-nav" id="dwNav">
     <a href="#/" data-p="home"><span class="dw-ic">🏠</span>الرئيسية</a>
@@ -3149,7 +3182,7 @@ function openOrder(name, ex) {
   updateOrderTotal();
   const notes = custom ? (ex.noteHtml ? ex.noteHtml : (ex.noteText ? '<p>' + escNote(ex.noteText) + '</p>' : (NOTES[ex.note] || ''))) : ISP_NOTES;
   orderNotes.innerHTML = (custom ? ARMEX.hoursNote(ex) : '') + notes; orderNotes.scrollTop = 0; document.getElementById('orderNotesWrap').hidden = !(notes || (custom && ARMEX.hoursNote(ex)));
-  clearOrderErr();
+  clearOrderErr(); resetCoupon(contact || lst || air);
   const on = !!readFavs()[name];
   orderHeart.classList.toggle('on', on); orderHeart.setAttribute('aria-pressed', on);
   orderOverlay.classList.add('open'); orderOverlay.setAttribute('aria-hidden', 'false');
@@ -3158,16 +3191,48 @@ function openOrder(name, ex) {
 }
 function closeOrder() {
   orderOverlay.classList.remove('open'); orderOverlay.setAttribute('aria-hidden', 'true');
-  document.documentElement.style.overflow = ''; orderCurrent = null; orderPass.value = ''; orderMail.value = '';
+  document.documentElement.style.overflow = ''; orderCurrent = null; orderCoupon = null; orderPass.value = ''; orderMail.value = '';
   if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
 }
 // نقطة الربط لاحقاً مع الدفع/الطلبات (Firestore + خصم الرصيد)
 let purchasing = false;
+// ── كود الخصم داخل نافذة الطلب ──
+let orderCoupon = null;
+function cpSay(t, ok) { const m = document.getElementById('cpMsg'); if (!m) return; m.textContent = t || ''; m.className = 'cp-msg' + (t ? (ok ? ' ok' : ' err') : ''); }
+function resetCoupon(hide) {
+  orderCoupon = null;
+  const row = document.getElementById('orderCoupon'); if (!row) return;
+  row.hidden = !!hide; document.getElementById('cpBox').hidden = true; document.getElementById('cpToggle').hidden = false;
+  const i = document.getElementById('cpInput'); i.value = ''; i.disabled = false; document.getElementById('cpApply').textContent = 'تطبيق'; cpSay('');
+}
+document.getElementById('cpToggle').addEventListener('click', () => { document.getElementById('cpToggle').hidden = true; document.getElementById('cpBox').hidden = false; document.getElementById('cpInput').focus(); });
+document.getElementById('cpApply').addEventListener('click', async () => {
+  if (!orderCurrent) return;
+  const btn = document.getElementById('cpApply'), inp = document.getElementById('cpInput');
+  if (orderCoupon) { orderCoupon = null; inp.value = ''; inp.disabled = false; btn.textContent = 'تطبيق'; cpSay(''); updateOrderPrice(); return; }
+  if (!state.user) { toast('سجّل دخولك أولاً لتستخدم الكود'); return; }
+  const code = inp.value.trim(); if (code.length < 3) { cpSay('اكتب الكود', false); return; }
+  const P = proxyBase(); if (!P) { cpSay('الكود غير متاح حالياً', false); return; }
+  const key = priceKey(curCatType, orderCurrent.name, curProdIdx), ov = (ARMEX.svc.over || {})[key];
+  if (ov && ov.excl) { cpSay('هالخدمة ما بتدخل بالخصم', false); return; }
+  btn.disabled = true;
+  try {
+    const tok = await state.user.getIdToken();
+    const r = await fetch(P + '/coupon/check', { method: 'POST', headers: mfaHeaders({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + tok }), body: JSON.stringify({ code }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.ok) { cpSay(j.message || 'الكود غير صحيح', false); return; }
+    const lp = ARMEX.pct(key);
+    if (!(j.pct > lp)) { cpSay('الكود صحيح (' + j.pct + '%) بس خصم مستواك (' + lp + '%) أعلى أو مساوي، فما رح ينطبق', false); return; }
+    orderCoupon = { code: j.code, pct: j.pct }; inp.value = j.code; inp.disabled = true; btn.textContent = 'إزالة';
+    cpSay('تم تطبيق الكود: خصم ' + j.pct + '%', true); updateOrderPrice();
+  } catch (e) { cpSay('تعذّر الاتصال، جرّب مرة تانية', false); }
+  finally { btn.disabled = false; }
+});
 // إجمالي السعر بالدولار (نفس حساب الوسيط، للعرض والتأكد من الرصيد قبل الإرسال)
 function orderTotalUsd(o) {
   const p = storeData[o.cat] && storeData[o.cat].products[o.idx], ex = (p && p[2]) || {};
   if (Array.isArray(ex.list) || ex.air) { const v = Number(o.amount); return isFinite(v) ? v : null; }
-  const unit = ARMEX.eff(o.cat, o.name, o.idx, getPrice(o.cat, o.name, o.idx), ex); if (unit == null) return null;
+  const unit = ARMEX.effC(o.cat, o.name, o.idx, getPrice(o.cat, o.name, o.idx), ex); if (unit == null) return null;
   if (ex.skin || ex.stepper) return unit * (o.qty || 1);
   if (ex.idl && ex.q != null) return unit * (o.qty || ex.q) / ex.q;
   return unit;
@@ -3192,12 +3257,12 @@ async function submitPackageOrder(o) {
   purchasing = true; toast('جاري تنفيذ طلبك...');
   try {
     const tok = await state.user.getIdToken();
-    const body = { key: o.key, reqId: Math.random().toString(36).slice(2, 12) + Date.now().toString(36), qty: o.qty, id: o.id, server: o.server, email: o.email, password: o.password, number: o.number, skinName: o.skinName, amount: o.amount };
+    const body = { key: o.key, reqId: Math.random().toString(36).slice(2, 12) + Date.now().toString(36), qty: o.qty, id: o.id, server: o.server, email: o.email, password: o.password, number: o.number, skinName: o.skinName, amount: o.amount, coupon: orderCoupon ? orderCoupon.code : undefined };
     const r = await fetch(P + '/purchase', { method: 'POST', headers: mfaHeaders({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + tok }), body: JSON.stringify(body) });
     const j = await r.json().catch(() => ({}));
     if (j && j.error === 'mfa_required') { clearMfaTok(); checkMfaGate(); }
     if (!r.ok || !j.ok) throw new UserError(j.message || 'تعذّر تنفيذ الطلب، جرّب مرة تانية.');
-    toast(ARMEX.buyMsg(j, syp)); location.hash = '#/orders';
+    orderCoupon = null; toast(ARMEX.buyMsg(j, syp)); location.hash = '#/orders';
   } catch (e) { toast(e instanceof UserError ? e.message : 'تعذّر الاتصال بالخدمة، تأكد من الإنترنت وجرّب مرة تانية.'); }
   finally { purchasing = false; }
 }
@@ -4300,7 +4365,7 @@ function fmtPrice(usd) {
 function updateOrderPrice() {
   const el = $('orderPrice'); if (!el) return;
   if (!orderCurrent) { el.hidden = true; return; }
-  let p = ARMEX.eff(curCatType, orderCurrent.name, curProdIdx, getPrice(curCatType, orderCurrent.name, curProdIdx), orderCurrent.ex);
+  let p = ARMEX.effC(curCatType, orderCurrent.name, curProdIdx, getPrice(curCatType, orderCurrent.name, curProdIdx), orderCurrent.ex);
   if (p == null && orderCurrent.ex.price != null) p = +orderCurrent.ex.price;
   if (p == null || !isFinite(p)) { el.hidden = true; return; }
   el.dir = 'ltr'; el.textContent = fmtPrice(p); el.hidden = false;
@@ -4319,6 +4384,25 @@ function setCur(c) {
   renderHeader(currentPage); refreshAccountViews();
 }
 $('dwCur').addEventListener('click', e => { const b = e.target.closest('[data-cur]'); if (b) setCur(b.dataset.cur); });
+
+// ── تثبيت الموقع كتطبيق (PWA) ──
+(function () {
+  if ('serviceWorker' in navigator && location.protocol === 'https:') window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  const btn = $('dwInstall'); if (!btn) return;
+  const ua = navigator.userAgent || '', standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  const ios = /iphone|ipad|ipod/i.test(ua) && !window.MSStream, inApp = /Instagram|FBAN|FBAV|TikTok|musical_ly|BytedanceWebview|Snapchat|Line\//i.test(ua);
+  let deferred = null;
+  const show = () => { btn.hidden = standalone; };
+  if (ios || inApp) show();
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; show(); });
+  window.addEventListener('appinstalled', () => { deferred = null; btn.hidden = true; toast('✅ تم تثبيت التطبيق'); });
+  btn.addEventListener('click', async () => {
+    if (deferred) { deferred.prompt(); try { await deferred.userChoice; } catch (e) {} deferred = null; btn.hidden = true; return; }
+    if (inApp) { await askDialog({ icon: '📲', title: 'افتح الموقع بالمتصفح', text: 'التثبيت ما بيشتغل من داخل تطبيق إنستغرام أو تيك توك. اضغط على النقاط (⋯) واختار "فتح بالمتصفح"، وبعدها اضغط تثبيت التطبيق.', ok: 'فهمت', cancel: 'إغلاق' }); return; }
+    if (ios) { await askDialog({ icon: '📲', title: 'تثبيت على الآيفون', text: 'اضغط زر المشاركة (المربع والسهم) بالأسفل، وبعدين اختار "إضافة إلى الشاشة الرئيسية".', ok: 'فهمت', cancel: 'إغلاق' }); }
+  });
+})();
+
 
 let unsubPrices = null;
 function startPrices() {
@@ -5749,6 +5833,15 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     if (ex && (ex.list || ex.air)) return base;
     const p = A.pct(priceKey(cat, name, idx)); return p > 0 ? base * (1 - p / 100) : base;
   };
+  // سعر داخل نافذة الطلب: بيطبّق كود الخصم إذا أكبر من خصم المستوى
+  A.effC = function (cat, name, idx, base, ex) {
+    let v = A.eff(cat, name, idx, base, ex);
+    if (orderCoupon && base != null && state.user && !(ex && (ex.list || ex.air))) {
+      const key = priceKey(cat, name, idx), ov = (A.svc.over || {})[key];
+      if (!(ov && ov.excl) && orderCoupon.pct > A.pct(key)) v = base * (1 - orderCoupon.pct / 100);
+    }
+    return v;
+  };
   // تقدّم الزبون هالشهر (من طلباته المنفّذة)
   A.month = function () {
     const n = new Date(), t0 = new Date(n.getFullYear(), n.getMonth(), 1).getTime();
@@ -6017,7 +6110,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       ${s === 'approved' ? `<button type="button" data-a="inv" data-id="${esc(o.id)}">🧾 فاتورة</button>` : ''}
       ${(s === 'approved' || s === 'rejected') && A.pmap()[o.key] ? `<button type="button" data-a="re" data-id="${esc(o.id)}">🔁 اطلب مرة ثانية</button>` : ''}
       <button type="button" data-a="help" data-id="${esc(o.id)}">🆘 مشكلة بالطلب؟</button></div>`;
-    const lv = o.disc ? `<div class="ord-eta">🏷 خصم مستواك ${esc(o.disc)}%</div>` : '';
+    const lv = o.disc ? `<div class="ord-eta">🏷 ${o.coupon ? 'كود ' + esc(o.coupon) : 'خصم مستواك'} ${esc(o.disc)}%</div>` : '';
     return `<div class="op-card ord-x"><div style="min-width:0;flex:1"><div class="on">${esc(o.name || 'طلب')}</div>
       <div class="ot">${new Date(tms(o)).toLocaleString('ar')}</div>${rejTxt(o)}
       ${eta ? `<div class="ord-eta">⏱ المدة المتوقعة: ${esc(eta)}</div>` : ''}${hours && !hours.open ? `<div class="ord-eta">${hours.txt}</div>` : ''}${lv}${del}${acts}</div>
@@ -6048,7 +6141,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     x.fillStyle = '#fff'; x.font = 'bold 30px ' + font; x.fillText('فاتورة طلب', W / 2, 165);
     x.strokeStyle = 'rgba(255,215,0,.4)'; x.lineWidth = 2; x.beginPath(); x.moveTo(80, 195); x.lineTo(W - 80, 195); x.stroke();
     const rows = [['الخدمة', o.name || ''], ['المبلغ', fmtC(o.amount) + (o.usd ? '  ($' + o.usd + ')' : '')], ['الحالة', (ORD_ST[o.status || 'pending'] || ORD_ST.pending)[0]], ['التاريخ', new Date(tms(o)).toLocaleString('ar')], ['الزبون', (state.profile && state.profile.name) || accName()], ['رقم الطلب', String(o.id || '').slice(-14)]];
-    if (o.disc) rows.splice(2, 0, ['خصم المستوى', o.disc + '%']);
+    if (o.disc) rows.splice(2, 0, [o.coupon ? 'كود الخصم ' + o.coupon : 'خصم المستوى', o.disc + '%']);
     let y = 270; x.textAlign = 'right';
     rows.forEach(([k, v]) => { x.fillStyle = '#c9b6ff'; x.font = '26px ' + font; x.fillText(k, W - 90, y); x.textAlign = 'left'; x.fillStyle = '#fff'; x.font = 'bold 28px ' + font; let t = String(v); while (x.measureText(t).width > 330 && t.length > 4) t = t.slice(0, -2); x.fillText(t === String(v) ? t : t + '…', 90, y); x.textAlign = 'right'; y += 82; });
     x.textAlign = 'center'; x.fillStyle = '#FFD700'; x.font = 'bold 28px ' + font; x.fillText('شكراً لثقتك بنا 💜', W / 2, H - 90);
@@ -6286,13 +6379,13 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       body.dataset.init = '1';
       body.innerHTML = hdrBtns() + `<div class="auth-box wallet-box st-card"><h3>حالة الاتصال بالمورّد</h3><div id="apStat" class="st-note">—</div>
         <div class="mini-row"><button type="button" class="mb ok" id="apTest">تجربة الاتصال</button><button type="button" class="mb" id="apCat">تحميل الكتالوج</button></div>
-        <div class="mini-set"><label>عملة المورّد<select id="apCur"><option value="USD">دولار $</option><option value="SYP">ليرة ل.س</option></select></label><label>تنبيه إذا الرصيد أقل من<input type="number" id="apLow" min="0" placeholder="0 = بدون"></label><button type="button" class="mb pri" id="apSaveCfg">حفظ</button></div></div>
+        <div class="mini-set"><label>عملة المورّد<select id="apCur"><option value="USD">دولار $</option><option value="SYP">ليرة ل.س</option></select></label><label>تنبيه إذا الرصيد أقل من<input type="number" id="apLow" min="0" placeholder="0 = بدون"></label><label>تنبيه إذا الهامش أقل من %<input type="number" id="apMin" step="0.5" placeholder="1"></label><button type="button" class="mb pri" id="apSaveCfg">حفظ</button></div></div>
         <div class="auth-box wallet-box st-card"><h3>آخر الطلبات المرسلة للمورّد</h3><div id="apLog" class="ap-log"><div class="hist-empty">جاري التحميل...</div></div></div>
         <div class="auth-box wallet-box st-card"><h3>الخدمات والمسار</h3><p class="st-note">المتوفرة والمربوطة بتروح للمورّد تلقائياً. غير المتوفرة (أو يلي مسارها تلغرام) بتوصلك على بوت تلغرام.</p>
           <div class="order-field"><input id="apQ" type="search" placeholder="ابحث باسم الخدمة أو القسم" autocomplete="off"></div>
           <div class="ord-chips" id="apChips"></div><div id="apList"></div></div>`;
     }
-    if (!A._unsubSmap) A._unsubSmap = f.onSnapshot(f.doc(f.db, 'supplierMap', 'main'), s => { AP.smap = s.exists() ? s.data() : {}; const c = $('apCur'); if (c) { c.value = AP.smap.cur === 'SYP' ? 'SYP' : 'USD'; $('apLow').value = AP.smap.lowBal || ''; } drawApiList(); }, e => { toast(errMsg(e)); });
+    if (!A._unsubSmap) A._unsubSmap = f.onSnapshot(f.doc(f.db, 'supplierMap', 'main'), s => { AP.smap = s.exists() ? s.data() : {}; const c = $('apCur'); if (c) { c.value = AP.smap.cur === 'SYP' ? 'SYP' : 'USD'; $('apLow').value = AP.smap.lowBal || ''; $('apMin').value = AP.smap.alertMargin != null ? AP.smap.alertMargin : ''; } drawApiList(); }, e => { toast(errMsg(e)); });
     if (!A._unsubApiOrders) A._unsubApiOrders = f.onSnapshot(f.query(f.collection(f.db, 'orders'), f.where('route', '==', 'api'), f.limit(60)), qs => {
       const rows = qs.docs.map(d => Object.assign({ id: d.id }, d.data())).sort((a, b) => ms(b.createdAt) - ms(a.createdAt));
       const L = $('apLog'); if (!L) return;
@@ -6410,7 +6503,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       finally { b.disabled = false; } return;
     }
     if (e.target.id === 'apCat') { const b = e.target; b.disabled = true; try { AP.catalog = null; const c = await loadCatalog(); toast('تم تحميل ' + c.length + ' منتج من المورّد'); } catch (err) { toast(errMsg(err)); } finally { b.disabled = false; } return; }
-    if (e.target.id === 'apSaveCfg') { try { await f.setDoc(f.doc(f.db, 'supplierMap', 'main'), { cur: $('apCur').value, lowBal: Math.max(0, +$('apLow').value || 0) }, { merge: true }); A.log('إعدادات المورّد', $('apCur').value + ' / ' + $('apLow').value); toast('✅ تم الحفظ'); } catch (err) { toast(errMsg(err)); } return; }
+    if (e.target.id === 'apSaveCfg') { try { await f.setDoc(f.doc(f.db, 'supplierMap', 'main'), { cur: $('apCur').value, lowBal: Math.max(0, +$('apLow').value || 0), alertMargin: $('apMin').value === '' ? 1 : (+toLatinDigits($('apMin').value) || 0) }, { merge: true }); A.log('إعدادات المورّد', $('apCur').value + ' / ' + $('apLow').value); toast('✅ تم الحفظ'); } catch (err) { toast(errMsg(err)); } return; }
     const row = e.target.closest('[data-k]'), act = e.target.closest('[data-act]'); if (!row || !act) return; const key = row.dataset.k, p = A.pmap()[key]; if (!p) return;
     try {
       if (act.dataset.act === 'na') { const na = A.isNa(p.cat, p.name, p.idx, p.ex), v = !na; await f.setDoc(f.doc(f.db, 'services', 'main'), { over: { [key]: { na: v } } }, { merge: true }); A.log(v ? 'إيقاف خدمة' : 'تشغيل خدمة', p.name); toast(v ? 'صارت غير متوفرة' : '✅ صارت متوفرة'); }
@@ -6433,9 +6526,20 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       <label class="ops-sw"><input type="checkbox" id="opApi" ${o.apiOff ? 'checked' : ''}><span>🔌 إيقاف الربط مع المورّد (الطلبات كلها لتلغرام)</span></label>
       <div class="order-field"><textarea id="opMsg" rows="2" maxlength="200" placeholder="رسالة تظهر للزبائن (اختياري)">${esc(o.message || '')}</textarea></div>
       <button type="button" class="pg-btn" id="opSave">حفظ</button></div>
+      <div class="auth-box wallet-box st-card"><h3>أكواد الخصم</h3>
+        <p class="st-note">الكود بيعطي الزبون خصم % على الشراء، مرة وحدة لكل زبون. بيشتغل إذا كان أكبر من خصم مستواه (ما بيتجمّع معو)، وما بينطبق على الخدمات المستثناة من الخصم.</p>
+        <div class="mini-set"><label>الكود<input id="cpnCode" dir="ltr" maxlength="24" autocomplete="off" autocapitalize="characters" placeholder="ARMEX10"></label><button type="button" class="mb" id="cpnGen">توليد</button></div>
+        <div class="mini-set"><label>الخصم %<input id="cpnPct" type="number" min="1" max="90" placeholder="10"></label><label>أقصى استخدام<input id="cpnMax" type="number" min="0" placeholder="0 = بلا حد"></label><label>الصلاحية (أيام)<input id="cpnDays" type="number" min="0" placeholder="0 = بلا"></label></div>
+        <div class="mini-row"><button type="button" class="mb pri" id="cpnAdd">إضافة الكود</button></div>
+        <div id="cpnList"><div class="hist-empty">جاري التحميل...</div></div></div>
+      <div class="auth-box wallet-box st-card"><h3>حماية النشاط</h3>
+        <p class="st-note">حدود تحميك من الاستغلال. أي تجاوز بيوصلك على تلغرام وبينسجّل تحت. إذا تركت خانة فاضية بتاخد القيمة الافتراضية.</p>
+        <div class="mini-set"><label>أقصى طلبات بالدقيقة<input id="gdMin" type="number" min="1" value="${esc(o.limMin || '')}" placeholder="8"></label><label>أقصى طلبات بالساعة<input id="gdHour" type="number" min="1" value="${esc(o.limHour || '')}" placeholder="60"></label></div>
+        <div class="mini-set"><label>تنبيه شحن أكبر من ($)<input id="gdDep" type="number" min="1" value="${esc(o.bigDepUsd || '')}" placeholder="50"></label><label>أقصى قيمة لطلب ($)<input id="gdMax" type="number" min="0" value="${esc(o.maxOrderUsd || '')}" placeholder="0 = بلا حد"></label><button type="button" class="mb pri" id="gdSave">حفظ</button></div>
+        <h4 class="st-h">آخر نشاط مريب</h4><div id="gdList"><div class="hist-empty">جاري التحميل...</div></div></div>
       <div class="auth-box wallet-box st-card"><h3>الإحالات</h3><div id="opRefs"><div class="hist-empty">جاري التحميل...</div></div></div>
       <div class="auth-box wallet-box st-card"><h3>سجل عمليات الأدمن</h3><div id="opLog"><div class="hist-empty">جاري التحميل...</div></div></div>`;
-    A.loadRefs(); A.loadLog();
+    A.loadRefs(); A.loadLog(); A.loadCoupons(); A.loadGuard();
   };
   A.loadRefs = async function () {
     const box = $('opRefs'); if (!box) return;
@@ -6466,6 +6570,67 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     if (e.target.id === 'lgMore') { LOG.shown += 5; A.drawLog(); }
     else if (e.target.id === 'lgClear') { LOG.day = ''; LOG.shown = 3; A.drawLog(); }
   });
+
+  // ───────── أكواد الخصم + حماية النشاط (أدمن) ─────────
+  const CPN = { rows: [] };
+  const cleanC = v => String(v || '').toUpperCase().replace(/[^A-Z0-9_-]/g, '').slice(0, 24);
+  A.drawCoupons = function () {
+    const box = $('cpnList'); if (!box) return;
+    const now = Date.now();
+    box.innerHTML = CPN.rows.length ? CPN.rows.map(c => {
+      const dead = c.active === false || (+c.expiresAt > 0 && now > +c.expiresAt) || (+c.maxUses > 0 && (+c.used || 0) >= +c.maxUses);
+      const exp = +c.expiresAt > 0 ? ' · ينتهي ' + new Date(+c.expiresAt).toLocaleDateString('ar') : '';
+      return `<div class="cpn-row${dead ? ' off' : ''}"><div class="cpn-i"><b dir="ltr">${esc(c.id)}</b><small>${esc(c.pct)}% · استُخدم ${esc(c.used || 0)}${+c.maxUses > 0 ? ' من ' + esc(c.maxUses) : ''}${exp}${c.active === false ? ' · موقوف' : ''}</small></div><button type="button" class="mb" data-cpn-t="${esc(c.id)}">${c.active === false ? 'تفعيل' : 'إيقاف'}</button><button type="button" class="mb no" data-cpn-d="${esc(c.id)}">حذف</button></div>`;
+    }).join('') : '<div class="hist-empty">ما في أكواد بعد</div>';
+  };
+  A.loadCoupons = async function () {
+    const box = $('cpnList'); if (!box) return;
+    try { CPN.rows = (await getAll(F().query(F().collection(F().db, 'coupons'), F().limit(200)))).sort((a, b) => (+b.createdAt || 0) - (+a.createdAt || 0)); A.drawCoupons(); }
+    catch (e) { box.innerHTML = '<div class="msg-box err" style="display:block">' + esc(errMsg(e)) + '</div>'; }
+  };
+  A.loadGuard = async function () {
+    const box = $('gdList'); if (!box) return;
+    try {
+      const s = await F().getDoc(F().doc(F().db, 'meta', 'suspicious')), list = (s.exists() && Array.isArray(s.data().list)) ? s.data().list : [];
+      box.innerHTML = list.length ? list.slice(0, 10).map(r => `<div class="st-u sm"><b>${esc(r.kind)}</b><small>${esc(r.email || '')}</small><small>${esc(r.detail || '')} · ${new Date(+r.at || 0).toLocaleString('ar')}</small></div>`).join('') : '<div class="hist-empty">ما في نشاط مريب مسجّل</div>';
+    } catch (e) { box.innerHTML = '<div class="hist-empty">' + esc(errMsg(e)) + '</div>'; }
+  };
+  document.addEventListener('click', async e => {
+    const f = F(), t = e.target;
+    if (t.id === 'cpnGen') { const ch = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let c = 'ARMEX'; for (let i = 0; i < 4; i++) c += ch[Math.floor(Math.random() * ch.length)]; $('cpnCode').value = c; return; }
+    if (t.id === 'cpnAdd') {
+      const code = cleanC($('cpnCode').value), pct = +toLatinDigits($('cpnPct').value), mx = Math.max(0, parseInt(toLatinDigits($('cpnMax').value), 10) || 0), days = Math.max(0, parseInt(toLatinDigits($('cpnDays').value), 10) || 0);
+      if (code.length < 3) { toast('اكتب كود من 3 أحرف أو أرقام على الأقل (إنجليزي)'); return; }
+      if (!(pct >= 1 && pct <= 90)) { toast('الخصم لازم يكون من 1 لـ 90'); return; }
+      t.disabled = true;
+      try {
+        const ref = f.doc(f.db, 'coupons', code);
+        if ((await f.getDoc(ref)).exists()) { toast('هالكود موجود من قبل'); return; }
+        await f.setDoc(ref, { code, pct, maxUses: mx, used: 0, active: true, expiresAt: days ? Date.now() + days * 864e5 : 0, createdAt: Date.now() });
+        A.log('كود خصم جديد', code + ' — ' + pct + '%' + (mx ? ' — حتى ' + mx : '') + (days ? ' — ' + days + ' يوم' : ''));
+        ['cpnCode', 'cpnPct', 'cpnMax', 'cpnDays'].forEach(i => { $(i).value = ''; });
+        toast('✅ انضاف الكود ' + code); A.loadCoupons();
+      } catch (err) { toast(errMsg(err)); } finally { t.disabled = false; }
+      return;
+    }
+    const tg = t.closest('[data-cpn-t]'), dl = t.closest('[data-cpn-d]');
+    if (tg) {
+      const id = tg.dataset.cpnT, c = CPN.rows.find(x => x.id === id); if (!c) return;
+      try { await f.setDoc(f.doc(f.db, 'coupons', id), { active: c.active === false }, { merge: true }); A.log('كود خصم', id + (c.active === false ? ' فُعّل' : ' أُوقف')); A.loadCoupons(); } catch (err) { toast(errMsg(err)); }
+      return;
+    }
+    if (dl) {
+      const id = dl.dataset.cpnD;
+      if (!(await askDialog({ icon: '🗑', title: 'حذف الكود', text: 'رح ينحذف الكود ' + id + ' نهائياً.', ok: 'حذف', cancel: 'إلغاء' }))) return;
+      try { await f.deleteDoc(f.doc(f.db, 'coupons', id)); A.log('حذف كود خصم', id); A.loadCoupons(); } catch (err) { toast(errMsg(err)); }
+      return;
+    }
+    if (t.id === 'gdSave') {
+      const n = id => Math.max(0, +toLatinDigits($(id).value) || 0);
+      const d = { limMin: n('gdMin'), limHour: n('gdHour'), bigDepUsd: n('gdDep'), maxOrderUsd: n('gdMax') };
+      try { await f.setDoc(f.doc(f.db, 'settings', 'ops'), d, { merge: true }); A.log('حماية النشاط', d.limMin + '/د ، ' + d.limHour + '/س ، شحن $' + d.bigDepUsd + ' ، طلب $' + d.maxOrderUsd); toast('✅ تم الحفظ'); } catch (err) { toast(errMsg(err)); }
+    }
+  });
   $('body-ops').addEventListener('click', async e => {
     const f = F();
     if (e.target.id === 'opSave') {
@@ -6493,7 +6658,7 @@ ARMEX.admOrdTag = (o) => {
   const t = [];
   if (o.status === 'processing') t.push('⏳ قيد التنفيذ');
   if (o.route === 'api') t.push('🔗 آلي عبر المورّد' + (o.sup && o.sup.st ? ' (' + esc(o.sup.st) + ')' : ''));
-  if (o.disc) t.push('🏷 خصم ' + esc(o.disc) + '%');
+  if (o.disc) t.push('🏷 ' + (o.coupon ? 'كود ' + esc(o.coupon) : 'خصم') + ' ' + esc(o.disc) + '%');
   if (ARMEX.stale(o)) t.push('⏰ متأخر ' + Math.round((Date.now() - tms(o)) / 60000) + ' د');
   if (o.sup && o.sup.err) t.push('⚠️ ' + esc(o.sup.err));
   return t.length ? '<div class="sub">' + t.join(' · ') + '</div>' : '';

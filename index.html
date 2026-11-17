@@ -1395,7 +1395,89 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 .dw-credit a{display:block;color:inherit;text-decoration:none;font-weight:700;letter-spacing:.4px}
 .dw-foot{padding:10px 16px 6px}
 .light-mode .dw-credit{color:#6a5a8a}.light-mode .dw-credit b{color:#8a6200}
+
+/* ═════ v6: واجهة الأدمن مضغوطة ═════ */
+.st-card{padding:12px 14px;margin-bottom:10px}
+.st-card h3{font-size:15px;margin:0 0 8px}
+.st-note{font-size:12px;line-height:1.7;margin:2px 0 6px}
+.mini-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.mb{flex:0 1 auto;height:34px;padding:0 14px;border-radius:10px;cursor:pointer;font:700 12.5px 'Cairo',sans-serif;color:inherit;background:rgba(138,43,226,.22);border:1px solid rgba(138,43,226,.6);white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.mb:active{transform:scale(.97)}
+.mb.ok{color:#6dffa8;border-color:rgba(0,204,102,.6);background:rgba(0,204,102,.14)}
+.mb.no{color:#ff9aa8;border-color:rgba(255,68,68,.6);background:rgba(255,68,68,.12)}
+.mb.pri{background:linear-gradient(135deg,#6b21a8,#8A2BE2);border-color:transparent;color:#fff}
+.light-mode .mb{color:#25104a}.light-mode .mb.pri{color:#fff}
+.mini-set{display:flex;gap:6px;align-items:flex-end;margin-top:8px}
+.mini-set label{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;font:700 11.5px 'Cairo',sans-serif;text-align:right}
+.mini-set input,.mini-set select{width:100%;height:34px;padding:0 8px;border-radius:10px;border:1.5px solid rgba(138,43,226,.45);background:rgba(255,255,255,.05);color:inherit;font:700 13px 'Cairo',sans-serif;outline:none}
+.mini-set select option{color:#25104a;background:#fff}
+.light-mode .mini-set input,.light-mode .mini-set select{background:#fff;color:#25104a}
+.mini-set .mb{flex:none}
+.admin-btns .form-btn{padding:8px 10px;font-size:13px}
+.ord-chip.fl{padding:5px 12px;font-size:12px;gap:0}
+#apChips{padding:2px 0 6px;gap:6px;flex-wrap:wrap;overflow:visible}
+.ap-f3{display:grid;grid-template-columns:.8fr 1fr 1.3fr;gap:6px;margin-top:6px}
+.ap-f3 label{display:flex;flex-direction:column;gap:2px;min-width:0;font:600 10.5px 'Cairo',sans-serif;opacity:.9}
+.ap-f3 .ap-qm{width:100%;height:30px;padding:0 6px;border-radius:9px;font-size:12.5px;text-align:center}
+.ap-log{max-height:190px;overflow-y:auto}
+.pr-box{padding:12px 14px;margin-bottom:10px}
+.pr-box h3{font-size:14.5px;margin-bottom:2px}
+.pr-sub{font-size:12px;margin-bottom:8px}
+.auth-box .pr-field{height:36px;font-size:13px;margin:0 0 8px;border-radius:12px;padding:0 12px}
+.pr-inline{display:flex;gap:6px;align-items:center}
+.pr-inline .pr-field{flex:1;min-width:0;margin:0}
+.pr-box .pr-inline .pg-btn,.pr-box .pr-inline .pg-btn.pr-link{width:auto;flex:1 1 auto;min-width:0;margin:0;padding:0 12px;height:36px;font-size:12.5px;border-radius:12px;display:block}
+#pxCard{margin-bottom:10px}
+
+.dw-acc{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:0 12px 10px}
+.dw-acc small{width:100%;text-align:center;font:700 11.5px 'Cairo',sans-serif;opacity:.7}
+.dw-acc button{width:34px;height:34px;border-radius:50%;border:2px solid transparent;color:#fff;font:800 13px 'Cairo',sans-serif;cursor:pointer;box-shadow:0 0 10px rgba(0,0,0,.35);-webkit-tap-highlight-color:transparent;transition:transform .15s}
+.dw-acc button:active{transform:scale(.92)}
+.dw-acc button.on{border-color:#FFD700;box-shadow:0 0 0 2px rgba(255,215,0,.28),0 0 12px rgba(255,215,0,.35)}
+.light-mode .dw-acc{color:#25104a}
 </style>
+<script>
+/* ألوان الموقع: بنسحب لون الواجهة بس (CSS) وبتضل الصور بألوانها */
+(function () {
+  var HUES = { V: 271, B: 223, R: 350, G: 157, P: 330 }, NAMES = { V: 'بنفسجي', B: 'أزرق', R: 'أحمر', G: 'أخضر', P: 'وردي' }, BASE = 271, KEY = 'armex-accent', acc = 'V';
+  try { var sv = localStorage.getItem(KEY); if (sv && HUES[sv]) acc = sv; } catch (e) {}
+  function rgb2hsl(r, g, b) { r /= 255; g /= 255; b /= 255; var mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, h = 0, s = 0, d = mx - mn; if (d) { s = l > .5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h *= 60; } return [h, s, l]; }
+  function hsl2rgb(h, s, l) { h /= 360; function f(p, q, t) { if (t < 0) t += 1; if (t > 1) t -= 1; return t < 1 / 6 ? p + (q - p) * 6 * t : t < 1 / 2 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p; } var r, g, b; if (!s) { r = g = b = l; } else { var q = l < .5 ? l * (1 + s) : l + s - l * s, p = 2 * l - q; r = f(p, q, h + 1 / 3); g = f(p, q, h); b = f(p, q, h - 1 / 3); } return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)]; }
+  function shift(r, g, b, d) { var a = rgb2hsl(r, g, b); if (a[1] < .18 || a[0] < 240 || a[0] > 310) return null; return hsl2rgb((a[0] + d + 360) % 360, a[1], a[2]); }
+  var RX = /#([0-9a-fA-F]{6})\b|(rgba?)\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)/g;
+  function hex2(n) { return (n < 16 ? '0' : '') + n.toString(16); }
+  function transform(text, a) {
+    var d = HUES[a] - BASE; if (!d) return text;
+    return text.replace(RX, function (m, hx, fn, r, g, b, al) {
+      var o;
+      if (hx) { o = shift(parseInt(hx.substr(0, 2), 16), parseInt(hx.substr(2, 2), 16), parseInt(hx.substr(4, 2), 16), d); return o ? '#' + hex2(o[0]) + hex2(o[1]) + hex2(o[2]) : m; }
+      o = shift(+r, +g, +b, d); if (!o) return m;
+      return fn + '(' + o[0] + ',' + o[1] + ',' + o[2] + (al !== undefined ? ',' + al : '') + ')';
+    });
+  }
+  var tracked = [];
+  function track(el) { if (!el || el.tagName !== 'STYLE' || el._acc) return; el._acc = 1; el._o = el.textContent; tracked.push(el); if (acc !== 'V') el.textContent = transform(el._o, acc); }
+  document.querySelectorAll('style').forEach(track);
+  new MutationObserver(function (ms) { ms.forEach(function (m) { m.addedNodes.forEach(function (n) { if (n.tagName === 'STYLE') track(n); else if (n.querySelectorAll) n.querySelectorAll('style').forEach(track); }); }); }).observe(document.documentElement, { childList: true, subtree: true });
+  document.documentElement.setAttribute('data-accent', acc);
+  function swatch(a) { var o = shift(138, 43, 226, HUES[a] - BASE) || [138, 43, 226]; return '#' + hex2(o[0]) + hex2(o[1]) + hex2(o[2]); }
+  function mark() { document.querySelectorAll('#dwAcc button').forEach(function (b) { var on = b.getAttribute('data-acc') === acc; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); }
+  function set(a) {
+    if (!HUES[a]) return; acc = a;
+    tracked.forEach(function (el) { el.textContent = transform(el._o, acc); });
+    document.documentElement.setAttribute('data-accent', acc);
+    try { localStorage.setItem(KEY, acc); } catch (e) {}
+    mark();
+  }
+  window.ARMEX_ACCENT = { set: set, get: function () { return acc; } };
+  document.addEventListener('DOMContentLoaded', function () {
+    var box = document.getElementById('dwAcc'); if (!box) return;
+    box.innerHTML = '<small>لون الموقع</small>' + Object.keys(HUES).map(function (k) { return '<button type="button" data-acc="' + k + '" aria-label="لون ' + NAMES[k] + '" style="background:' + swatch(k) + '">' + k + '</button>'; }).join('');
+    box.addEventListener('click', function (e) { var b = e.target.closest('button[data-acc]'); if (b) set(b.getAttribute('data-acc')); });
+    mark();
+  });
+})();
+</script>
 </head>
 <body>
 
@@ -1743,21 +1825,18 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
   <div class="view" id="view-prices">
     <div class="wallet-scene">
       <div class="auth-box pr-box">
-        <h3>💵 سعر صرف الدولار اليوم</h3>
+        <h3>سعر صرف الدولار اليوم</h3>
         <div class="pr-sub" id="prRateNow"></div>
-        <input class="pr-field" id="prRate" type="text" inputmode="decimal" dir="ltr" autocomplete="off" placeholder="كم ليرة سورية = 1 دولار (مثال: 14000)">
-        <button type="button" class="pg-btn" id="prRateBtn">حفظ سعر الصرف</button>
+        <div class="pr-inline"><input class="pr-field" id="prRate" type="text" inputmode="decimal" dir="ltr" autocomplete="off" placeholder="ل.س لكل 1 دولار"><button type="button" class="pg-btn" id="prRateBtn">حفظ</button></div>
       </div>
       <div class="auth-box pr-box">
-        <h3>🔗 رابط الوسيط (Cloudflare)</h3>
+        <h3>رابط الوسيط (Cloudflare)</h3>
         <div class="pr-sub" id="prProxyNow"></div>
         <input class="pr-field" id="prProxy" type="text" inputmode="url" dir="ltr" autocomplete="off" placeholder="https://armex-proxy.xxxx.workers.dev">
-        <button type="button" class="pg-btn" id="prProxyBtn">حفظ الرابط</button>
-        <button type="button" class="pg-btn pr-link" id="prProxyTest" style="margin-top:10px">اختبار الاتصال</button>
-        <button type="button" class="pg-btn pr-link" id="prProxyMsg" style="margin-top:10px">إرسال رسالة تجريبية للجروب</button>
+        <div class="pr-inline"><button type="button" class="pg-btn" id="prProxyBtn">حفظ</button><button type="button" class="pg-btn pr-link" id="prProxyTest">اختبار</button><button type="button" class="pg-btn pr-link" id="prProxyMsg">رسالة تجريبية</button></div>
       </div>
       <div class="auth-box pr-box">
-        <h3>🏷️ أسعار الخدمات بالدولار</h3>
+        <h3>أسعار الخدمات بالدولار</h3>
         <div class="pr-sub" id="prStat"></div>
         <select class="pr-field" id="prCat" aria-label="القسم"></select>
         <input class="pr-field" id="prQ" type="search" autocomplete="off" placeholder="أو ابحث باسم الخدمة (حرفين على الأقل)">
@@ -1956,6 +2035,7 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
   <div class="dw-head" id="dwHead"></div>
   <div class="dw-cur" id="dwCur"><div class="dw-seg"><button type="button" data-cur="SYP">ل.س</button><button type="button" data-cur="USD">$ دولار</button></div></div>
   <div class="dw-cur-note" id="dwCurNote"></div>
+  <div class="dw-acc" id="dwAcc"></div>
   <div class="dw-sep"></div>
   <nav class="dw-nav" id="dwNav">
     <a href="#/" data-p="home"><span class="dw-ic">🏠</span>الرئيسية</a>
@@ -2088,7 +2168,7 @@ document.addEventListener('click', e => {
 
 // ── Categories data ──
 const storeData = {
-  games:   { title:'🎮 قسم الألعاب العالمية', products:[
+  games:   { title:'قسم الألعاب العالمية', products:[
     ['ببجي موبايل PUBG','🔫',{img:'g_pubg',go:'g_pubg'}],
     ['فري فاير Free Fire','🔥',{img:'g_ff',go:'g_ff'}],
     ['كلاش أوف كلانس','⚔️',{img:'g_coc',go:'g_coc'}],
@@ -2105,16 +2185,16 @@ const storeData = {
     ['Honkai Star Rail','🚆',{img:'g_hsr',go:'g_hsr'}],
     ['Black Clover','🍀',{img:'g_bc',go:'g_bc'}],
     ['Arena of Valor EU','🏹',{img:'g_aov',go:'g_aov'}] ] },
-  social:  { title:'🚀 خدمات السوشال ميديا', products:[
+  social:  { title:'خدمات السوشال ميديا', products:[
     ['خدمات تلغرام','✈️',{img:'soc_telegram',go:'social_telegram'}],
     ['خدمات فيسبوك','📘',{img:'soc_facebook',go:'social_facebook'}],
     ['خدمات إنستغرام','📸',{img:'soc_instagram',go:'social_instagram'}],
     ['خدمات تيك توك','🎵',{img:'soc_tiktok',go:'social_tiktok'}],
     ['خدمات يوتيوب','▶️',{img:'soc_youtube',go:'social_youtube'}] ] },
-  social_telegram: { title:'✈️ خدمات تلغرام', back:['#/category/social','→ خدمات السوشال ميديا'], products:[
+  social_telegram: { title:'خدمات تلغرام', back:['#/category/social','→ خدمات السوشال ميديا'], products:[
     ['رشق تلغرام','🚀',{img:'soc_tg_boost',go:'social_tg_boost'}],
     ['نجوم تلغرام','⭐',{img:'soc_tg_stars',go:'social_tg_stars'}] ] },
-  social_tg_stars: { title:'⭐ نجوم تلغرام', back:['#/category/social_telegram','→ خدمات تلغرام'], products:[
+  social_tg_stars: { title:'نجوم تلغرام', back:['#/category/social_telegram','→ خدمات تلغرام'], products:[
     ['نجوم تلغرام 50','⭐',{img:'tgs_50',idl:'ID المستخدم',note:'auto'}],
     ['نجوم تلغرام 100','⭐',{img:'tgs_100',idl:'ID المستخدم',note:'auto'}],
     ['نجوم تلغرام 150','⭐',{img:'tgs_150',idl:'ID المستخدم',note:'auto'}],
@@ -2127,7 +2207,7 @@ const storeData = {
     ['نجوم تلغرام 2500','⭐',{img:'tgs_2500',idl:'ID المستخدم',note:'auto'}],
     ['نجوم تلغرام 5000','⭐',{img:'tgs_5000',idl:'ID المستخدم',note:'auto'}],
     ['نجوم تلغرام 10000','⭐',{img:'tgs_10000',idl:'ID المستخدم',note:'auto'}] ] },
-  social_facebook: { title:'📘 خدمات فيسبوك', back:['#/category/social','→ خدمات السوشال ميديا'], products:[
+  social_facebook: { title:'خدمات فيسبوك', back:['#/category/social','→ خدمات السوشال ميديا'], products:[
     ['متابعين فيسبوك رخيص','👥',{img:'fb_followers',idl:'الرابط',idm:'link',q:100,note:'fbboost'}],
     ['متابعين فيسبوك حقيقي','👥',{img:'fb_followers',na:true}],
     ['تفاعل منشور فيس لايك','👍',{img:'fb_reactions',idl:'الرابط',idm:'link',q:500,note:'fbboost'}],
@@ -2139,11 +2219,11 @@ const storeData = {
     ['مشاهدات ريلز فيسبوك الارخص','👁️',{img:'fb_views',na:true}],
     ['تعليقات فيسبوك VIP','💬',{img:'fb_comments',na:true}],
     ['اعضاء كروب فيسبوك VIP','👥',{img:'fb_members',idl:'الرابط',idm:'link',q:200,note:'fbboost'}] ] },
-  social_instagram: { title:'📸 خدمات إنستغرام', back:['#/category/social','→ خدمات السوشال ميديا'], products:[
+  social_instagram: { title:'خدمات إنستغرام', back:['#/category/social','→ خدمات السوشال ميديا'], products:[
     ['متابعين ضمان 30 يوم','👥',{img:'ig_followers',na:true}],
     ['مشاهدات ريلز جودة ممتازة','👁️',{img:'ig_views',idl:'رابط',idm:'link',q:1000,note:'igboost'}],
     ['لايكات انستغرام جودة ممتازة','❤️',{img:'ig_likes',idl:'رابط',idm:'link',q:200,note:'igboost'}] ] },
-  social_tiktok: { title:'🎵 خدمات تيك توك', back:['#/category/social','→ خدمات السوشال ميديا'], products:[
+  social_tiktok: { title:'خدمات تيك توك', back:['#/category/social','→ خدمات السوشال ميديا'], products:[
     ['متابعين تيكتوك حقيقي - عن طريق الاعلانات - ضمان 30 يوم','👥',{img:'tt_followers',na:true}],
     ['لايكات فيديو تيكتوك الارخص بالعالم','❤️',{img:'tt_likes',na:true}],
     ['لايكات فيديو تيكتوك MX','❤️',{img:'tt_likes',na:true}],
@@ -2162,27 +2242,27 @@ const storeData = {
     ['لايكات فيديو يوتيوب MX مدى الحياة','👍',{img:'yt_likes',idl:'الرابط',idm:'link',q:1000,note:'ytboost'}],
     ['لايكات فيديو يوتيوب حقيقي VIP','👍',{img:'yt_likes',na:true}],
     ['تعليقات عشوائي','💬',{img:'yt_comments',na:true}] ] },
-  subs: { title:"📺 الاشتراكات الرقمية والترفيهية", products:[
+  subs: { title:"الاشتراكات الرقمية والترفيهية", products:[
     ["شاهد VIP","📺",{img:"sub_shahid",go:"subs_shahid"}],
     ["سبوتي فاي","🎵",{img:"sub_spotify",go:"subs_spotify"}],
     ["NETFLIX","🎬",{img:"sub_netflix",go:"subs_netflix"}],
     ["Apple TV","🍎",{img:"sub_appletv",go:"subs_appletv"}] ] },
-  subs_shahid: { title:"📺 شاهد VIP", back:["#/category/subs","→ الاشتراكات الرقمية والترفيهية"],products:[
+  subs_shahid: { title:"شاهد VIP", back:["#/category/subs","→ الاشتراكات الرقمية والترفيهية"],products:[
     ["حسابات شاهد 1 شهر حساب كامل مكفول","📺",{img:"sub_shahid",plain:true,noteText:"مدة التنفيذ من 10- 20 دقيقة"}],
     ["حسابات شاهد شهر 1 جهاز 1 حساب مشترك","📺",{img:"sub_shahid",na:true,plain:true,noteText:"مدة التنفيذ من 10- 20 دقيقة"}],
     ["حسابات شاهد 3 اشهر حساب كامل مكفول","📺",{img:"sub_shahid",na:true,plain:true,noteText:"مدة التنفيذ من 10- 20 دقيقة"}],
     ["حسابات شاهد 1 سنة حساب كامل مكفول - تفعيل عن طريق الايميل","📺",{img:"sub_shahid",na:true,plain:true,noteText:"مدة التنفيذ من 10- 20 دقيقة"}] ] },
-  subs_spotify: { title:"🎵 سبوتي فاي", back:["#/category/subs","→ الاشتراكات الرقمية والترفيهية"],products:[
+  subs_spotify: { title:"سبوتي فاي", back:["#/category/subs","→ الاشتراكات الرقمية والترفيهية"],products:[
     ["سبوتي فاي - 1 شهر","🎵",{img:"sub_spotify",na:true,plain:true}],
     ["سبوتي فاي - 3 شهر","🎵",{img:"sub_spotify",na:true,plain:true}],
     ["سبوتي فاي - 6 شهر","🎵",{img:"sub_spotify",na:true,plain:true}] ] },
-  subs_netflix: { title:"🎬 NETFLIX", back:["#/category/subs","→ الاشتراكات الرقمية والترفيهية"],products:[
+  subs_netflix: { title:"NETFLIX", back:["#/category/subs","→ الاشتراكات الرقمية والترفيهية"],products:[
     ["حساب نيت فلكس كامل مدة شهر","🎬",{img:"sub_netflix",idl:"ادخل اسما لحسابك المراد انشاءه",idm:"text",noteHtml:"<p>اشتراك NETFLIX :</p><p>• يأتي مع الحساب اشتراك نورد vpn ✅</p><p>• حساب مخصص لجهاز واحد ✅</p><p>• حساب شخصي بالكامل و لمدة شهر ✅</p><p>• ضمان على الاشتراك طوال المدة ✅</p><p>• خدمة يدوية ويتم تسليم المعلومات خلال ساعة ✅</p>"}],
     ["حساب نيت فلكس كامل مدة 3 اشهر","🎬",{img:"sub_netflix",idl:"ادخل اسما لحسابك المراد انشاءه",idm:"text",noteHtml:"<p>اشتراك NETFLIX :</p><p>• يأتي مع الحساب اشتراك نورد vpn ✅</p><p>• حساب مخصص لجهاز واحد ✅</p><p>• حساب شخصي بالكامل و لمدة 3 اشهر ✅</p><p>• ضمان على الاشتراك طوال المدة ✅</p><p>• خدمة يدوية ويتم تسليم المعلومات خلال ساعة ✅</p>"}],
     ["حساب نيت فلكس كامل مدة 6 اشهر","🎬",{img:"sub_netflix",idl:"ادخل اسما لحسابك المراد انشاءه",idm:"text",noteHtml:"<p>اشتراك NETFLIX :</p><p>• يأتي مع الحساب اشتراك نورد vpn ✅</p><p>• حساب مخصص لجهاز واحد ✅</p><p>• حساب شخصي بالكامل و لمدة 6 اشهر ✅</p><p>• ضمان على الاشتراك طوال المدة ✅</p><p>• خدمة يدوية ويتم تسليم المعلومات خلال ساعة ✅</p>"}] ] },
-  subs_appletv: { title:"🍎 Apple TV", back:["#/category/subs","→ الاشتراكات الرقمية والترفيهية"],products:[
+  subs_appletv: { title:"Apple TV", back:["#/category/subs","→ الاشتراكات الرقمية والترفيهية"],products:[
     ["Apple TV+ | شهر","🍎",{img:"sub_appletv",mail:true,mailLabel:"الايميل",noteHtml:"<p>• مستخدم واحد لجهاز واحد</p><p>• التفعيل على ايميلكم الخاص عن طريق استلام دعوة من سيرفرات ابل.</p>"}] ] },
-  cards: { title:'💳 بطاقات الشحن الرقمية', products:[
+  cards: { title:'بطاقات الشحن الرقمية', products:[
     ['بطاقات فيزا','💳',{img:'c_visa',go:'cards_visa'}],
     ['ITUNES','🍎',{img:'c_itunes',go:'cards_itunes'}],
     ['بطاقات غوغل','🎁',{img:'c_google',go:'cards_google'}],
@@ -2192,38 +2272,38 @@ const storeData = {
     ['امازون','📦',{img:'c_amazon',go:'cards_amazon'}],
     ['بطاقات شي ان','🛍️',{img:'c_shein',go:'cards_shein'}] ] },
 
-  numbers: { title:'📱 الأرقام الوهمية والتفعيل', products:[
+  numbers: { title:'الأرقام الوهمية والتفعيل', products:[
     ['واتساب رقم فوري','💬',{img:'n_wa',go:'num_wa'}],
     ['رقم تلغرام','✈️',{img:'v_tg',go:'num_tg'}] ] },
 
-  balance: { title:'💰 شحن الرصيد والتحويل المالي', products:[
+  balance: { title:'شحن الرصيد والتحويل المالي', products:[
     ['رصيد سيريتل كاش','📱'], ['رصيد MTN كاش','📶'] ] },
-  chat: { title:'💬 تطبيقات الدردشة', products:[
+  chat: { title:'تطبيقات الدردشة', products:[
     ['بيجو لايف','💬',{go:'chat_bigo'}], ['سوماتش','💬',{go:'chat_somatch'}], ['بوبو لايف','💬',{go:'chat_popo'}], ['سوغو','💬',{go:'chat_sugo'}], ['تانغو لايف','💬',{go:'chat_tango'}], ['شاميت','💬',{go:'chat_chamet'}], ['ازار','💬',{go:'chat_azar'}], ['ايمو','💬',{go:'chat_imo'}], ['وي بلاي','💬',{go:'chat_weplay'}], ['ميو لايف','💬',{go:'chat_melo'}], ['ميكو شات','💬',{go:'chat_mico'}], ['ستار ماكير','💬',{go:'chat_starmaker'}], ['كواي','💬',{go:'chat_kwai'}] ] },
-  chat_bigo: { title:'💬 بيجو لايف', products:[
+  chat_bigo: { title:'بيجو لايف', products:[
     ['بيجو لايف سيرفر 1','📦',{img:'بيجو لايف',q:50,idl:'ID',note:'auto'}],
     ['بيجو لايف سيرفر 2','📦',{img:'بيجو لايف',q:50,idl:'ID',note:'auto'}] ] },
-  chat_somatch: { title:'💬 سوماتش', products:[
+  chat_somatch: { title:'سوماتش', products:[
     ['سوماتش سيرفر 1','📦',{img:'سوماتش',q:10000,idl:'ID Player',note:'auto'}] ] },
-  chat_popo: { title:'💬 بوبو لايف', products:[
+  chat_popo: { title:'بوبو لايف', products:[
     ['بوبو لايف سيرفر 1','📦',{img:'بوبو لايف',q:10000,idl:'ادخل الايدي',note:'auto'}],
     ['بوبو لايف سيرفر 2','📦',{img:'بوبو لايف',q:10000,idl:'ادخل الايدي',note:'auto'}] ] },
-  chat_sugo: { title:'💬 سوغو', products:[
+  chat_sugo: { title:'سوغو', products:[
     ['سوغو سيرفر 1','📦',{img:'سوغو',q:10000,idl:'user id',note:'auto'}],
     ['سوغو سيرفر 2','📦',{img:'سوغو',q:10000,idl:'user id',note:'auto'}],
     ['سوغو سيرفر 3','📦',{img:'سوغو',q:8000,idl:'user id',note:'auto'}] ] },
-  chat_tango: { title:'💬 تانغو لايف', products:[
+  chat_tango: { title:'تانغو لايف', products:[
     ['تانغو لايف سيرفر 1','📦',{img:'تانغو لايف',na:1}],
     ['تانغو لايف سيرفر 2','📦',{img:'تانغو لايف',q:300,idl:'رابط الحساب',idm:'link',note:'auto'}] ] },
-  chat_chamet: { title:'💬 شاميت', products:[
+  chat_chamet: { title:'شاميت', products:[
     ['شاميت سيرفر 1','📦',{img:'شاميت',q:15000,idl:'ايدي المستخدم',note:'auto'}],
     ['شاميت سيرفر 2','📦',{img:'شاميت',q:15000,idl:'ايدي المستخدم',note:'auto'}] ] },
-  chat_azar: { title:'💬 ازار', products:[
+  chat_azar: { title:'ازار', products:[
     ['ازار 40+400','📦',{img:'ازار',na:1}],
     ['ازار 170+1700','📦',{img:'ازار',na:1}],
     ['ازار 450+4500','📦',{img:'ازار',na:1}],
     ['ازار 100+10000','📦',{img:'ازار',na:1}] ] },
-  chat_imo: { title:'💬 ايمو', products:[
+  chat_imo: { title:'ايمو', products:[
     ['ايمو عداد','📦',{img:'ايمو',q:100,idl:'User ID',note:'none'}],
     ['100 ماسة ايمو س2','📦',{img:'ايمو',na:1}],
     ['200 ماسة ايمو س2','📦',{img:'ايمو',na:1}],
@@ -2231,10 +2311,10 @@ const storeData = {
     ['1000 ماسة ايمو س2','📦',{img:'ايمو',na:1}],
     ['2000 ماسة ايمو س2','📦',{img:'ايمو',na:1}],
     ['5000 ماسة ايمو س2','📦',{img:'ايمو',na:1}] ] },
-  chat_weplay: { title:'💬 وي بلاي', products:[
+  chat_weplay: { title:'وي بلاي', products:[
     ['Gold We Play 10000','📦',{img:'وي بلاي',na:1}],
     ['Gold We Play 50000','📦',{img:'وي بلاي',na:1}] ] },
-  chat_melo: { title:'💬 ميو لايف', products:[
+  chat_melo: { title:'ميو لايف', products:[
     ['MeYo Gold monthly card','📦',{img:'ميو لايف',q:1,idl:'User ID',note:'miyo'}],
     ['family pass','📦',{img:'ميو لايف',idl:'User ID',note:'miyo'}],
     ['MeYo Gold vip*7days','📦',{img:'ميو لايف',q:1,idl:'User ID',note:'miyo'}],
@@ -2247,19 +2327,19 @@ const storeData = {
     ['MeYo Gold 4900','📦',{img:'ميو لايف',na:1}],
     ['MeYo Gold 9800','📦',{img:'ميو لايف',idl:'User ID',note:'miyo'}],
     ['MeYo Gold 19600','📦',{img:'ميو لايف',q:1,idl:'User ID',note:'miyo'}] ] },
-  chat_mico: { title:'💬 ميكو شات', products:[
+  chat_mico: { title:'ميكو شات', products:[
     ['ميكو شات سيرفر 1','📦',{img:'ميكو شات',q:4000,idl:'user id',note:'auto'}],
     ['ميكو شات سيرفر 2','📦',{img:'ميكو شات',q:8000,idl:'ادخل ال id',note:'auto'}] ] },
-  chat_starmaker: { title:'💬 ستار ماكير', products:[
+  chat_starmaker: { title:'ستار ماكير', products:[
     ['ستار ماكير سيرفر 1','📦',{img:'ستار ماكير',q:1000,idl:'USER ID',note:'auto'}] ] },
-  chat_kwai: { title:'💬 كواي', products:[
+  chat_kwai: { title:'كواي', products:[
     ['كواي سيرفر 1','📦',{img:'كواي',q:200,idl:'user id',note:'auto'}],
     ['كواي سيرفر 2','📦',{img:'كواي',q:200,idl:'user id',note:'auto'}] ] },
-  g_pubg: { title:'🔫 ببجي موبايل', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_pubg: { title:'ببجي موبايل', back:['#/category/games','→ قسم الألعاب'], products:[
     ['ببجي روبوت','🤖',{img:'p_robot',go:'p_robot'}],
     ['ببجي أكواد','🎟️',{img:'p_codes',go:'p_codes'}],
     ['ببجي عضويات','👑',{img:'p_mem',go:'p_mem'}] ] },
-  p_robot: { title:'🤖 ببجي روبوت', back:['#/category/g_pubg','→ ببجي موبايل'], products:[
+  p_robot: { title:'ببجي روبوت', back:['#/category/g_pubg','→ ببجي موبايل'], products:[
     ['10 شدة','💎',{img:'p_robot',na:true}],
     ['60 شدة','💎',{img:'uc60',idl:'playerId',verify:true,note:'auto'}],
     ['325 شدة','💎',{img:'uc325',idl:'playerId',verify:true,note:'auto'}],
@@ -2267,14 +2347,14 @@ const storeData = {
     ['1800 شدة','💎',{img:'uc1800',idl:'playerId',verify:true,note:'auto'}],
     ['3850 شدة','💎',{img:'uc3850',idl:'playerId',verify:true,note:'auto'}],
     ['8100 شدة','💎',{img:'uc8100',idl:'playerId',verify:true,note:'auto'}] ] },
-  p_codes: { title:'🎟️ ببجي أكواد', back:['#/category/g_pubg','→ ببجي موبايل'], products:[
+  p_codes: { title:'ببجي أكواد', back:['#/category/g_pubg','→ ببجي موبايل'], products:[
     ['كود 60 شدة','🎟️',{img:'uc60',plain:true,note:'pubgcode'}],
     ['كود 325 شدة','🎟️',{img:'uc325',plain:true,note:'pubgcode'}],
     ['كود 660 شدة','🎟️',{img:'uc660',plain:true,note:'pubgcode'}],
     ['كود 1800 شدة','🎟️',{img:'uc1800',plain:true,note:'pubgcode'}],
     ['كود 3850 شدة','🎟️',{img:'uc3850',plain:true,note:'pubgcode'}],
     ['كود 8100 شدة','🎟️',{img:'uc8100',plain:true,note:'pubgcode'}] ] },
-  p_mem: { title:'👑 ببجي عضويات', back:['#/category/g_pubg','→ ببجي موبايل'], products:[
+  p_mem: { title:'ببجي عضويات', back:['#/category/g_pubg','→ ببجي موبايل'], products:[
     ['حزمة الشراء الأول','👑',{img:'p_mem',idl:'معرّف اللاعب [player_id]',verify:true,note:'pubgmem'}],
     ['حزمة ترقية للأسلحة النارية','👑',{img:'p_mem',idl:'معرّف اللاعب [player_id]',verify:true,note:'pubgmem'}],
     ['حزمة الشعار الخرافي','👑',{img:'p_mem',idl:'معرّف اللاعب [player_id]',verify:true,note:'pubgmem'}],
@@ -2287,24 +2367,24 @@ const storeData = {
     ['Prime Plus (من الشهور 6)','👑',{img:'p_mem',idl:'معرّف اللاعب [player_id]',verify:true,note:'pubgmem'}],
     ['Prime Plus (من الشهور 12)','👑',{img:'p_mem',idl:'معرّف اللاعب [player_id]',verify:true,note:'pubgmem'}],
     ['الشعار الاسطوي (بلورة حمراء)','👑',{img:'p_mem',idl:'معرّف اللاعب [player_id]',verify:true,note:'pubgmem'}] ] },
-  g_ff: { title:'🔥 فري فاير', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_ff: { title:'فري فاير', back:['#/category/games','→ قسم الألعاب'], products:[
     ['فري فاير روبوت','🤖',{img:'f_robot',go:'f_robot'}],
     ['فري فاير أكواد','🎟️',{img:'f_codes',go:'f_codes'}],
     ['فري فاير عضويات','👑',{img:'f_mem',go:'f_mem'}],
     ['الإنزال الجوي','🪂',{img:'f_air',go:'f_air'}] ] },
-  f_robot: { title:'🤖 فري فاير روبوت', back:['#/category/g_ff','→ فري فاير'], products:[
+  f_robot: { title:'فري فاير روبوت', back:['#/category/g_ff','→ فري فاير'], products:[
     ['110 جوهرة','💎',{img:'dm110',idl:'player_id',verify:true,note:'auto'}],
     ['210 جوهرة','💎',{img:'dm210',idl:'player_id',verify:true,note:'auto'}],
     ['583 جوهرة','💎',{img:'dm583',idl:'player_id',verify:true,note:'auto'}],
     ['1188 جوهرة','💎',{img:'dm1188',idl:'player_id',verify:true,note:'auto'}],
     ['2420 جوهرة','💎',{img:'dm2420',idl:'player_id',verify:true,note:'auto'}] ] },
-  f_codes: { title:'🎟️ فري فاير أكواد', back:['#/category/g_ff','→ فري فاير'], products:[
+  f_codes: { title:'فري فاير أكواد', back:['#/category/g_ff','→ فري فاير'], products:[
     ['كود 110 جواهر','🎟️',{img:'dm110',na:true}],
     ['كود 210 جواهر','🎟️',{img:'dm210',plain:true,note:'ffcode'}],
     ['كود 531 جوهرة','🎟️',{img:'dm531',plain:true,note:'ffcode'}],
     ['كود 1188 جوهرة','🎟️',{img:'dm1188',plain:true,note:'ffcode'}],
     ['كود 2220 جوهرة','🎟️',{img:'dm2220',plain:true,note:'ffcode'}] ] },
-  f_mem: { title:'👑 فري فاير عضويات', back:['#/category/g_ff','→ فري فاير'], products:[
+  f_mem: { title:'فري فاير عضويات', back:['#/category/g_ff','→ فري فاير'], products:[
     ['عضوية اسبوعية','👑',{img:'f_mem',idl:'ايدي اللاعب',verify:true,note:'auto'}],
     ['عضوية شهرية','👑',{img:'f_mem',idl:'ايدي اللاعب',verify:true,note:'auto'}],
     ['تصريح بوياه','👑',{img:'f_mem',na:true}],
@@ -2314,16 +2394,16 @@ const storeData = {
     ['حزمة المستوى 20','👑',{img:'f_mem',na:true}],
     ['حزمة المستوى 25','👑',{img:'f_mem',na:true}],
     ['حزمة المستوى 30','👑',{img:'f_mem',na:true}] ] },
-  f_air: { title:'🪂 الإنزال الجوي', back:['#/category/g_ff','→ فري فاير'], products:[
+  f_air: { title:'الإنزال الجوي', back:['#/category/g_ff','→ فري فاير'], products:[
     ['انزال جوي','🪂',{img:'f_air',air:true,note:'air'}] ] },
-  g_mc: { title:'⛏️ ماين كرافت', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_mc: { title:'ماين كرافت', back:['#/category/games','→ قسم الألعاب'], products:[
     ['كود عملات ماين كرافت 1720 كوينز','⛏️',{img:'mc1720',plain:true,note:'auto'}],
     ['كود عملات ماين كرافت 3500 كوينز','⛏️',{img:'mc3500',plain:true,note:'auto'}] ] },
-  g_fn: { title:'🎯 فورتنايت', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_fn: { title:'فورتنايت', back:['#/category/games','→ قسم الألعاب'], products:[
     ['بطاقة 1000 V','🎯',{img:'g_fn',na:true}],
     ['بطاقة 2800 V','🎯',{img:'g_fn',na:true}],
     ['بطاقة 5000 V','🎯',{img:'g_fn',na:true}] ] },
-  g_fc: { title:'⚽ FC MOBILE', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_fc: { title:'FC MOBILE', back:['#/category/games','→ قسم الألعاب'], products:[
     ['فيفا موبايل سيرفر اماراتي','⚽',{img:'g_fc',go:'fc_uae'}],
     ['فيفا موبايل سيرفر جنوب افريقيا','⚽',{img:'g_fc',go:'fc_za'}],
     ['فيفا موبايل سيرفر قطر','⚽',{img:'g_fc',go:'fc_qa'}],
@@ -2335,7 +2415,7 @@ const storeData = {
     ['فيفا موبايل سيرفر ماليزيا','⚽',{img:'g_fc',go:'fc_my'}],
     ['فيفا موبايل سيرفر كمبوديا','⚽',{img:'g_fc',go:'fc_kh'}],
     ['فيفا موبايل 24','⚽',{img:'g_fc',go:'fc_24'}] ] },
-  fc_uae: { title:'⚽ فيفا موبايل سيرفر اماراتي', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_uae: { title:'فيفا موبايل سيرفر اماراتي', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['Silver 39','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 40','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 99','⚽',{img:'g_fc',plain:true,note:'auto'}],
@@ -2350,7 +2430,7 @@ const storeData = {
     ['FC Points 5750','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 9999','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 12000','⚽',{img:'g_fc',plain:true,note:'auto'}] ] },
-  fc_za: { title:'⚽ فيفا موبايل سيرفر جنوب افريقيا', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_za: { title:'فيفا موبايل سيرفر جنوب افريقيا', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['Silver 39','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 40','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 99','⚽',{img:'g_fc',plain:true,note:'auto'}],
@@ -2365,7 +2445,7 @@ const storeData = {
     ['FC Points 5750','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 9999','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 12000','⚽',{img:'g_fc',plain:true,note:'auto'}] ] },
-  fc_qa: { title:'⚽ فيفا موبايل سيرفر قطر', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_qa: { title:'فيفا موبايل سيرفر قطر', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['Silver 39','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 40','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 99','⚽',{img:'g_fc',plain:true,note:'auto'}],
@@ -2380,7 +2460,7 @@ const storeData = {
     ['FC Points 5750','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 9999','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 12000','⚽',{img:'g_fc',plain:true,note:'auto'}] ] },
-  fc_kw: { title:'⚽ فيفا موبايل سيرفر الكويت', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_kw: { title:'فيفا موبايل سيرفر الكويت', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['Silver 39','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 40','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 99','⚽',{img:'g_fc',plain:true,note:'auto'}],
@@ -2395,7 +2475,7 @@ const storeData = {
     ['FC Points 5750','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 9999','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 12000','⚽',{img:'g_fc',plain:true,note:'auto'}] ] },
-  fc_sa: { title:'⚽ فيفا موبايل سيرفر السعودية', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_sa: { title:'فيفا موبايل سيرفر السعودية', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['Silver 39','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 40','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 99','⚽',{img:'g_fc',plain:true,note:'auto'}],
@@ -2410,7 +2490,7 @@ const storeData = {
     ['FC Points 5750','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 9999','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 12000','⚽',{img:'g_fc',plain:true,note:'auto'}] ] },
-  fc_iq: { title:'⚽ فيفا موبايل سيرفر العراق', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_iq: { title:'فيفا موبايل سيرفر العراق', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['Silver 39','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 40','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 99','⚽',{img:'g_fc',plain:true,note:'auto'}],
@@ -2425,7 +2505,7 @@ const storeData = {
     ['FC Points 5750','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 9999','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 12000','⚽',{img:'g_fc',plain:true,note:'auto'}] ] },
-  fc_eg: { title:'⚽ فيفا موبايل سيرفر مصر', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_eg: { title:'فيفا موبايل سيرفر مصر', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['Silver 39','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 40','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 99','⚽',{img:'g_fc',plain:true,note:'auto'}],
@@ -2440,7 +2520,7 @@ const storeData = {
     ['FC Points 5750','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['Silver 9999','⚽',{img:'g_fc',plain:true,note:'auto'}],
     ['FC Points 12000','⚽',{img:'g_fc',plain:true,note:'auto'}] ] },
-  fc_sg: { title:'⚽ فيفا موبايل سيرفر سنغافورة', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_sg: { title:'فيفا موبايل سيرفر سنغافورة', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['EAFC Mobile Singapore - 39 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Singapore - 40 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Singapore - 99 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
@@ -2455,7 +2535,7 @@ const storeData = {
     ['EAFC Mobile Singapore - 5750 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Singapore - 9999 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Singapore - 12000 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}] ] },
-  fc_my: { title:'⚽ فيفا موبايل سيرفر ماليزيا', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_my: { title:'فيفا موبايل سيرفر ماليزيا', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['EAFC Mobile Malaysia - 39 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Malaysia - 40 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Malaysia - 99 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
@@ -2470,7 +2550,7 @@ const storeData = {
     ['EAFC Mobile Malaysia - 5750 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Malaysia - 9999 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Malaysia - 12000 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}] ] },
-  fc_kh: { title:'⚽ فيفا موبايل سيرفر كمبوديا', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_kh: { title:'فيفا موبايل سيرفر كمبوديا', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['EAFC Mobile Cambodia - 39 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Cambodia - 40 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Cambodia - 99 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
@@ -2485,12 +2565,12 @@ const storeData = {
     ['EAFC Mobile Cambodia - 5750 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Cambodia - 9999 Silver','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC Mobile Cambodia - 12000 FC Points','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}] ] },
-  fc_24: { title:'⚽ فيفا موبايل 24', back:['#/category/g_fc','→ FC MOBILE'], products:[
+  fc_24: { title:'فيفا موبايل 24', back:['#/category/g_fc','→ FC MOBILE'], products:[
     ['EAFC 24 - Console','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC 24 - PC','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC 24 - Console','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}],
     ['EAFC 24 - PC','⚽',{img:'g_fc',idl:'Player ID',note:'auto'}] ] },
-  g_coc: { title:'⚔️ كلاش أوف كلانس', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_coc: { title:'كلاش أوف كلانس', back:['#/category/games','→ قسم الألعاب'], products:[
     ['تذكرة ذهبية','🎫',{img:'coc_tix',list:['0.89','1.19','1.2','1.39','1.5','1.79','2.99','3.49','4.29','5','6.99','7.99','10.5','14.99'],mailLabel:'ادخل ايميلك في اللعبة',note:'cocticket'}],
     ['كود شحن 88 جوهرة كلاش','💎',{img:'g_coc',na:true}],
     ['كود شحن 500 جوهرة كلاش','💎',{img:'g_coc',na:true}],
@@ -2498,75 +2578,75 @@ const storeData = {
     ['كود شحن تذكرة ذهبية كلاش','🎟️',{img:'g_coc',na:true}],
     ['كود شحن تذكرة الحدث كلاش','🎟️',{img:'g_coc',na:true}],
     ['مظهر كلاش','🎭',{img:'coc_skin',skin:true,qmax:100,note:'cocskin'}] ] },
-  appleid: { title:"🍎 أبل ايدي وخدمات آبل", products:[
+  appleid: { title:"أبل ايدي وخدمات آبل", products:[
     ["حساب Apple ID أمريكي","🍎",{img:"ai_id",plain:true,noteHtml:"<p class=\"ml\">نتمنى ان تقرأ شروط الاستخدام قبل طلب اي حساب</p><p class=\"ml\">حساب مكفول 2 شهرين كحساب يعمل ,دون وجود سوء استخدام من قبل الزبون في حال الشراء وعدم الدفع او المشتريات الكثيرة في وقت واحد بمبالغ اكثر من 100$ اواضافة بطاقات ايتونز مضروبة ، الاشتراك في تطبيق وعدم الدفع لاحقا و غيرها. غير مسؤولين عن اي سوء استخدام او اي من ذلك</p><p class=\"ml\"><b class=\"red\">ملاحظة مهمة قبل الشراء</b></p><p class=\"ml\">يرجى ايقاف العثور على الايفون Find me Iphone في حال تجاهل هذا الامر نحن او الموزع غير مسؤولين عن اي شيء او قفل ينتج عن ذلك.</p><p class=\"ml\">الحساب يتطلب تاكيد رقم موجود ضمن هذا الرابط ، ويوجد فيديو مرفق للعملية التفعيل اطلبه من الدعم الفني</p><p class=\"ml\">بعدها يمكنك تغير الرقم او تغيير الايميل هذا عائد لك</p><p class=\"ml\"><b class=\"red\">ملاحظة مهمة ثانية</b></p><p class=\"ml\">لحماية حسابك وتجنب توقف الحساب Locked يجب اضافة رقم</p><p class=\"ml\">وقد تواجه مشكلة في الحصول على رمز التفعيل من بعض الدول لذلك يرجى تجربة اكثر من دولة واكثر من رقم للدولة الواحدة في حال عدم الحصول على رمز التفعيل. ارقام سورية لايوجد لها تاكيد - نخلي اي مسؤولية تنتج عن سوء استخدام الحساب او عدم اضافة رقم .</p><p class=\"ml\"><b class=\"red\">ملاحظة ثالثة:</b></p><p class=\"ml\">هذه الخدمة عبارة عن حساب لتنزيل التطبيقات من متجر ابل فقط - يعني نحنا نبيعك حساب لتنزيل التطبيقات ، ليس ايكلود ولا حساب تقوم بربط اجهزتك عليه او تنسى ايقاف find me .</p><p class=\"ml\">وفي حال اردت ان تجرى عليه التعديلات هذه مسؤوليتك ليست مسؤوليتنا</p><p class=\"ml\">الرجاء ابقاء Find me OFF</p><p class=\"ml\">لا تكثر محاولات تسجيل الدخول في حال وجود error</p><p class=\"ml\">الافضل اضافة ايميل او رقم خاص بكم بعد الاسترداد ، في حال المراجعة</p>"}] ] },
-  verify: { title:"✅ توثيق الحسابات", products:[
+  verify: { title:"توثيق الحسابات", products:[
     ["توثيق تيليجرام","✈️",{img:"v_tg",go:"verify_tg"}],
     ["توثيق إنستغرام","📸",{img:"v_ig",contact:"https://wa.me/963958338351",noteText:"للطلب تواصل مع المالك"}],
     ["توثيق فيسبوك","🔵",{img:"v_fb",contact:"https://wa.me/963958338351",noteText:"للطلب تواصل مع المالك"}] ] },
-  verify_tg: { title:"✈️ توثيق تيليجرام", back:["#/category/verify","→ توثيق الحسابات"],products:[
+  verify_tg: { title:"توثيق تيليجرام", back:["#/category/verify","→ توثيق الحسابات"],products:[
     ["تيليجرام مميز 3 شهور","✈️",{img:"v_tg",idl:"ID",idm:"text",note:"auto"}],
     ["تيليجرام مميز 6 شهور","✈️",{img:"v_tg",idl:"ID",idm:"text",note:"auto"}],
     ["تيليجرام مميز 12 شهر","✈️",{img:"v_tg",idl:"ID",idm:"text",note:"auto"}] ] },
 
-  design: { title:'🎨 برامج التصميم', products:[
+  design: { title:'برامج التصميم', products:[
     ['Canva Pro','👑',{img:'d_canva',go:'des_canva'}],
     ['CapCut Pro','🎬',{img:'d_capcut',go:'des_capcut'}],
     ['Picsart Pro','🎨',{img:'d_picsart',go:'des_picsart'}],
     ['Anghami Plus','🎵',{img:'d_anghami',go:'des_anghami'}] ] },
 
-  ai: { title:"🤖 اشتراكات الذكاء الاصطناعي", products:[
+  ai: { title:"اشتراكات الذكاء الاصطناعي", products:[
     ["ChatGPT","🤖",{img:"ai_chatgpt",go:"ai_chatgpt"}],
     ["Gemini","✨",{img:"ai_gemini",go:"ai_gemini"}],
     ["Gamma AI Pro","🟣",{img:"ai_gamma",go:"ai_gamma"}],
     ["Perplexity Pro","🔍",{img:"ai_perplexity",go:"ai_perplexity"}] ] },
-  ai_chatgpt: { title:"🤖 ChatGPT", back:["#/category/ai","→ اشتراكات الذكاء الاصطناعي"],products:[
+  ai_chatgpt: { title:"ChatGPT", back:["#/category/ai","→ اشتراكات الذكاء الاصطناعي"],products:[
     ["دعوة - ChatGPT Plus مساحة عمل - مدة شهر","🤖",{img:"ai_chatgpt",na:true,mail:true,mailLabel:"الايميل"}],
     ["ChatGPT - Pro","🤖",{img:"ai_chatgpt",go:"ai_gpt_pro"}],
     ["ChatGPT - Plus","🤖",{img:"ai_chatgpt",go:"ai_gpt_plus"}],
     ["ChatGPT - GO","🤖",{img:"ai_chatgpt",go:"ai_gpt_go"}] ] },
-  ai_gpt_plus: { title:"🤖 ChatGPT - Plus", back:["#/category/ai_chatgpt","→ ChatGPT"],products:[
+  ai_gpt_plus: { title:"ChatGPT - Plus", back:["#/category/ai_chatgpt","→ ChatGPT"],products:[
     ["ChatGPT Plus - تفعيل على حسابك - مضمون - مدة شهر","🤖",{img:"ai_chatgpt",idl:"ارسل الايميل+ كلمة المرور",idm:"text",noteHtml:"<p>يتم تفعيله على <b class=\"red\">حسابك الشخصي</b></p>"}],
     ["ChatGPT Plus - حساب مشترك - مضمون - مدة 1 شهر","🤖",{img:"ai_chatgpt",plain:true,noteHtml:"<p class=\"ml\">هذا الاشتراك مخصص <b class=\"red\">لشخص واحد</b> و<b class=\"red\">جهاز واحد</b> فقط ويُمنع مشاركته مع أكثر من مستخدم.</p><p><b class=\"red\">المميزات :</b></p><ol><li>عدد غير محدود من الرسائل</li><li>دقة في الاجوبة أكثر</li><li>وصول أكبر لنموذج GPT5 الرئيسي</li><li>ضمان المدة كاملة</li><li>بحث بشكل تفصيلي</li><li>تفعيل على حساب مشترك أحد</li><li>امكانية انشاء صور و تحميل ملفات</li></ol><p class=\"ml\">🗣️. مدة شهر كاملة. 🗣️حساب مكفول+مشترك+ضمان</p><p class=\"ml\">حساب مشترك يتم تفعيل الاشتراك على حساب مشترك مع مستخدمين آخرين، لذلك ممنوع تغيير بيانات الدخول أو البريد الإلكتروني.</p>"}],
     ["ChatGPT Plus - حساب مشترك - مضمون - مدة 3 شهر","🤖",{img:"ai_chatgpt",plain:true,noteHtml:"<p class=\"ml\">هذا الاشتراك مخصص <b class=\"red\">لشخص واحد</b> و<b class=\"red\">جهاز واحد</b> فقط ويُمنع مشاركته مع أكثر من مستخدم.</p><p><b class=\"red\">المميزات :</b></p><ol><li>عدد غير محدود من الرسائل</li><li>دقة في الاجوبة أكثر</li><li>وصول أكبر لنموذج GPT5 الرئيسي</li><li>ضمان المدة كاملة</li><li>بحث بشكل تفصيلي</li><li>تفعيل على حساب مشترك أحد</li><li>امكانية انشاء صور و تحميل ملفات</li></ol><p class=\"ml\">🗣️. مدة 3 اشهر كاملة. 🗣️حساب مكفول+مشترك+ضمان</p><p class=\"ml\">حساب مشترك يتم تفعيل الاشتراك على حساب مشترك مع مستخدمين آخرين، لذلك ممنوع تغيير بيانات الدخول أو البريد الإلكتروني.</p>"}],
     ["ChatGPT Plus - حساب مشترك - مضمون - مدة 6 شهر","🤖",{img:"ai_chatgpt",plain:true,noteHtml:"<p class=\"ml\">هذا الاشتراك مخصص <b class=\"red\">لشخص واحد</b> و<b class=\"red\">جهاز واحد</b> فقط ويُمنع مشاركته مع أكثر من مستخدم.</p><p><b class=\"red\">المميزات :</b></p><ol><li>عدد غير محدود من الرسائل</li><li>دقة في الاجوبة أكثر</li><li>وصول أكبر لنموذج GPT5 الرئيسي</li><li>ضمان المدة كاملة</li><li>بحث بشكل تفصيلي</li><li>تفعيل على حساب مشترك أحد</li><li>امكانية انشاء صور و تحميل ملفات</li></ol><p class=\"ml\">🗣️. مدة 6 اشهر كاملة. 🗣️حساب مكفول+مشترك+ضمان</p><p class=\"ml\">حساب مشترك يتم تفعيل الاشتراك على حساب مشترك مع مستخدمين آخرين، لذلك ممنوع تغيير بيانات الدخول أو البريد الإلكتروني.</p>"}] ] },
-  ai_gpt_pro: { title:"🤖 ChatGPT - Pro", back:["#/category/ai_chatgpt","→ ChatGPT"],products:[
+  ai_gpt_pro: { title:"ChatGPT - Pro", back:["#/category/ai_chatgpt","→ ChatGPT"],products:[
     ["ChatGPT Pro - خاص - مدة شهر","🤖",{img:"ai_chatgpt",na:true,plain:true}],
     ["ChatGPT Pro - خاص - مدة 3 اشهر","🤖",{img:"ai_chatgpt",na:true,plain:true}],
     ["ChatGPT Pro - خاص - مدة 6 اشهر","🤖",{img:"ai_chatgpt",na:true,plain:true}],
     ["ChatGPT Pro - خاص - مدة 12 اشهر","🤖",{img:"ai_chatgpt",na:true,plain:true}] ] },
-  ai_gpt_go: { title:"🤖 ChatGPT - GO", back:["#/category/ai_chatgpt","→ ChatGPT"],products:[
+  ai_gpt_go: { title:"ChatGPT - GO", back:["#/category/ai_chatgpt","→ ChatGPT"],products:[
     ["ChatGPT Go - حساب جاهز - مدة شهر","🤖",{img:"ai_chatgpt",na:true,plain:true}],
     ["ChatGPT Go - حساب جاهز - مدة 12 شهر","🤖",{img:"ai_chatgpt",na:true,plain:true}] ] },
-  ai_gemini: { title:"✨ Google Gemini AI", back:["#/category/ai","→ اشتراكات الذكاء الاصطناعي"],products:[
+  ai_gemini: { title:"Google Gemini AI", back:["#/category/ai","→ اشتراكات الذكاء الاصطناعي"],products:[
     ["Gemini Pro - دعوة على ايميلك - مدة 18 اشهر","✨",{img:"ai_gemini",na:true,mail:true,mailLabel:"الايميل"}] ] },
-  ai_gamma: { title:"🟣 Gamma AI Pro", back:["#/category/ai","→ اشتراكات الذكاء الاصطناعي"],products:[
+  ai_gamma: { title:"Gamma AI Pro", back:["#/category/ai","→ اشتراكات الذكاء الاصطناعي"],products:[
     ["Gamma Ai Pro - 1 Month","🟣",{img:"ai_gamma",plain:true,noteHtml:"<p>حساب مشترك</p><p>هذا المنتج يعمل من الساعة 10 صباحا الى 12 ليلا</p>",hours:[10, 24]}] ] },
-  ai_perplexity: { title:"🔍 Perplexity Pro", back:["#/category/ai","→ اشتراكات الذكاء الاصطناعي"],products:[
+  ai_perplexity: { title:"Perplexity Pro", back:["#/category/ai","→ اشتراكات الذكاء الاصطناعي"],products:[
     ["Perplexity Pro - 1 Month","🔍",{img:"ai_perplexity",plain:true,noteHtml:"<p>هذا المنتج يعمل من الساعة <b class=\"red\">10</b> صباحا الى <b class=\"red\">12</b> ليلا</p><p>يتم تنفيذ طلبك خلال <b class=\"red\">1 ساعة</b></p>",hours:[10, 24]}] ] },
-  coding: { title:'💻 قسم البرمجة', products:[
+  coding: { title:'قسم البرمجة', products:[
     ['Python بايثون','🐍'], ['تطوير الويب Web Development','🌐'], ['الأمن السيبراني Cyber Security','🛡️'], ['الهاكر الأخلاقي Ethical Hacking','🕵️'], ['لينكس Linux','🐧'], ['علم البيانات Data Science','📊'], ['تطبيقات الموبايل Mobile Apps','📱'] ] },
-  isp: { title:'🌐 مزودات الإنترنت', products:[
+  isp: { title:'مزودات الإنترنت', products:[
     ['مزود هايبر نت','📶',{go:'isp_hyper'}], ['مزود سما نت','📶',{go:'isp_sama'}], ['مزود آية','📶',{go:'isp_aya'}], ['مزود برو نت','📶',{go:'isp_pronet'}], ['مزود لاين نت','📶',{go:'isp_linet'}], ['مزود MTS','📶',{go:'isp_mts'}], ['مزود الكم','📶',{go:'isp_elkom'}], ['مزود سوا','📶',{go:'isp_sawa'}], ['مزود بطاقات','📶',{go:'isp_bitaqat'}] ] },
-  isp_hyper: { title:'📶 مزود هايبر نت', products:[
+  isp_hyper: { title:'مزود هايبر نت', products:[
     ['هايبر نت شهر 512KP','📶',{img:'مزود هايبر نت'}], ['هايبر نت شهر 1M','📶',{img:'مزود هايبر نت'}], ['هايبر نت شهر 2M','📶',{img:'مزود هايبر نت'}], ['هايبر نت شهر 4M','📶',{img:'مزود هايبر نت'}], ['هايبر نت شهر 8M','📶',{img:'مزود هايبر نت'}] ] },
-  isp_sama: { title:'📶 مزود سما نت', products:[
+  isp_sama: { title:'مزود سما نت', products:[
     ['سما نت شهر 512KP','📶',{img:'مزود سما نت'}], ['سما نت شهر 1M','📶',{img:'مزود سما نت'}], ['سما نت شهر 2M','📶',{img:'مزود سما نت'}], ['سما نت شهر 4M','📶',{img:'مزود سما نت'}], ['سما نت شهر 8M','📶',{img:'مزود سما نت'}], ['سما نت شهر 16M','📶',{img:'مزود سما نت'}] ] },
-  isp_aya: { title:'📶 مزود آية', products:[
+  isp_aya: { title:'مزود آية', products:[
     ['آية شهر 512KP','📶',{img:'مزود آية'}], ['آية شهر 1M','📶',{img:'مزود آية'}], ['آية شهر 2M','📶',{img:'مزود آية'}], ['آية شهر 4M','📶',{img:'مزود آية'}], ['آية شهر 8M','📶',{img:'مزود آية'}] ] },
-  isp_pronet: { title:'📶 مزود برو نت', products:[
+  isp_pronet: { title:'مزود برو نت', products:[
     ['برو نت شهر 512KP','📶',{img:'مزود برو نت'}], ['برو نت شهر 1M','📶',{img:'مزود برو نت'}], ['برو نت شهر 2M','📶',{img:'مزود برو نت'}], ['برو نت شهر 4M','📶',{img:'مزود برو نت'}], ['برو نت شهر 8M','📶',{img:'مزود برو نت'}], ['برو نت شهر 16M','📶',{img:'مزود برو نت',na:1}] ] },
-  isp_linet: { title:'📶 مزود لاين نت', products:[
+  isp_linet: { title:'مزود لاين نت', products:[
     ['لاين نت شهر 1M','📶',{img:'مزود لاين نت'}], ['لاين نت شهر 2M','📶',{img:'مزود لاين نت'}], ['لاين نت شهر 4M','📶',{img:'مزود لاين نت'}], ['لاين نت شهر 8M','📶',{img:'مزود لاين نت'}], ['لاين نت شهر 16M','📶',{img:'مزود لاين نت',na:1}] ] },
-  isp_mts: { title:'📶 مزود MTS', products:[
+  isp_mts: { title:'مزود MTS', products:[
     ['MTS شهر 1M','📶',{img:'مزود MTS'}], ['MTS شهر 4M','📶',{img:'مزود MTS'}], ['MTS شهر 8M','📶',{img:'مزود MTS'}], ['MTS شهر 16M','📶',{img:'مزود MTS'}] ] },
-  isp_elkom: { title:'📶 مزود الكم', products:[
+  isp_elkom: { title:'مزود الكم', products:[
     ['الكم شهر 512KP','📶',{img:'مزود الكم',na:1}], ['الكم شهر 1M','📶',{img:'مزود الكم',na:1}], ['الكم شهر 2M','📶',{img:'مزود الكم',na:1}], ['الكم شهر 4M','📶',{img:'مزود الكم',na:1}], ['الكم شهر 8M','📶',{img:'مزود الكم',na:1}] ] },
-  isp_sawa: { title:'📶 مزود سوا', products:[
+  isp_sawa: { title:'مزود سوا', products:[
     ['سوا شهر 1M','📶',{img:'مزود سوا'}], ['سوا شهر 2M','📶',{img:'مزود سوا'}], ['سوا شهر 4M','📶',{img:'مزود سوا'}], ['سوا شهر 8M','📶',{img:'مزود سوا'}], ['سوا شهر 16M','📶',{img:'مزود سوا'}] ] },
-  isp_bitaqat: { title:'📶 مزود بطاقات', products:[
+  isp_bitaqat: { title:'مزود بطاقات', products:[
     ['بطاقات شهر 1M','📶',{img:'مزود بطاقات'}], ['بطاقات شهر 2M','📶',{img:'مزود بطاقات'}], ['بطاقات شهر 4M','📶',{img:'مزود بطاقات'}], ['بطاقات شهر 8M','📶',{img:'مزود بطاقات'}] ] },
-  g_lords: { title:'🏰 Lords Mobile', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_lords: { title:'Lords Mobile', back:['#/category/games','→ قسم الألعاب'], products:[
     ['LM 195 Diamonds','💎',{img:'g_lords',na:true}],
     ['LM 395 Diamonds','💎',{img:'g_lords',idl:'الايدي',note:'auto'}],
     ['LM 785 Diamonds','💎',{img:'g_lords',idl:'الايدي',note:'auto'}],
@@ -2576,25 +2656,25 @@ const storeData = {
     ['LM 7857 Diamonds','💎',{img:'g_lords',idl:'الايدي',note:'auto'}],
     ['LM 11785 Diamonds','💎',{img:'g_lords',idl:'الايدي',note:'auto'}],
     ['LM 19642 Diamonds','💎',{img:'g_lords',idl:'الايدي',note:'auto'}] ] },
-  g_cod: { title:'🎖️ Call of duty', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_cod: { title:'Call of duty', back:['#/category/games','→ قسم الألعاب'], products:[
     ['Call of duty 30cp','🎖️',{img:'g_cod',na:true}],
     ['Call of duty 80cp','🎖️',{img:'g_cod',na:true}],
     ['Call of duty 420cp','🎖️',{img:'g_cod',na:true}],
     ['Call of duty 880cp','🎖️',{img:'g_cod',na:true}],
     ['Call of duty 2400cp','🎖️',{img:'g_cod',na:true}],
     ['Call of duty 5000cp','🎖️',{img:'g_cod',na:true}] ] },
-  g_gi: { title:'🌌 جنشن امباكت', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_gi: { title:'جنشن امباكت', back:['#/category/games','→ قسم الألعاب'], products:[
     ['60 كرستال جينشن','💎',{img:'g_gi',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['330 كرستال جينشن','💎',{img:'g_gi',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['1090 كرستال جينشن','💎',{img:'g_gi',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['2240 كرستال جينشن','💎',{img:'g_gi',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['3880 كرستال جينشن','💎',{img:'g_gi',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['8080 كرستال جينشن','💎',{img:'g_gi',idl:'ID',idl2:'Server',note:'bsnote'}] ] },
-  g_ml: { title:'🛡️ Mobile Legends', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_ml: { title:'Mobile Legends', back:['#/category/games','→ قسم الألعاب'], products:[
     ['موبايل ليجند عالمي','🛡️',{img:'g_ml',go:'g_ml_global'}],
     ['موبايل ليجند اسيا','🛡️',{img:'g_ml',go:'g_ml_asia'}],
     ['عضويات موبايل ليجند','🛡️',{img:'g_ml',go:'g_ml_mem'}] ] },
-  g_ml_global: { title:'🛡️ موبايل ليجند عالمي', back:['#/category/g_ml','→ Mobile Legends'], products:[
+  g_ml_global: { title:'موبايل ليجند عالمي', back:['#/category/g_ml','→ Mobile Legends'], products:[
     ['Diamonds 50+5 Bonus (Global)','💎',{img:'g_ml',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['Diamonds 78+8 Bonus (Global)','💎',{img:'g_ml',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['Diamonds 156+16 Bonus (Global)','💎',{img:'g_ml',idl:'ID',idl2:'Server',note:'bsnote'}],
@@ -2604,7 +2684,7 @@ const storeData = {
     ['Diamonds 3099+589 Bonus (Global)','💎',{img:'g_ml',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['Diamonds 4649+883 Bonus (Global)','💎',{img:'g_ml',idl:'ID',idl2:'Server',note:'bsnote'}],
     ['Diamonds 7740+1548 Bonus (Global)','💎',{img:'g_ml',idl:'ID',idl2:'Server',note:'bsnote'}] ] },
-  g_ml_asia: { title:'🛡️ موبايل ليجند اسيا', back:['#/category/g_ml','→ Mobile Legends'], products:[
+  g_ml_asia: { title:'موبايل ليجند اسيا', back:['#/category/g_ml','→ Mobile Legends'], products:[
     ['Diamonds 10+1 Bonus (Asia)','💎',{img:'g_ml',na:true}],
     ['Diamonds 20+2 Bonus (Asia)','💎',{img:'g_ml',na:true}],
     ['Diamonds 51+5 Bonus (Asia)','💎',{img:'g_ml',na:true}],
@@ -2615,62 +2695,62 @@ const storeData = {
     ['Diamonds 1007+156 Bonus (Asia)','💎',{img:'g_ml',na:true}],
     ['Diamonds 2015+383 Bonus (Asia)','💎',{img:'g_ml',na:true}],
     ['Diamonds 5035+1007 Bonus (Asia)','💎',{img:'g_ml',na:true}] ] },
-  g_ml_mem: { title:'🛡️ عضويات موبايل ليجند', back:['#/category/g_ml','→ Mobile Legends'], products:[
+  g_ml_mem: { title:'عضويات موبايل ليجند', back:['#/category/g_ml','→ Mobile Legends'], products:[
     ['البطاقة الماسية الاسبوعية','🎟️',{img:'g_ml',na:true}],
     ['تذكرة الشفق موبايل ليجند','🎟️',{img:'g_ml',na:true}],
     ['عضوية ستارلايت موبايل ليجند','🎟️',{img:'g_ml',na:true}],
     ['عضوية ستارلايت بلس','🎟️',{img:'g_ml',na:true}] ] },
-  g_cr: { title:'👑 Clash Royale', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_cr: { title:'Clash Royale', back:['#/category/games','→ قسم الألعاب'], products:[
     ['كود 80 جوهرة كلاش رويال','💎',{img:'g_cr',na:true}],
     ['كود 500 جوهرة كلاش رويال','💎',{img:'g_cr',na:true}],
     ['كود 1200 جوهرة كلاش رويال','💎',{img:'g_cr',na:true}] ] },
-  g_bs: { title:'⭐ براول ستارز', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_bs: { title:'براول ستارز', back:['#/category/games','→ قسم الألعاب'], products:[
     ['براول باس','💎',{img:'g_bs',na:true}],
     ['30+3 جوهرة','💎',{img:'g_bs',na:true}],
     ['80+8 جوهرة','💎',{img:'g_bs',na:true}],
     ['170+17 جوهرة','💎',{img:'g_bs',na:true}],
     ['950+95 جوهرة','💎',{img:'g_bs',idl:'الايدي',note:'bsnote'}],
     ['2000+200 جوهرة','💎',{img:'g_bs',idl:'الايدي',note:'bsnote'}] ] },
-  g_rb: { title:'🧱 Roblox', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_rb: { title:'Roblox', back:['#/category/games','→ قسم الألعاب'], products:[
     ['Roblox اميركي','🧱',{img:'g_rb',go:'g_rb_us'}],
     ['Roblox سعودي','🧱',{img:'g_rb',go:'g_rb_sa'}],
     ['Roblox اماراتي','🧱',{img:'g_rb',go:'g_rb_ae'}],
     ['Roblox كندي','🧱',{img:'g_rb',go:'g_rb_ca'}],
     ['Roblox اوربي','🧱',{img:'g_rb',go:'g_rb_eu'}] ] },
-  g_rb_us: { title:'🧱 Roblox اميركي', back:['#/category/g_rb','→ Roblox'], products:[
+  g_rb_us: { title:'Roblox اميركي', back:['#/category/g_rb','→ Roblox'], products:[
     ['Roblox USA 10$','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox USA 15$','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox USA 20$','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox USA 25$','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox USA 50$','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox USA 100$','🧱',{img:'g_rb',stepper:true,note:'roblox'}] ] },
-  g_rb_sa: { title:'🧱 Roblox سعودي', back:['#/category/g_rb','→ Roblox'], products:[
+  g_rb_sa: { title:'Roblox سعودي', back:['#/category/g_rb','→ Roblox'], products:[
     ['Roblox 20SAR','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox 50SAR','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox 100SAR','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox 200SAR','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox 500SAR','🧱',{img:'g_rb',stepper:true,note:'roblox'}] ] },
-  g_rb_ae: { title:'🧱 Roblox اماراتي', back:['#/category/g_rb','→ Roblox'], products:[
+  g_rb_ae: { title:'Roblox اماراتي', back:['#/category/g_rb','→ Roblox'], products:[
     ['Roblox 20AED','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox 50AED','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox 100AED','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox 200AED','🧱',{img:'g_rb',stepper:true,note:'roblox'}],
     ['Roblox 500AED','🧱',{img:'g_rb',stepper:true,note:'roblox'}] ] },
-  g_rb_ca: { title:'🧱 Roblox كندي', back:['#/category/g_rb','→ Roblox'], products:[
+  g_rb_ca: { title:'Roblox كندي', back:['#/category/g_rb','→ Roblox'], products:[
     ['Roblox 15CAD','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 20CAD','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 25CAD','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 40CAD','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 50CAD','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 100CAD','🧱',{img:'g_rb',plain:true,note:'roblox'}] ] },
-  g_rb_eu: { title:'🧱 Roblox اوربي', back:['#/category/g_rb','→ Roblox'], products:[
+  g_rb_eu: { title:'Roblox اوربي', back:['#/category/g_rb','→ Roblox'], products:[
     ['Roblox 10€','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 15€','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 20€','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 25€','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 50€','🧱',{img:'g_rb',plain:true,note:'roblox'}],
     ['Roblox 100€','🧱',{img:'g_rb',plain:true,note:'roblox'}] ] },
-  g_hsr: { title:'🚆 Honkai : Star Rail', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_hsr: { title:'Honkai : Star Rail', back:['#/category/games','→ قسم الألعاب'], products:[
     ['Honkai 60 Oneiric Shard','💎',{img:'g_hsr',idl:'ID',idl2:'Server',note:'auto'}],
     ['Honkai 300+30 Oneiric Shard','💎',{img:'g_hsr',idl:'ID',idl2:'Server',note:'auto'}],
     ['Honkai 980+110 Oneiric Shard','💎',{img:'g_hsr',idl:'ID',idl2:'Server',note:'auto'}],
@@ -2678,26 +2758,26 @@ const storeData = {
     ['Honkai 3280+600 Oneiric Shard','💎',{img:'g_hsr',idl:'ID',idl2:'Server',note:'auto'}],
     ['Honkai 6480+1600 Oneiric Shard','💎',{img:'g_hsr',idl:'ID',idl2:'Server',note:'auto'}],
     ['Express Supply Pass','💎',{img:'g_hsr',idl:'ID',idl2:'Server',note:'auto'}] ] },
-  g_bc: { title:'🍀 Black Clover m Black Crystals', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_bc: { title:'Black Clover m Black Crystals', back:['#/category/games','→ قسم الألعاب'], products:[
     ['Black Crystals 43','💎',{img:'g_bc',idl:'ID',note:'auto'}],
     ['Black Crystals 225','💎',{img:'g_bc',idl:'ID',note:'auto'}],
     ['Black Crystals 470','💎',{img:'g_bc',idl:'ID',note:'auto'}],
     ['Black Crystals 980','💎',{img:'g_bc',idl:'ID',note:'auto'}] ] },
-  g_aov: { title:'🏹 arena of valor eu', back:['#/category/games','→ قسم الألعاب'], products:[
+  g_aov: { title:'arena of valor eu', back:['#/category/games','→ قسم الألعاب'], products:[
     ['Vouchers eu 150','🎟️',{img:'g_aov',idl:'الايدي',note:'auto'}],
     ['Vouchers eu 750','🎟️',{img:'g_aov',idl:'الايدي',note:'auto'}],
     ['Vouchers eu 1800','🎟️',{img:'g_aov',idl:'الايدي',note:'auto'}],
     ['Vouchers eu 3750','🎟️',{img:'g_aov',idl:'الايدي',note:'auto'}],
     ['Vouchers eu 9750','🎟️',{img:'g_aov',idl:'الايدي',note:'auto'}],
     ['Vouchers eu 21000','🎟️',{img:'g_aov',idl:'الايدي',note:'auto'}] ] },
-  social_tg_boost: { title:'🚀 رشق تلغرام', back:['#/category/social_telegram','→ خدمات تلغرام'], products:[
+  social_tg_boost: { title:'رشق تلغرام', back:['#/category/social_telegram','→ خدمات تلغرام'], products:[
     ['مشتركين قناة تلغرام الأرخص بالعالم ف','👥',{img:'tgb_subs',idl:'الرابط',idm:'link',q:500,note:'tgboost'}],
     ['مشتركين قناة تلغرام سعة كبيرة الارخص ف','👥',{img:'tgb_subs',na:true}],
     ['مشتركين قناة+كروب تلغرام 15 يوم الأرخص','👥',{img:'tgb_subs',na:true}],
     ['مشتركين قناة تلغرام حسابات محزوفة','👥',{img:'tgb_subs',na:true}],
     ['مشتركين قناة تلغرام VIP','👥',{img:'tgb_subs',na:true}],
     ['مشاهدات تلغرام حقيقي MX الارخص','👁️',{img:'tgb_views',na:true}] ] },
-  cards_visa: { title:'💳 بطاقات فيزا', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
+  cards_visa: { title:'بطاقات فيزا', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
     ['VISA 1$','💳',{img:'c_visa',na:true}],
     ['VISA 2$','💳',{img:'c_visa',na:true}],
     ['VISA 3$','💳',{img:'c_visa',na:true}],
@@ -2711,7 +2791,7 @@ const storeData = {
     ['VISA 25$','💳',{img:'c_visa',na:true}],
     ['VISA 30$','💳',{img:'c_visa',na:true}],
     ['VISA 50$','💳',{img:'c_visa',na:true}] ] },
-  cards_itunes: { title:'🍎 ITUNES', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
+  cards_itunes: { title:'ITUNES', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
     ['Itunes USA','🍎',{img:'c_itunes',go:'it_us'}],
     ['iTunes turkeya','🍎',{img:'c_itunes',go:'it_tr'}],
     ['ITUNES AED','🍎',{img:'c_itunes',go:'it_ae'}],
@@ -2728,7 +2808,7 @@ const storeData = {
     ['iTunes Belgium','🍎',{img:'c_itunes',go:'it_be'}],
     ['iTunes Spain','🍎',{img:'c_itunes',go:'it_es'}],
     ['iTunes Austria','🍎',{img:'c_itunes',go:'it_at'}] ] },
-  it_us: { title:'🍎 Itunes USA', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_us: { title:'Itunes USA', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['ITUNES 2$','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 3$','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 5$','🍎',{img:'c_itunes',plain:true,noteText:'Itunes USA'}],
@@ -2740,97 +2820,97 @@ const storeData = {
     ['ITUNES 60$','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 75$','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 100$','🍎',{img:'c_itunes',plain:true,noteText:'Itunes USA'}] ] },
-  it_tr: { title:'🍎 iTunes turkeya', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_tr: { title:'iTunes turkeya', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['25TL ITUNES','🍎',{img:'c_itunes',plain:true,noteText:'iTunes turkeya'}],
     ['50TL ITUNES','🍎',{img:'c_itunes',na:true}],
     ['100TL ITUNES','🍎',{img:'c_itunes',plain:true,noteText:'iTunes turkeya'}],
     ['250TL ITUNES','🍎',{img:'c_itunes',plain:true,noteText:'iTunes turkeya'}],
     ['500TL ITUNES','🍎',{img:'c_itunes',plain:true,noteText:'iTunes turkeya'}],
     ['1000TL ITUNES','🍎',{img:'c_itunes',plain:true,noteText:'iTunes turkeya'}] ] },
-  it_ae: { title:'🍎 ITUNES AED', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_ae: { title:'ITUNES AED', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['ITUNES 50 AED','🍎',{img:'c_itunes',plain:true,noteText:'ITUNES AED'}],
     ['ITUNES 100 AED','🍎',{img:'c_itunes',plain:true,noteText:'ITUNES AED'}],
     ['ITUNES 250 AED','🍎',{img:'c_itunes',plain:true,noteText:'ITUNES AED'}],
     ['ITUNES 500 AED','🍎',{img:'c_itunes',plain:true,noteText:'ITUNES AED'}] ] },
-  it_sa: { title:'🍎 iTunes KSA', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_sa: { title:'iTunes KSA', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['ITUNES 50 SAR','🍎',{img:'c_itunes',plain:true,noteText:'iTunes KSA'}],
     ['ITUNES 100 SAR','🍎',{img:'c_itunes',plain:true,noteText:'iTunes KSA'}],
     ['ITUNES 200 SAR','🍎',{img:'c_itunes',plain:true,noteText:'iTunes KSA'}],
     ['ITUNES 400 SAR','🍎',{img:'c_itunes',plain:true,noteText:'iTunes KSA'}],
     ['ITUNES 500 SAR','🍎',{img:'c_itunes',na:true}] ] },
-  it_uk: { title:'🍎 iTunes UK', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_uk: { title:'iTunes UK', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['ITUNES 5£','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 10£','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 25£','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 50£','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 100£','🍎',{img:'c_itunes',na:true}] ] },
-  it_de: { title:'🍎 iTunes Germany', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_de: { title:'iTunes Germany', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['ITUNES 5 EUR','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 10 EUR','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 25 EUR','🍎',{img:'c_itunes',na:true}],
     ['ITUNES 50 EUR','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Germany'}],
     ['ITUNES 100 EUR','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Germany'}] ] },
-  it_it: { title:'🍎 iTunes iTaly', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_it: { title:'iTunes iTaly', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes iTaly 5€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes iTaly'}],
     ['iTunes iTaly 10€','🍎',{img:'c_itunes',na:true}],
     ['iTunes iTaly 25€','🍎',{img:'c_itunes',na:true}],
     ['iTunes iTaly 50€','🍎',{img:'c_itunes',na:true}],
     ['iTunes iTaly 100€','🍎',{img:'c_itunes',na:true}] ] },
-  it_nl: { title:'🍎 iTunes NetherLand', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_nl: { title:'iTunes NetherLand', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes Neth 4€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Neth 10€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Neth 25€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Neth 50€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Neth 100€','🍎',{img:'c_itunes',na:true}] ] },
-  it_pt: { title:'🍎 iTunes Portugal', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_pt: { title:'iTunes Portugal', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes Por 5€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Por 10€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Por 25€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Portugal'}],
     ['iTunes Por 50€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Por 100€','🍎',{img:'c_itunes',na:true}] ] },
-  it_fr: { title:'🍎 iTunes France', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_fr: { title:'iTunes France', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes Fr 5€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes France'}],
     ['iTunes Fr 10€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes France'}],
     ['iTunes Fr 25€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes France'}],
     ['iTunes Fr 50€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes France'}],
     ['iTunes Fr 100€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes France'}] ] },
-  it_ie: { title:'🍎 iTunes IReland', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_ie: { title:'iTunes IReland', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes IRL 5€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes IReland'}],
     ['iTunes IRL 10€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes IReland'}],
     ['iTunes IRL 25€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes IReland'}],
     ['iTunes IRL 50€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes IReland'}],
     ['iTunes IRL 100€','🍎',{img:'c_itunes',na:true}] ] },
-  it_ca: { title:'🍎 iTunes Canada', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_ca: { title:'iTunes Canada', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes CAN 10$','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Canada'}],
     ['iTunes CAN 25$','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Canada'}],
     ['iTunes CAN 50$','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Canada'}],
     ['iTunes CAN 100$','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Canada'}] ] },
-  it_fi: { title:'🍎 iTunes FinLand', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_fi: { title:'iTunes FinLand', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes Fin 10€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Fin 25€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Fin 50€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes FinLand'}],
     ['iTunes Fin 100€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes FinLand'}] ] },
-  it_be: { title:'🍎 iTunes Belgium', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_be: { title:'iTunes Belgium', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes Bel 10€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Bel 25€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Bel 50€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Belgium'}],
     ['iTunes Bel 100€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Belgium'}] ] },
-  it_es: { title:'🍎 iTunes Spain', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_es: { title:'iTunes Spain', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes SP 10€','🍎',{img:'c_itunes',na:true}],
     ['iTunes SP 25€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Spain'}],
     ['iTunes SP 50€','🍎',{img:'c_itunes',na:true}],
     ['iTunes SP 100€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Spain'}] ] },
-  it_at: { title:'🍎 iTunes Austria', back:['#/category/cards_itunes','→ ITUNES'], products:[
+  it_at: { title:'iTunes Austria', back:['#/category/cards_itunes','→ ITUNES'], products:[
     ['iTunes Austria 10€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Austria 25€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Austria'}],
     ['iTunes Austria 50€','🍎',{img:'c_itunes',na:true}],
     ['iTunes Austria 100€','🍎',{img:'c_itunes',plain:true,noteText:'iTunes Austria'}] ] },
-  cards_google: { title:'🎁 بطاقات غوغل', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
+  cards_google: { title:'بطاقات غوغل', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
     ['بطاقة غوغل $10 امريكي','🎁',{img:'c_google',na:true}],
     ['بطاقة غوغل $25 امريكي','🎁',{img:'c_google',na:true}],
     ['بطاقة غوغل $50 امريكي','🎁',{img:'c_google',na:true}],
     ['بطاقة غوغل $100 امريكي','🎁',{img:'c_google',na:true}] ] },
-  cards_steam: { title:'🎮 بطاقات ستيم', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
+  cards_steam: { title:'بطاقات ستيم', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
     ['Steam Wallet (US)','🎮',{img:'c_steam',go:'st_us'}],
     ['Steam Wallet (SA)','🎮',{img:'c_steam',go:'st_sa'}],
     ['Steam Wallet (AE)','🎮',{img:'c_steam',go:'st_ae'}],
@@ -2842,19 +2922,19 @@ const storeData = {
     ['Steam Wallet (BH)','🎮',{img:'c_steam',go:'st_bh'}],
     ['Steam Wallet (BR)','🎮',{img:'c_steam',go:'st_br'}],
     ['Steam Wallet (CL)','🎮',{img:'c_steam',go:'st_cl'}] ] },
-  st_us: { title:'🎮 Steam Wallet (US)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_us: { title:'Steam Wallet (US)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['بطاقة ستيم اميركي $5','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (US)'}],
     ['بطاقة ستيم اميركي $10','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (US)'}],
     ['بطاقة ستيم اميركي $20','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (US)'}],
     ['بطاقة ستيم اميركي $50','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (US)'}],
     ['بطاقة ستيم اميركي $100','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (US)'}] ] },
-  st_sa: { title:'🎮 Steam Wallet (SA)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_sa: { title:'Steam Wallet (SA)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['ستيم سعودي 20 ريال','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (SA)'}],
     ['ستيم سعودي 40 ريال','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (SA)'}],
     ['ستيم سعودي 50 ريال','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (SA)'}],
     ['ستيم سعودي 100 ريال','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (SA)'}],
     ['ستيم سعودي 200 ريال','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (SA)'}] ] },
-  st_ae: { title:'🎮 Steam Wallet (AE)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_ae: { title:'Steam Wallet (AE)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['ستيم اماراتي 20 درهم','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AE)'}],
     ['ستيم اماراتي 40 درهم','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AE)'}],
     ['ستيم اماراتي 50 درهم','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AE)'}],
@@ -2862,52 +2942,52 @@ const storeData = {
     ['ستيم اماراتي 100 درهم','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AE)'}],
     ['ستيم اماراتي 200 درهم','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AE)'}],
     ['ستيم اماراتي 400 درهم','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AE)'}] ] },
-  st_kw: { title:'🎮 Steam Wallet (KW)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_kw: { title:'Steam Wallet (KW)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['ستيم كويتي 5 دينار','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (KW)'}],
     ['ستيم كويتي 10 دينار','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (KW)'}],
     ['ستيم كويتي 15 دينار','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (KW)'}],
     ['ستيم كويتي 20 دينار','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (KW)'}],
     ['ستيم كويتي 30 دينار','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (KW)'}] ] },
-  st_om: { title:'🎮 Steam Wallet (OM)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_om: { title:'Steam Wallet (OM)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['ستيم عماني $10','🎮',{img:'c_steam',na:true}],
     ['ستيم عماني $20','🎮',{img:'c_steam',na:true}] ] },
-  st_qa: { title:'🎮 Steam Wallet (QA)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_qa: { title:'Steam Wallet (QA)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['QAR 20','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (QA)'}],
     ['QAR 50','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (QA)'}],
     ['QAR 100','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (QA)'}],
     ['QAR 200','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (QA)'}],
     ['QAR 400','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (QA)'}] ] },
-  st_tr: { title:'🎮 Steam Wallet (TR)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_tr: { title:'Steam Wallet (TR)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['STEAM TR 5 USD','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (TR)'}],
     ['STEAM TR 10 USD','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (TR)'}],
     ['STEAM TR 20 USD','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (TR)'}],
     ['STEAM TR 50 USD','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (TR)'}],
     ['STEAM TR 100 USD','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (TR)'}] ] },
-  st_ar: { title:'🎮 Steam Wallet (AR)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_ar: { title:'Steam Wallet (AR)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['Steam Wallet (AR) 5$','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AR)'}],
     ['Steam Wallet (AR) 10$','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AR)'}],
     ['Steam Wallet (AR) 20$','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AR)'}],
     ['Steam Wallet (AR) 50$','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AR)'}],
     ['Steam Wallet (AR) 100$','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (AR)'}] ] },
-  st_bh: { title:'🎮 Steam Wallet (BH)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_bh: { title:'Steam Wallet (BH)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['Steam Wallet (BH) 10$','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (BH)'}],
     ['Steam Wallet (BH) 20$','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (BH)'}] ] },
-  st_br: { title:'🎮 Steam Wallet (BR)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_br: { title:'Steam Wallet (BR)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['Steam Wallet (BR) 55 BRL','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (BR)'}],
     ['Steam Wallet (BR) 110 BRL','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (BR)'}],
     ['Steam Wallet (BR) 275 BRL','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (BR)'}] ] },
-  st_cl: { title:'🎮 Steam Wallet (CL)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
+  st_cl: { title:'Steam Wallet (CL)', back:['#/category/cards_steam','→ بطاقات ستيم'], products:[
     ['Steam Wallet (CL) 4900 CLP','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (CL)'}],
     ['Steam Wallet (CL) 9800 CLP','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (CL)'}],
     ['Steam Wallet (CL) 19600 CLP','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (CL)'}],
     ['Steam Wallet (CL) 29400 CLP','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (CL)'}],
     ['Steam Wallet (CL) 49000 CLP','🎮',{img:'c_steam',plain:true,noteText:'Steam Wallet (CL)'}] ] },
-  cards_ps: { title:'🎮 بطاقات بلايستيشن', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[] },
-  cards_razer: { title:'🐍 بطاقات ريزر غولد', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
+  cards_ps: { title:'بطاقات بلايستيشن', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[] },
+  cards_razer: { title:'بطاقات ريزر غولد', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
     ['RAZER عالمي','🐍',{img:'c_razer',go:'rz_gl'}],
     ['RAZER اميركي','🐍',{img:'c_razer',go:'rz_us'}],
     ['RAZER تركي','🐍',{img:'c_razer',go:'rz_tr'}] ] },
-  rz_gl: { title:'🐍 RAZER عالمي', back:['#/category/cards_razer','→ بطاقات ريزر غولد'], products:[
+  rz_gl: { title:'RAZER عالمي', back:['#/category/cards_razer','→ بطاقات ريزر غولد'], products:[
     ['RAZER عالمي 1$','🐍',{img:'c_razer',plain:true,noteText:'RAZER عالمي'}],
     ['RAZER عالمي 2$','🐍',{img:'c_razer',plain:true,noteText:'RAZER عالمي'}],
     ['RAZER عالمي 5$','🐍',{img:'c_razer',plain:true,noteText:'RAZER عالمي'}],
@@ -2915,13 +2995,13 @@ const storeData = {
     ['RAZER عالمي 20$','🐍',{img:'c_razer',plain:true,noteText:'RAZER عالمي'}],
     ['RAZER عالمي 50$','🐍',{img:'c_razer',plain:true,noteText:'RAZER عالمي'}],
     ['RAZER عالمي 100$','🐍',{img:'c_razer',plain:true,noteText:'RAZER عالمي'}] ] },
-  rz_us: { title:'🐍 RAZER اميركي', back:['#/category/cards_razer','→ بطاقات ريزر غولد'], products:[
+  rz_us: { title:'RAZER اميركي', back:['#/category/cards_razer','→ بطاقات ريزر غولد'], products:[
     ['RAZER اميركي 5$','🐍',{img:'c_razer',plain:true,noteText:'RAZER اميركي'}],
     ['RAZER اميركي 10$','🐍',{img:'c_razer',plain:true,noteText:'RAZER اميركي'}],
     ['RAZER اميركي 20$','🐍',{img:'c_razer',plain:true,noteText:'RAZER اميركي'}],
     ['RAZER اميركي 50$','🐍',{img:'c_razer',plain:true,noteText:'RAZER اميركي'}],
     ['RAZER اميركي 100$','🐍',{img:'c_razer',plain:true,noteText:'RAZER اميركي'}] ] },
-  rz_tr: { title:'🐍 RAZER تركي', back:['#/category/cards_razer','→ بطاقات ريزر غولد'], products:[
+  rz_tr: { title:'RAZER تركي', back:['#/category/cards_razer','→ بطاقات ريزر غولد'], products:[
     ['RAZER تركي 5TL','🐍',{img:'c_razer',plain:true,noteText:'RAZER تركي'}],
     ['RAZER تركي 10TL','🐍',{img:'c_razer',plain:true,noteText:'RAZER تركي'}],
     ['RAZER تركي 15TL','🐍',{img:'c_razer',plain:true,noteText:'RAZER تركي'}],
@@ -2931,14 +3011,14 @@ const storeData = {
     ['RAZER تركي 250TL','🐍',{img:'c_razer',plain:true,noteText:'RAZER تركي'}],
     ['RAZER تركي 500TL','🐍',{img:'c_razer',plain:true,noteText:'RAZER تركي'}],
     ['RAZER تركي 1000TL','🐍',{img:'c_razer',plain:true,noteText:'RAZER تركي'}] ] },
-  cards_amazon: { title:'📦 امازون', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
+  cards_amazon: { title:'امازون', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
     ['امازون امريكى - 5 دولار','📦',{img:'c_amazon',na:true}] ] },
-  cards_shein: { title:'🛍️ بطاقات شي ان', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
+  cards_shein: { title:'بطاقات شي ان', back:['#/category/cards','→ بطاقات الشحن الرقمية'], products:[
     ['بطاقة هدايا شي إن 100 ريال سعودي','🛍️',{img:'c_shein',na:true}],
     ['بطاقة هدايا شي إن 200 ريال سعودي','🛍️',{img:'c_shein',na:true}],
     ['بطاقة هدايا شي إن 300 ريال سعودي','🛍️',{img:'c_shein',na:true}],
     ['بطاقة هدايا شي إن 500 ريال سعودي','🛍️',{img:'c_shein',na:true}] ] },
-  num_wa: { title:'💬 واتساب رقم فوري', back:['#/category/numbers','→ الأرقام الوهمية والتفعيل'], products:[
+  num_wa: { title:'واتساب رقم فوري', back:['#/category/numbers','→ الأرقام الوهمية والتفعيل'], products:[
     ['whatsapp إندوسيا +62','💬',{img:'n_wa',plain:true,note:'wanum'}],
     ['whatsapp فيتنام +84','💬',{img:'n_wa',na:true}],
     ['whatsapp الفلبين +63','💬',{img:'n_wa',plain:true,note:'wanum'}],
@@ -2957,18 +3037,18 @@ const storeData = {
     ['whatsapp لاوس +856','💬',{img:'n_wa',na:true}],
     ['whatsapp السويد +46','💬',{img:'n_wa',plain:true,note:'wanum'}],
     ['whatsapp المانيا +49','💬',{img:'n_wa',plain:true,note:'wanum'}] ] },
-  num_tg: { title:'✈️ رقم تلغرام', back:['#/category/numbers','→ الأرقام الوهمية والتفعيل'], products:[
+  num_tg: { title:'رقم تلغرام', back:['#/category/numbers','→ الأرقام الوهمية والتفعيل'], products:[
     ['تلجرام المملكة المتحدة +44','✈️',{img:'v_tg',na:true}],
     ['تلجرام اندنوسيا +62','✈️',{img:'v_tg',na:true}] ] },
-  des_canva: { title:'👑 Canva pro', back:['#/category/design','→ برامج التصميم'], products:[
+  des_canva: { title:'Canva pro', back:['#/category/design','→ برامج التصميم'], products:[
     ['تفعيل شهر Canva pro','👑',{img:'d_canva',mail:true,mailLabel:'الايميل',note:'canva'}],
     ['تفعيل 3 اشهر Canva pro','👑',{img:'d_canva',na:true}],
     ['تفعيل 6 اشهر Canva pro','👑',{img:'d_canva',mail:true,mailLabel:'الايميل',note:'canva'}],
     ['تفعيل 12 اشهر Canva pro','👑',{img:'d_canva',mail:true,mailLabel:'الايميل',note:'canva'}],
     ['تفعيل 2 سنة Canva pro','👑',{img:'d_canva',mail:true,mailLabel:'الايميل',note:'canva'}] ] },
-  des_capcut: { title:'🎬 CapCut Pro', back:['#/category/design','→ برامج التصميم'], products:[] },
-  des_picsart: { title:'🎨 Picsart Pro', back:['#/category/design','→ برامج التصميم'], products:[] },
-  des_anghami: { title:'🎵 Anghami Plus', back:['#/category/design','→ برامج التصميم'], products:[] }
+  des_capcut: { title:'CapCut Pro', back:['#/category/design','→ برامج التصميم'], products:[] },
+  des_picsart: { title:'Picsart Pro', back:['#/category/design','→ برامج التصميم'], products:[] },
+  des_anghami: { title:'Anghami Plus', back:['#/category/design','→ برامج التصميم'], products:[] }
 };
 
 // ── نافذة طلب الباقة ──
@@ -6041,7 +6121,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
   const bars = (rows, fmtv) => { const mx = Math.max(1, ...rows.map(r => r[1])); return '<div class="st-bars">' + rows.map(([l, v, extra]) => `<div class="st-row"><span class="l">${esc(l)}</span><span class="b"><i style="width:${Math.max(3, Math.round(v / mx * 100))}%"></i></span><span class="v">${fmtv ? fmtv(v) : fmtN(v)}${extra ? '<small>' + esc(extra) + '</small>' : ''}</span></div>`).join('') + '</div>'; };
   const card = (t, body) => `<div class="auth-box wallet-box st-card"><h3>${t}</h3>${body || '<div class="hist-empty">لا يوجد بيانات</div>'}</div>`;
   A.renderStats = async function () {
-    setT('stats', '📊 الإحصائيات');
+    setT('stats', 'الإحصائيات');
     const body = $('body-stats'), mName = AR_MONTHS[SS.m] + ' ' + SS.y;
     body.innerHTML = hdrBtns() + `<div class="st-month"><button type="button" data-mv="-1">›</button><b>${mName}</b><button type="button" data-mv="1">‹</button><button type="button" class="st-ref" data-mv="0">🔄 تحديث</button></div><div id="stBody"><div class="hist-empty">جاري التحميل...</div></div>`;
     let D; try { D = await loadStats(); } catch (e) { $('stBody').innerHTML = '<div class="msg-box err" style="display:block">' + esc(errMsg(e)) + '</div>'; return; }
@@ -6053,22 +6133,22 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     // أكثر الخدمات طلباً
     const bySvc = {}; C.okO.forEach(x => { const k = x.name || '؟'; (bySvc[k] = bySvc[k] || { n: 0, r: 0 }); bySvc[k].n++; bySvc[k].r += +x.amount || 0; });
     const topS = Object.entries(bySvc).sort((a, b) => b[1].n - a[1].n).slice(0, 10);
-    h += card('🔥 أكتر الخدمات طلباً', topS.length ? bars(topS.map(([k, v]) => [k, v.n, fmtC(v.r)])) : '');
+    h += card('أكتر الخدمات طلباً', topS.length ? bars(topS.map(([k, v]) => [k, v.n, fmtC(v.r)])) : '');
     const topR = Object.entries(bySvc).sort((a, b) => b[1].r - a[1].r).slice(0, 5);
-    h += card('💰 أكتر الخدمات دخلاً', topR.length ? bars(topR.map(([k, v]) => [k, v.r, '']), fmtC) : '');
+    h += card('أكتر الخدمات دخلاً', topR.length ? bars(topR.map(([k, v]) => [k, v.r, '']), fmtC) : '');
     // أفضل الزباين
     const byU = {}; C.okO.forEach(x => { const k = x.uid; (byU[k] = byU[k] || { n: 0, r: 0, name: x.userName, email: x.email }); byU[k].n++; byU[k].r += +x.amount || 0; });
     const topU = Object.values(byU).sort((a, b) => b.r - a.r).slice(0, 5);
-    h += card('🏆 أفضل 5 زباين إنفاقاً', topU.length ? topU.map((u, i) => `<div class="st-u"><b>${i + 1}. ${esc(u.name || 'زبون')}</b><small dir="ltr">${esc(u.email || '')}</small><span>${fmtC(u.r)} · ${u.n} طلب</span></div>`).join('') : '');
+    h += card('أفضل 5 زباين إنفاقاً', topU.length ? topU.map((u, i) => `<div class="st-u"><b>${i + 1}. ${esc(u.name || 'زبون')}</b><small dir="ltr">${esc(u.email || '')}</small><span>${fmtC(u.r)} · ${u.n} طلب</span></div>`).join('') : '');
     // القمع
     const newIds = new Set(C.newU.map(u => u.id)), dep = new Set(D.deposits.filter(x => x.status === 'approved' && newIds.has(x.uid)).map(x => x.uid)), buy = new Set(D.orders.filter(x => x.status !== 'rejected' && newIds.has(x.uid)).map(x => x.uid));
-    h += card('🔻 القمع (زباين هالشهر)', bars([['سجّلوا', newIds.size, ''], ['شحنوا', dep.size, newIds.size ? Math.round(dep.size / newIds.size * 100) + '%' : ''], ['اشتروا', buy.size, newIds.size ? Math.round(buy.size / newIds.size * 100) + '%' : '']]));
+    h += card('القمع (زباين هالشهر)', bars([['سجّلوا', newIds.size, ''], ['شحنوا', dep.size, newIds.size ? Math.round(dep.size / newIds.size * 100) + '%' : ''], ['اشتروا', buy.size, newIds.size ? Math.round(buy.size / newIds.size * 100) + '%' : '']]));
     // النايمين
     const seenU = new Set([...D.orders.map(x => x.uid), ...D.deposits.map(x => x.uid), ...D.activity.map(x => x.uid)]);
     const old14 = Date.now() - 14 * 86400e3;
     const dorm = D.users.filter(u => ms(u.createdAt) && ms(u.createdAt) < old14 && !seenU.has(u.id));
     const noDep = D.users.filter(u => inR(ms(u.createdAt), D.cur0, D.cur1) && !dep.has(u.id));
-    h += card('😴 الزباين النايمين', `<div class="st-u"><b>سجّلوا هالشهر ولسا ما شحنوا</b><span>${noDep.length}</span></div><div class="st-u"><b>نايمين (بلا نشاط خلال شهرين)</b><span>${dorm.length}</span></div>` + dorm.slice(0, 8).map(u => `<div class="st-u sm"><b>${esc(u.name || 'زبون')}</b><small dir="ltr">${esc(u.email || '')}</small></div>`).join(''));
+    h += card('الزباين النايمين', `<div class="st-u"><b>سجّلوا هالشهر ولسا ما شحنوا</b><span>${noDep.length}</span></div><div class="st-u"><b>نايمين (بلا نشاط خلال شهرين)</b><span>${dorm.length}</span></div>` + dorm.slice(0, 8).map(u => `<div class="st-u sm"><b>${esc(u.name || 'زبون')}</b><small dir="ltr">${esc(u.email || '')}</small></div>`).join(''));
     // أوقات الذروة
     const hrs = new Array(24).fill(0), days = new Array(7).fill(0);
     C.o.forEach(x => { const t = new Date(ms(x.createdAt)); hrs[A.dmH(t)]++; days[t.getDay()]++; });
@@ -6078,19 +6158,19 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     // الطلب على الخدمات غير المتوفرة
     const rs = {}; D.restock.forEach(r => { rs[r.name] = (rs[r.name] || 0) + 1; });
     const topRs = Object.entries(rs).sort((a, b) => b[1] - a[1]).slice(0, 10);
-    h += card('🔔 طلب على خدمات غير متوفرة', topRs.length ? bars(topRs.map(([k, v]) => [k, v, ''])) : '');
+    h += card('طلب على خدمات غير متوفرة', topRs.length ? bars(topRs.map(([k, v]) => [k, v, ''])) : '');
     // الرفض
     const rejD = C.dp.filter(x => x.status === 'rejected'), rejO = C.o.filter(x => x.status === 'rejected'), reasons = {};
     [...rejD, ...rejO].forEach(x => { if (x.rejectReason) x.rejectReason.split('، ').forEach(r => { reasons[r] = (reasons[r] || 0) + 1; }); });
     const topRe = Object.entries(reasons).sort((a, b) => b[1] - a[1]).slice(0, 5);
-    h += card('🚫 نسب الرفض', `<div class="st-u"><b>الإيداعات المرفوضة</b><span>${rejD.length} / ${C.dp.length} (${C.dp.length ? Math.round(rejD.length / C.dp.length * 100) : 0}%)</span></div><div class="st-u"><b>الطلبات المرفوضة</b><span>${rejO.length} / ${C.o.length} (${C.o.length ? Math.round(rejO.length / C.o.length * 100) : 0}%)</span></div>` + (topRe.length ? '<p class="st-note">أكتر الأسباب:</p>' + bars(topRe.map(([k, v]) => [k, v, ''])) : ''));
+    h += card('نسب الرفض', `<div class="st-u"><b>الإيداعات المرفوضة</b><span>${rejD.length} / ${C.dp.length} (${C.dp.length ? Math.round(rejD.length / C.dp.length * 100) : 0}%)</span></div><div class="st-u"><b>الطلبات المرفوضة</b><span>${rejO.length} / ${C.o.length} (${C.o.length ? Math.round(rejO.length / C.o.length * 100) : 0}%)</span></div>` + (topRe.length ? '<p class="st-note">أكتر الأسباب:</p>' + bars(topRe.map(([k, v]) => [k, v, ''])) : ''));
     // الأرصدة
     const bal = D.users.reduce((s, u) => s + (+u.balance || 0), 0), withBal = D.users.filter(u => +u.balance > 0).length;
-    h += card('👛 الأرصدة عند الزباين', `<div class="st-u"><b>مجموع الأرصدة</b><span>${fmtC(bal)}</span></div><div class="st-u"><b>زباين عندهم رصيد</b><span>${withBal} من ${D.users.length}</span></div>`);
+    h += card('الأرصدة عند الزباين', `<div class="st-u"><b>مجموع الأرصدة</b><span>${fmtC(bal)}</span></div><div class="st-u"><b>زباين عندهم رصيد</b><span>${withBal} من ${D.users.length}</span></div>`);
     // التقييم
     const dist = [0, 0, 0, 0, 0]; D.ratings.forEach(r => { if (r.stars >= 1 && r.stars <= 5) dist[r.stars - 1]++; });
     const tot = dist.reduce((a, b) => a + b, 0), avg = tot ? (dist.reduce((s, v, i) => s + v * (i + 1), 0) / tot).toFixed(1) : '—';
-    h += card('⭐ تقييمات الزباين', tot ? `<div class="st-u"><b>المتوسط</b><span>${avg} / 5 (${tot} تقييم)</span></div>` + bars([5, 4, 3, 2, 1].map(n => ['★'.repeat(n), dist[n - 1], ''])) : '');
+    h += card('تقييمات الزباين', tot ? `<div class="st-u"><b>المتوسط</b><span>${avg} / 5 (${tot} تقييم)</span></div>` + bars([5, 4, 3, 2, 1].map(n => ['★'.repeat(n), dist[n - 1], ''])) : '');
     $('stBody').innerHTML = h;
   };
   $('body-stats').addEventListener('click', e => {
@@ -6103,13 +6183,13 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
   const lvChip = (l) => `<span class="lv-chip lv-${l || 'silver'}">${(A.LV[l] || A.LV.silver).ic} ${(A.LV[l] || A.LV.silver).n}</span>`;
   A.renderLevels = async function () {
     if (currentPage !== 'levels' || !guard()) return;
-    setT('levels', '🏅 المستويات والزباين');
+    setT('levels', 'المستويات والزباين');
     const g = A.lvCfg('gold'), p = A.lvCfg('platinum');
     const row = (k, c, lbl) => `<div class="lv-set"><b>${lbl}</b><label>طلبات/شهر<input type="number" min="0" data-k="${k}" data-f="orders" value="${c.orders || 0}"></label><label>مبلغ $/شهر<input type="number" min="0" data-k="${k}" data-f="spend" value="${c.spend || 0}"></label><label>خصم %<input type="number" min="0" max="90" step="0.5" data-k="${k}" data-f="disc" value="${c.disc || 0}"></label></div>`;
     const body = $('body-levels'); const keep = $('lvSearch') ? $('lvSearch').value : '';
-    body.innerHTML = hdrBtns() + `<div class="auth-box wallet-box st-card"><h3>⚙️ حدود الترقية والخصومات</h3><p class="st-note">الترقية بتوصلك كترشيح وبتقرر إنت. الخصم بيطبّق على كل الخدمات إلا المستثناة. العدّ بالشهر الميلادي.</p>${row('gold', g, '🥇 Gold')}${row('platinum', p, '💎 Platinum')}<button type="button" class="pg-btn" id="lvSave">حفظ الإعدادات</button></div>
-      <div class="auth-box wallet-box st-card"><h3>🔎 ابحث عن زبون</h3><div class="order-field"><input id="lvSearch" type="search" placeholder="ابحث بإيميل الزبون أو اسمه" autocomplete="off" value="${esc(keep)}"></div><div id="lvRes"></div></div>
-      <div id="lvCard"></div><div class="auth-box wallet-box st-card"><h3>📈 مرشّحون للترقية هالشهر</h3><div id="lvCand"><div class="hist-empty">جاري الحساب...</div></div></div>`;
+    body.innerHTML = hdrBtns() + `<div class="auth-box wallet-box st-card"><h3>حدود الترقية والخصومات</h3><p class="st-note">الترقية بتوصلك كترشيح وبتقرر إنت. الخصم بيطبّق على كل الخدمات إلا المستثناة. العدّ بالشهر الميلادي.</p>${row('gold', g, '🥇 Gold')}${row('platinum', p, '💎 Platinum')}<button type="button" class="pg-btn" id="lvSave">حفظ الإعدادات</button></div>
+      <div class="auth-box wallet-box st-card"><h3>ابحث عن زبون</h3><div class="order-field"><input id="lvSearch" type="search" placeholder="ابحث بإيميل الزبون أو اسمه" autocomplete="off" value="${esc(keep)}"></div><div id="lvRes"></div></div>
+      <div id="lvCard"></div><div class="auth-box wallet-box st-card"><h3>مرشّحون للترقية هالشهر</h3><div id="lvCand"><div class="hist-empty">جاري الحساب...</div></div></div>`;
     A.loadCandidates();
     if (LS.sel) A.openCustomer(LS.sel);
   };
@@ -6153,13 +6233,13 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       const mo = ords.filter(o => o.status === 'approved' && ms(o.createdAt) >= t0), cnt = mo.length, spend = Math.round(mo.reduce((s, o) => s + (+o.usd || 0), 0) * 100) / 100;
       const depSum = deps.filter(d => d.status === 'approved').reduce((s, d) => s + (+d.amount || 0), 0);
       const lv = A.LV[u.level] ? u.level : 'silver';
-      box.innerHTML = `<div class="auth-box wallet-box st-card lv-card"><h3>👤 ${esc(u.name || 'زبون')} ${lvChip(lv)}</h3><small dir="ltr" class="st-note">${esc(u.email || '')}</small>
+      box.innerHTML = `<div class="auth-box wallet-box st-card lv-card"><h3>${esc(u.name || 'زبون')} ${lvChip(lv)}</h3><small dir="ltr" class="st-note">${esc(u.email || '')}</small>
         <div class="st-grid sm"><div class="st-kpi"><span>طلباته المنفّذة هالشهر</span><b>${cnt}</b></div><div class="st-kpi"><span>مبلغ هالشهر</span><b>$${spend}</b></div><div class="st-kpi"><span>رصيده</span><b>${fmtC(u.balance || 0)}</b></div><div class="st-kpi"><span>مجموع شحنه</span><b>${fmtC(depSum)}</b></div></div>
         <div class="lv-btns">${['silver', 'gold', 'platinum'].map(k => `<button type="button" class="form-btn ${k === lv ? 'ok' : ''}" data-up="${k}" data-uid="${esc(uid)}" ${k === lv ? 'disabled' : ''}>${A.LV[k].ic} ${A.LV[k].n}</button>`).join('')}</div>
         <div class="lv-disc"><label>خصم خاص بهالزبون % (بيغلب خصم المستوى)</label><div class="order-field"><input id="lvDisc" type="number" min="0" max="90" step="0.5" placeholder="بدون خصم خاص" value="${typeof u.disc === 'number' ? u.disc : ''}"></div><div class="admin-btns"><button type="button" class="form-btn ok" id="lvDiscSave">حفظ الخصم</button><button type="button" class="form-btn no" id="lvDiscRm">إلغاء الخصم الخاص</button></div></div>
-        <h4 class="st-h">📜 سجل الترقيات</h4>${hist.length ? hist.sort((a, b) => ms(b.at) - ms(a.at)).map(h => `<div class="st-u sm"><b>${esc((A.LV[h.from] || A.LV.silver).n)} ← ${esc((A.LV[h.to] || A.LV.silver).n)}</b><small>${new Date(ms(h.at)).toLocaleString('ar')} · ${esc(h.by || '')}</small></div>`).join('') : '<div class="hist-empty">لا يوجد ترقيات</div>'}
-        <h4 class="st-h">🛒 آخر طلباته</h4>${ords.sort((a, b) => ms(b.createdAt) - ms(a.createdAt)).slice(0, 10).map(o => `<div class="st-u sm"><b>${esc(o.name)}</b><small>${new Date(ms(o.createdAt)).toLocaleString('ar')} · ${esc((ORD_ST[o.status] || ORD_ST.pending)[0])}</small><span>${fmtC(o.amount)}</span></div>`).join('') || '<div class="hist-empty">لا يوجد طلبات</div>'}
-        <h4 class="st-h">💳 آخر شحناته</h4>${deps.sort((a, b) => ms(b.createdAt) - ms(a.createdAt)).slice(0, 8).map(d => `<div class="st-u sm"><b>${d.method === 'sham' ? 'شام كاش' : 'سيريتل كاش'}</b><small>${new Date(ms(d.createdAt)).toLocaleString('ar')} · ${esc((ST[d.status] || ST.pending)[0])}</small><span>${fmtC(d.amount)}</span></div>`).join('') || '<div class="hist-empty">لا يوجد شحن</div>'}</div>`;
+        <h4 class="st-h">سجل الترقيات</h4>${hist.length ? hist.sort((a, b) => ms(b.at) - ms(a.at)).map(h => `<div class="st-u sm"><b>${esc((A.LV[h.from] || A.LV.silver).n)} ← ${esc((A.LV[h.to] || A.LV.silver).n)}</b><small>${new Date(ms(h.at)).toLocaleString('ar')} · ${esc(h.by || '')}</small></div>`).join('') : '<div class="hist-empty">لا يوجد ترقيات</div>'}
+        <h4 class="st-h">آخر طلباته</h4>${ords.sort((a, b) => ms(b.createdAt) - ms(a.createdAt)).slice(0, 10).map(o => `<div class="st-u sm"><b>${esc(o.name)}</b><small>${new Date(ms(o.createdAt)).toLocaleString('ar')} · ${esc((ORD_ST[o.status] || ORD_ST.pending)[0])}</small><span>${fmtC(o.amount)}</span></div>`).join('') || '<div class="hist-empty">لا يوجد طلبات</div>'}
+        <h4 class="st-h">آخر شحناته</h4>${deps.sort((a, b) => ms(b.createdAt) - ms(a.createdAt)).slice(0, 8).map(d => `<div class="st-u sm"><b>${d.method === 'sham' ? 'شام كاش' : 'سيريتل كاش'}</b><small>${new Date(ms(d.createdAt)).toLocaleString('ar')} · ${esc((ST[d.status] || ST.pending)[0])}</small><span>${fmtC(d.amount)}</span></div>`).join('') || '<div class="hist-empty">لا يوجد شحن</div>'}</div>`;
     } catch (err) { box.innerHTML = '<div class="msg-box err" style="display:block">' + esc(errMsg(err)) + '</div>'; }
   };
   A.setLevel = async function (uid, to) {
@@ -6200,18 +6280,17 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
   A.stopAdminPages = function () { ['_unsubApiOrders', '_unsubSmap'].forEach(k => { if (A[k]) { A[k](); A[k] = null; } }); };
   A.renderApi = function () {
     if (currentPage !== 'apilink' || !guard()) return;
-    setT('apilink', '🔗 الربط (API) — نوار ستور');
+    setT('apilink', 'الربط (API) — نوار ستور');
     const f = F(), body = $('body-apilink');
     if (!body.dataset.init) {
       body.dataset.init = '1';
-      body.innerHTML = hdrBtns() + `<div class="auth-box wallet-box st-card"><h3>🔌 حالة الاتصال بالمورّد</h3><div id="apStat" class="st-note">—</div>
-        <div class="admin-btns"><button type="button" class="form-btn ok" id="apTest">🧪 تجربة الاتصال</button><button type="button" class="form-btn" id="apCat">📥 تحميل كتالوج المورّد</button></div>
-        <div class="lv-set"><label>عملة المورّد<select id="apCur"><option value="USD">دولار $</option><option value="SYP">ليرة ل.س</option></select></label><label>تنبيه إذا رصيدك أقل من<input type="number" id="apLow" min="0" placeholder="0 = بدون"></label></div>
-        <button type="button" class="pg-btn" id="apSaveCfg">حفظ إعدادات المورّد</button></div>
-        <div class="auth-box wallet-box st-card"><h3>🧩 الخدمات والمسار</h3><p class="st-note">المتوفرة والمربوطة بتروح للمورّد تلقائياً. غير المتوفرة (أو يلي مسارها تلغرام) بتوصلك على بوت تلغرام.</p>
+      body.innerHTML = hdrBtns() + `<div class="auth-box wallet-box st-card"><h3>حالة الاتصال بالمورّد</h3><div id="apStat" class="st-note">—</div>
+        <div class="mini-row"><button type="button" class="mb ok" id="apTest">تجربة الاتصال</button><button type="button" class="mb" id="apCat">تحميل الكتالوج</button></div>
+        <div class="mini-set"><label>عملة المورّد<select id="apCur"><option value="USD">دولار $</option><option value="SYP">ليرة ل.س</option></select></label><label>تنبيه إذا الرصيد أقل من<input type="number" id="apLow" min="0" placeholder="0 = بدون"></label><button type="button" class="mb pri" id="apSaveCfg">حفظ</button></div></div>
+        <div class="auth-box wallet-box st-card"><h3>آخر الطلبات المرسلة للمورّد</h3><div id="apLog" class="ap-log"><div class="hist-empty">جاري التحميل...</div></div></div>
+        <div class="auth-box wallet-box st-card"><h3>الخدمات والمسار</h3><p class="st-note">المتوفرة والمربوطة بتروح للمورّد تلقائياً. غير المتوفرة (أو يلي مسارها تلغرام) بتوصلك على بوت تلغرام.</p>
           <div class="order-field"><input id="apQ" type="search" placeholder="ابحث باسم الخدمة أو القسم" autocomplete="off"></div>
-          <div class="ord-chips" id="apChips"></div><div id="apList"></div></div>
-        <div class="auth-box wallet-box st-card"><h3>📡 آخر الطلبات المرسلة للمورّد</h3><div id="apLog"><div class="hist-empty">جاري التحميل...</div></div></div>`;
+          <div class="ord-chips" id="apChips"></div><div id="apList"></div></div>`;
     }
     if (!A._unsubSmap) A._unsubSmap = f.onSnapshot(f.doc(f.db, 'supplierMap', 'main'), s => { AP.smap = s.exists() ? s.data() : {}; const c = $('apCur'); if (c) { c.value = AP.smap.cur === 'SYP' ? 'SYP' : 'USD'; $('apLow').value = AP.smap.lowBal || ''; } drawApiList(); }, e => { toast(errMsg(e)); });
     if (!A._unsubApiOrders) A._unsubApiOrders = f.onSnapshot(f.query(f.collection(f.db, 'orders'), f.where('route', '==', 'api'), f.limit(60)), qs => {
@@ -6239,19 +6318,18 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       if (AP.f === 'api') return r === 'api' && !na; if (AP.f === 'tg') return r === 'tg' && !na; if (AP.f === 'na') return na; return true;
     });
     const cnt = { all: Object.keys(map).length };
-    $('apChips').innerHTML = [['all', 'الكل'], ['api', '🔗 API'], ['tg', '📩 تلغرام'], ['na', 'غير متوفر']].map(([k, l]) => `<button type="button" class="ord-chip${AP.f === k ? ' on' : ''}" data-f="${k}">${l}</button>`).join('') + '<button type="button" class="ord-chip" id="apRefresh">🔄 تحديث تكلفة الجملة</button>';
+    $('apChips').innerHTML = [['all', 'الكل'], ['api', 'API'], ['tg', 'تلغرام'], ['na', 'غير متوفر']].map(([k, l]) => `<button type="button" class="ord-chip fl${AP.f === k ? ' on' : ''}" data-f="${k}">${l}</button>`).join('') + '<button type="button" class="ord-chip fl" id="apRefresh">تحديث تكلفة الجملة</button>';
     box.innerHTML = keys.slice(0, AP.limit).map(k => {
       const p = map[k], na = A.isNa(p.cat, p.name, p.idx, p.ex), r = route(k), m = (AP.smap.map || {})[k] || {}, ov = over[k] || {};
       const sell = state.prices[k], cu = costUsd(m);
       const mg = (cu != null && sell > 0) ? Math.round((sell - cu) / sell * 100) : null;
-      return `<div class="ap-row" data-k="${esc(k)}"><div class="ap-h"><b>${esc(p.name)}</b><small>${esc(catTitle(p.cat))}${(A.svc.down || {})[k] ? ' · ⛔ موقوفة عند المورّد' : ''}</small></div>
-        <div class="ap-chips"><button type="button" data-act="na" class="chip ${na ? 'off' : 'on'}">${na ? '✖ غير متوفر' : '✔ متوفر'}</button>
-        <button type="button" data-act="route" data-r="api" class="chip ${r === 'api' ? 'on' : ''}">🔗 API</button><button type="button" data-act="route" data-r="tg" class="chip ${r === 'tg' ? 'on' : ''}">📩 تلغرام</button>
-        <button type="button" data-act="excl" class="chip ${ov.excl ? 'off' : ''}">${ov.excl ? '🚫 بلا خصم' : '🏷 يدخل بالخصم'}</button></div>
+      return `<div class="ap-row" data-k="${esc(k)}"><div class="ap-h"><b>${esc(p.name)}</b><small>${esc(catTitle(p.cat))}${(A.svc.down || {})[k] ? ' · موقوفة عند المورّد' : ''}</small></div>
+        <div class="ap-chips"><button type="button" data-act="na" class="chip ${na ? 'off' : 'on'}">${na ? 'غير متوفر' : 'متوفر'}</button>
+        <button type="button" data-act="route" data-r="api" class="chip ${r === 'api' ? 'on' : ''}">API</button><button type="button" data-act="route" data-r="tg" class="chip ${r === 'tg' ? 'on' : ''}">تلغرام</button>
+        <button type="button" data-act="excl" class="chip ${ov.excl ? 'off' : ''}">${ov.excl ? 'بلا خصم' : 'يدخل بالخصم'}</button></div>
         <div class="ap-sid">${m.sid ? '#' + esc(m.sid) + ' · ' + esc(m.pname || '') + (m.cost != null ? ' · تكلفة ' + esc(m.cost) : '') : 'غير مربوط بالمورّد'} <button type="button" data-act="pick" class="chip">اختيار من المورّد</button></div>
-        ${m.sid ? '<div class="ap-sid">مضاعف الكمية: <input class="ap-qm" data-act="qm" type="number" min="1" step="1" value="' + (+m.qm > 0 ? +m.qm : 1) + '"></div>' : ''}
-        ${m.sid ? '<div class="ap-sid">نسبة الربح %: <input class="ap-qm" style="width:84px" data-act="pct" type="text" inputmode="decimal" value="' + (m.pct != null ? esc(m.pct) : '') + '" placeholder="' + (AP.smap.profitPct != null ? esc(AP.smap.profitPct) : '') + '"> أو سعر المفرّق (ل.س): <input class="ap-qm" style="width:104px" data-act="tgt" type="text" inputmode="decimal" placeholder="مثال 140.620"></div>' + (cu != null ? '<div class="ap-sid">تكلفة الجملة: ' + r5(cu) + '$' + (sell > 0 ? ' · سعرك الحالي: ' + r5(sell) + '$' + (state.rate > 0 ? ' = ' + f3(sell * state.rate) + ' ل.س' : '') : '') + '</div>' : '') : ''}
-        ${mg != null ? '<div class="ap-mg ' + (mg < 0 ? 'neg' : '') + '">' + (mg < 0 ? '⚠️ بتبيع بخسارة: ' : 'هامش الربح: ') + mg + '%</div>' : ''}</div>`;
+        ${m.sid ? '<div class="ap-f3"><label>مضاعف الكمية<input class="ap-qm" data-act="qm" type="number" min="1" step="1" value="' + (+m.qm > 0 ? +m.qm : 1) + '"></label><label>نسبة الربح %<input class="ap-qm" data-act="pct" type="text" inputmode="decimal" value="' + (m.pct != null ? esc(m.pct) : '') + '" placeholder="' + (AP.smap.profitPct != null ? esc(AP.smap.profitPct) : '') + '"></label><label>سعر المفرّق ل.س<input class="ap-qm" data-act="tgt" type="text" inputmode="decimal" placeholder="140.620"></label></div>' + (cu != null ? '<div class="ap-sid">تكلفة الجملة: ' + r5(cu) + '$' + (sell > 0 ? ' · سعرك الحالي: ' + r5(sell) + '$' + (state.rate > 0 ? ' = ' + f3(sell * state.rate) + ' ل.س' : '') : '') + '</div>' : '') : ''}
+        ${mg != null ? '<div class="ap-mg ' + (mg < 0 ? 'neg' : '') + '">' + (mg < 0 ? 'بتبيع بخسارة: ' : 'هامش الربح: ') + mg + '%</div>' : ''}</div>`;
     }).join('') || '<div class="hist-empty">ما في نتائج</div>';
     if (keys.length > AP.limit) box.insertAdjacentHTML('beforeend', `<button type="button" class="pg-btn" id="apMore">عرض المزيد (${keys.length - AP.limit})</button>`);
   }
@@ -6327,8 +6405,8 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     if (e.target.id === 'apRefresh') { refreshCosts(e.target); return; }
     if (e.target.id === 'apTest') {
       const b = e.target; b.disabled = true; drawApiStat('⏳ جاري الاتصال...');
-      try { const j = await A.call('/api/test', {}); drawApiStat('✅ الاتصال شغّال — رصيدك: <b>' + esc(j.balance) + '</b>' + (j.email ? ' (' + esc(j.email) + ')' : '')); }
-      catch (err) { drawApiStat('❌ ' + esc(errMsg(err))); }
+      try { const j = await A.call('/api/test', {}); drawApiStat('الاتصال شغّال — رصيدك: <b>' + esc(j.balance) + '</b>' + (j.email ? ' (' + esc(j.email) + ')' : '')); }
+      catch (err) { drawApiStat('' + esc(errMsg(err))); }
       finally { b.disabled = false; } return;
     }
     if (e.target.id === 'apCat') { const b = e.target; b.disabled = true; try { AP.catalog = null; const c = await loadCatalog(); toast('تم تحميل ' + c.length + ' منتج من المورّد'); } catch (err) { toast(errMsg(err)); } finally { b.disabled = false; } return; }
@@ -6348,15 +6426,15 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
   // ═════ 4) العمليات والأمان ═════
   A.renderOps = async function () {
     if (currentPage !== 'ops' || !guard()) return;
-    setT('ops', '🛡️ العمليات والأمان');
+    setT('ops', 'العمليات والأمان');
     const o = A.ops || {}, body = $('body-ops');
-    body.innerHTML = hdrBtns() + `<div class="auth-box wallet-box st-card"><h3>🚨 مفتاح الإيقاف الطارئ</h3><p class="st-note">بيوقف الشراء فوراً بدون ما تعدّل كود. استعمله إذا صار خلل أو شكّيت بتسريب التوكن.</p>
+    body.innerHTML = hdrBtns() + `<div class="auth-box wallet-box st-card"><h3>مفتاح الإيقاف الطارئ</h3><p class="st-note">بيوقف الشراء فوراً بدون ما تعدّل كود. استعمله إذا صار خلل أو شكّيت بتسريب التوكن.</p>
       <label class="ops-sw"><input type="checkbox" id="opPur" ${o.purchasesOff ? 'checked' : ''}><span>⛔ إيقاف كل الشراء</span></label>
       <label class="ops-sw"><input type="checkbox" id="opApi" ${o.apiOff ? 'checked' : ''}><span>🔌 إيقاف الربط مع المورّد (الطلبات كلها لتلغرام)</span></label>
       <div class="order-field"><textarea id="opMsg" rows="2" maxlength="200" placeholder="رسالة تظهر للزبائن (اختياري)">${esc(o.message || '')}</textarea></div>
       <button type="button" class="pg-btn" id="opSave">حفظ</button></div>
-      <div class="auth-box wallet-box st-card"><h3>🤝 الإحالات</h3><div id="opRefs"><div class="hist-empty">جاري التحميل...</div></div></div>
-      <div class="auth-box wallet-box st-card"><h3>📜 سجل عمليات الأدمن</h3><div id="opLog"><div class="hist-empty">جاري التحميل...</div></div></div>`;
+      <div class="auth-box wallet-box st-card"><h3>الإحالات</h3><div id="opRefs"><div class="hist-empty">جاري التحميل...</div></div></div>
+      <div class="auth-box wallet-box st-card"><h3>سجل عمليات الأدمن</h3><div id="opLog"><div class="hist-empty">جاري التحميل...</div></div></div>`;
     A.loadRefs(); A.loadLog();
   };
   A.loadRefs = async function () {
@@ -6565,9 +6643,8 @@ ARMEX.admOrdTag = (o) => {
   const card = document.createElement('div'); card.className = 'auth-box wallet-box st-card'; card.id = 'pxCard';
   card.innerHTML = `<h3>التسعير الآلي من المورّد</h3>
     <p class="st-note">السعر = تكلفة المورّد × (1 + نسبة الربح). يطبّق فقط على الخدمات المربوطة بالمورّد، وبتشوف المعاينة قبل أي تغيير.</p>
-    <div class="lv-set"><label>نسبة الربح %<input type="number" id="pxPct" min="0" max="500" step="0.5" placeholder="مثال: 10"></label></div>
-    <div class="admin-btns"><button type="button" class="form-btn" id="pxSavePct">حفظ النسبة</button><button type="button" class="form-btn ok" id="pxRestore">استرداد الأسعار من المورّد</button></div>
-    <div class="admin-btns"><button type="button" class="form-btn" id="pxUndo" hidden>تراجع عن آخر عملية</button><button type="button" class="form-btn" id="pxWipe" style="border-color:#ff4444;color:#ff6b6b">حذف كل الأسعار</button></div>
+    <div class="mini-set"><label>نسبة الربح %<input type="number" id="pxPct" min="0" max="500" step="0.5" placeholder="10"></label><button type="button" class="mb pri" id="pxSavePct">حفظ</button></div>
+    <div class="admin-btns mini-row"><button type="button" class="mb ok" id="pxRestore">استرداد الأسعار من المورّد</button><button type="button" class="mb" id="pxUndo" hidden>تراجع</button><button type="button" class="mb no" id="pxWipe">حذف كل الأسعار</button></div>
     <div class="st-note" id="pxNote"></div>`;
   anchor.before(card);
   const st = document.createElement('style');

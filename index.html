@@ -1435,6 +1435,36 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 .pr-box .pr-inline .pg-btn,.pr-box .pr-inline .pg-btn.pr-link{width:auto;flex:1 1 auto;min-width:0;margin:0;padding:0 12px;height:36px;font-size:12.5px;border-radius:12px;display:block}
 #pxCard{margin-bottom:10px}
 
+
+/* ═════ v9: تلغرام + ولاء + صيانة ═════ */
+.dw-tg{display:block;width:calc(100% - 32px);margin:0 16px 10px;padding:9px 12px;border-radius:12px;border:1px solid rgba(138,43,226,.55);background:rgba(138,43,226,.14);color:#fff;font:800 13px 'Cairo',sans-serif;cursor:pointer}
+.dw-tg[hidden]{display:none!important}
+.light-mode .dw-tg{color:#4a148c;background:rgba(138,43,226,.1)}
+.dw-gift{margin:0 16px 12px;padding:10px 12px;border-radius:12px;border:1px dashed rgba(255,215,0,.7);background:rgba(255,215,0,.09);display:flex;flex-direction:column;gap:4px;font:600 12.5px 'Cairo',sans-serif}
+.dw-gift[hidden]{display:none!important}
+.dw-gift b{color:#FFD700;font-size:13.5px}.light-mode .dw-gift b{color:#8a6200}
+.dw-gift code{font:800 13px monospace;letter-spacing:.5px}
+.dw-gift button{align-self:flex-start;margin-top:2px;padding:4px 12px;border-radius:9px;border:none;background:#FFD700;color:#2a1a00;font:800 12px 'Cairo',sans-serif;cursor:pointer}
+.tg-ov{position:fixed;inset:0;z-index:300;background:rgba(5,0,15,.72);display:flex;align-items:center;justify-content:center;padding:16px}
+.tg-ov[hidden]{display:none!important}
+.tg-box{position:relative;width:100%;max-width:400px;max-height:88vh;overflow:auto;border-radius:20px;padding:20px 18px;background:#1a0a33;border:1px solid rgba(138,43,226,.5);color:#fff}
+.light-mode .tg-box{background:#fff;color:#25104a}
+.tg-box h3{margin:0 0 10px;font:800 17px 'Cairo',sans-serif;color:#FFD700}.light-mode .tg-box h3{color:#6b21a8}
+.tg-x{position:absolute;top:10px;left:10px;width:30px;height:30px;border-radius:50%;border:none;background:rgba(255,255,255,.1);color:inherit;cursor:pointer}
+.tg-p{font:600 13.5px/1.7 'Cairo',sans-serif;margin:0 0 12px}.tg-p.ok{color:#4ade80;font-weight:800}.tg-p.err{color:#ff8a9a}
+.tg-n{font:600 11.5px 'Cairo',sans-serif;opacity:.75;margin:8px 0 0}
+.tg-a{display:block;margin-top:10px;text-align:center;color:#FFD700;font:700 12.5px 'Cairo',sans-serif}
+.tg-list{display:flex;flex-direction:column;margin-bottom:12px}
+.tg-sw{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-top:1px solid rgba(138,43,226,.25);font:700 13px 'Cairo',sans-serif}
+.tg-sw input{width:20px;height:20px;accent-color:#8A2BE2}
+.tg-un{width:100%;padding:9px;border-radius:12px;border:1px solid rgba(255,90,110,.6);background:none;color:#ff8a9a;font:800 13px 'Cairo',sans-serif;cursor:pointer}
+.ord-thx{margin-top:6px;padding:7px 10px;border-radius:10px;background:rgba(138,43,226,.14);font:600 12px/1.6 'Cairo',sans-serif}
+.aq-r{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid rgba(138,43,226,.25);font:600 12.5px 'Cairo',sans-serif}
+.aq-r small,.aq-n small{display:block;opacity:.75;font-size:11px}
+.aq-r input{margin-top:4px;accent-color:#8A2BE2}
+.aq-no{margin:8px 0;font:600 12px 'Cairo',sans-serif}.aq-n{padding:4px 0;border-top:1px solid rgba(138,43,226,.18)}
+.ops-bar{font-size:12.5px}
+
 /* ═════ v8: كود الخصم + تثبيت التطبيق + حماية ═════ */
 .order-coupon{margin:2px 0 6px}
 .cp-toggle{background:none;border:none;padding:4px 0;color:var(--gold);font:700 12.5px 'Cairo',sans-serif;text-decoration:underline;cursor:pointer}
@@ -2060,6 +2090,11 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 </div>
 
 
+<!-- ═════ إشعارات تلغرام ═════ -->
+<div class="tg-ov" id="tgOv" hidden><div class="tg-box" role="dialog" aria-modal="true" aria-labelledby="tgTitle">
+  <button type="button" class="tg-x" id="tgX" aria-label="إغلاق">✕</button>
+  <h3 id="tgTitle">إشعارات تلغرام</h3><div id="tgBody"></div></div></div>
+
 <!-- ═════ اللوحة الجانبية ═════ -->
 <div class="dw-ov" id="dwOv"></div>
 <aside class="dw" id="dw" aria-hidden="true" aria-label="القائمة الرئيسية">
@@ -2069,6 +2104,8 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
   <div class="dw-cur-note" id="dwCurNote"></div>
   <div class="dw-acc" id="dwAcc"></div>
   <button type="button" class="dw-install" id="dwInstall" hidden>تثبيت التطبيق على جوالك</button>
+  <button type="button" class="dw-tg" id="dwTg" hidden>إشعارات تلغرام</button>
+  <div class="dw-gift" id="dwGift" hidden></div>
   <div class="dw-sep"></div>
   <nav class="dw-nav" id="dwNav">
     <a href="#/" data-p="home"><span class="dw-ic">🏠</span>الرئيسية</a>
@@ -3204,8 +3241,9 @@ function resetCoupon(hide) {
   const row = document.getElementById('orderCoupon'); if (!row) return;
   row.hidden = !!hide; document.getElementById('cpBox').hidden = true; document.getElementById('cpToggle').hidden = false;
   const i = document.getElementById('cpInput'); i.value = ''; i.disabled = false; document.getElementById('cpApply').textContent = 'تطبيق'; cpSay('');
+  const g = window.ARMEX_GIFT; document.getElementById('cpToggle').textContent = g ? 'عندك هدية: كود ' + g.code + ' (خصم ' + g.pct + '%) - استخدمها' : 'عندك كود خصم؟';
 }
-document.getElementById('cpToggle').addEventListener('click', () => { document.getElementById('cpToggle').hidden = true; document.getElementById('cpBox').hidden = false; document.getElementById('cpInput').focus(); });
+document.getElementById('cpToggle').addEventListener('click', () => { document.getElementById('cpToggle').hidden = true; document.getElementById('cpBox').hidden = false; const g = window.ARMEX_GIFT; if (g) { document.getElementById('cpInput').value = g.code; document.getElementById('cpApply').click(); } else document.getElementById('cpInput').focus(); });
 document.getElementById('cpApply').addEventListener('click', async () => {
   if (!orderCurrent) return;
   const btn = document.getElementById('cpApply'), inp = document.getElementById('cpInput');
@@ -4384,6 +4422,92 @@ function setCur(c) {
   renderHeader(currentPage); refreshAccountViews();
 }
 $('dwCur').addEventListener('click', e => { const b = e.target.closest('[data-cur]'); if (b) setCur(b.dataset.cur); });
+
+
+// ── إشعارات تلغرام + هدية الولاء ──
+(function () {
+  const ov = $('tgOv'), body = $('tgBody'), btn = $('dwTg');
+  if (!ov || !btn) return;
+  const LBL = [['ord', 'تنفيذ أو رفض طلباتك'], ['dep', 'تأكيد أو رفض شحن الرصيد'], ['delay', 'إذا تأخر طلبك'], ['low', 'تنبيه الرصيد المنخفض'], ['back', 'رجوع خدمة طلبت تنبيهها'], ['sec', 'دخول من جهاز جديد'], ['gift', 'هدايا الولاء وأكواد الخصم'], ['level', 'ترقّي مستواك'], ['nudge', 'تذكير إذا غبت عنا']];
+  let poll = null;
+  const stop = () => { if (poll) { clearInterval(poll); poll = null; } };
+  const close = () => { stop(); ov.hidden = true; document.documentElement.style.overflow = ''; };
+  const say = (h) => { body.innerHTML = h; };
+  async function show() {
+    say('<p class="tg-p">جاري التحميل...</p>');
+    let st; try { st = await ARMEX.call('/tg/status', {}); } catch (e) { say('<p class="tg-p err">' + esc(e.message) + '</p>'); return; }
+    if (!st.enabled) { say('<p class="tg-p">خدمة الإشعارات غير مفعّلة حالياً. رح تتوفر قريباً.</p>'); return; }
+    if (!st.linked) {
+      say('<p class="tg-p">اربط حسابك ببوت تلغرام وبتوصلك إشعارات فورية: تنفيذ طلباتك، شحن رصيدك، هدايا الولاء، وغيرها. الربط بياخد ثواني ومجاني.</p>' +
+        (st.blocked ? '<p class="tg-p err">البوت كان موقوف عندك. اضغط الزر وبعدين "ابدأ" ليرجع يشتغل.</p>' : '') +
+        '<button type="button" class="pg-btn" id="tgLink">ربط تلغرام</button><p class="tg-n">بتنفتح محادثة مع البوت، اضغط "ابدأ" هناك وارجع هون.</p>');
+      return;
+    }
+    const pr = st.prefs || {};
+    say('<p class="tg-p ok">حسابك مربوط' + (st.name ? ' (' + esc(st.name) + ')' : '') + '</p><div class="tg-list">' +
+      LBL.map(([k, l]) => `<label class="tg-sw"><span>${l}</span><input type="checkbox" data-pf="${k}" ${pr[k] ? 'checked' : ''}></label>`).join('') +
+      '</div><button type="button" class="tg-un" id="tgUn">إلغاء الربط</button>');
+  }
+  async function open() { ov.hidden = false; document.documentElement.style.overflow = 'hidden'; show(); }
+  btn.addEventListener('click', () => { if (typeof closeDrawer === 'function') { try { closeDrawer(); } catch (e) {} } open(); });
+  $('tgX').addEventListener('click', close);
+  ov.addEventListener('click', e => { if (e.target === ov) close(); });
+  body.addEventListener('click', async e => {
+    if (e.target.id === 'tgLink') {
+      e.target.disabled = true;
+      try {
+        const j = await ARMEX.call('/tg/link', {});
+        window.open(j.url, '_blank');
+        say('<p class="tg-p">فتحنا لك البوت. اضغط "ابدأ" داخل تلغرام، وبعدين ارجع هون وبينربط تلقائياً.</p><button type="button" class="pg-btn" id="tgChk">تحقّق من الربط</button><a class="tg-a" href="' + esc(j.url) + '" target="_blank" rel="noopener">إذا ما انفتح التلغرام اضغط هون</a>');
+        stop(); let n = 0; poll = setInterval(async () => { if (++n > 40 || ov.hidden) { stop(); return; } try { const st = await ARMEX.call('/tg/status', {}); if (st.linked) { stop(); show(); toast('تم ربط تلغرام'); } } catch (er) {} }, 3000);
+      } catch (er) { toast(er.message); e.target.disabled = false; }
+      return;
+    }
+    if (e.target.id === 'tgChk') { show(); return; }
+    if (e.target.id === 'tgUn') {
+      if (!(await askDialog({ icon: '🔕', title: 'إلغاء الربط', text: 'ما رح توصلك إشعارات على تلغرام. بتقدر تربط من جديد بأي وقت.', ok: 'إلغاء الربط', cancel: 'رجوع' }))) return;
+      try { await ARMEX.call('/tg/unlink', {}); toast('تم إلغاء الربط'); show(); } catch (er) { toast(er.message); }
+    }
+  });
+  body.addEventListener('change', async e => {
+    const k = e.target.dataset && e.target.dataset.pf; if (!k) return;
+    try { await ARMEX.call('/tg/prefs', { prefs: { [k]: e.target.checked } }); } catch (er) { toast(er.message); e.target.checked = !e.target.checked; }
+  });
+  // هدية الولاء
+  window.ARMEX_GIFT = null;
+  const gbox = $('dwGift');
+  const paint = (g) => {
+    const ok = g && g.code && !g.used && +g.exp > Date.now();
+    window.ARMEX_GIFT = ok ? { code: g.code, pct: +g.pct, exp: +g.exp } : null;
+    if (!gbox) return;
+    gbox.hidden = !ok;
+    gbox.innerHTML = ok ? `<b>هديتك: خصم ${esc(g.pct)}%</b><span>الكود <code dir="ltr">${esc(g.code)}</code> صالح لحد ${new Date(+g.exp).toLocaleDateString('ar')}</span><button type="button" id="dwGiftCp">نسخ الكود</button>` : '';
+  };
+  if (gbox) gbox.addEventListener('click', e => { if (e.target.id === 'dwGiftCp' && window.ARMEX_GIFT) { try { navigator.clipboard.writeText(window.ARMEX_GIFT.code); toast('تم نسخ الكود'); } catch (er) { toast(window.ARMEX_GIFT.code); } } });
+  let unG = null, gUid = null;
+  window.ARMEX_TG = {
+    auth(u) {
+      if (btn) btn.hidden = !u;
+      if (!u) { if (unG) { unG(); unG = null; } gUid = null; paint(null); return; }
+      if (gUid !== u.uid) {
+        if (unG) { unG(); unG = null; }
+        gUid = u.uid; const F = state.fb;
+        try { unG = F.onSnapshot(F.doc(F.db, 'loyalty', u.uid), sn => paint(sn.exists() ? (sn.data().gift || null) : null), () => paint(null)); } catch (e) {}
+      }
+      // بصمة الجهاز لتنبيه الدخول من جهاز جديد (مرة بكل جلسة)
+      try {
+        if (!sessionStorage.getItem('tgl_' + u.uid)) {
+          sessionStorage.setItem('tgl_' + u.uid, '1');
+          let d = localStorage.getItem('armex_dev');
+          if (!d) { d = Array.from(crypto.getRandomValues(new Uint8Array(12)), x => x.toString(16).padStart(2, '0')).join(''); localStorage.setItem('armex_dev', d); }
+          const ua = navigator.userAgent || '', os = /iPhone|iPad/.test(ua) ? 'iPhone' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Mac/.test(ua) ? 'Mac' : /Linux/.test(ua) ? 'Linux' : 'جهاز';
+          const br = /Edg\//.test(ua) ? 'Edge' : /Firefox/.test(ua) ? 'Firefox' : /Chrome|CriOS/.test(ua) ? 'Chrome' : /Safari/.test(ua) ? 'Safari' : 'متصفح';
+          ARMEX.call('/tg/login', { dev: d, ua: os + ' - ' + br }).catch(() => {});
+        }
+      } catch (e) {}
+    }
+  };
+})();
 
 // ── تثبيت الموقع كتطبيق (PWA) ──
 (function () {
@@ -5797,18 +5921,33 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
   A.onOps = function () {
     let bar = $('opsBar');
     if (!bar) { bar = document.createElement('div'); bar.id = 'opsBar'; bar.className = 'ops-bar'; const v = document.querySelector('.view'); v.parentNode.insertBefore(bar, v); }
-    const o = A.ops || {};
-    bar.hidden = !o.purchasesOff;
-    bar.innerHTML = o.purchasesOff ? '🛠️ ' + esc(o.message || 'الشراء متوقف مؤقتاً للصيانة، رجاءً جرّب بعد قليل') : '';
+    A.paintOpsBar();
     if (currentPage === 'ops') A.renderOps && A.renderOps();
   };
+  A.maintState = function () {
+    const m = (A.ops || {}).maint, now = Date.now();
+    if (!m || !(+m.from > 0) || !(+m.to > now)) return null;
+    if (now >= +m.from) return { on: true, m };
+    if (+m.from - now < 48 * 3600e3) return { on: false, m };
+    return null;
+  };
+  A.paintOpsBar = function () {
+    const bar = $('opsBar'); if (!bar) return;
+    const o = A.ops || {}, ms = A.maintState(), t = (x) => new Date(+x).toLocaleString('ar', { dateStyle: 'short', timeStyle: 'short' });
+    let h = '';
+    if (o.purchasesOff) h = '🛠️ ' + esc(o.message || 'الشراء متوقف مؤقتاً للصيانة، رجاءً جرّب بعد قليل');
+    else if (ms && ms.on) h = '🛠️ ' + esc(ms.m.msg || 'الموقع بصيانة مجدولة') + ' (حتى ' + t(ms.m.to) + ')';
+    else if (ms) h = 'تنبيه: صيانة مجدولة من ' + t(ms.m.from) + ' إلى ' + t(ms.m.to) + '. ' + esc(ms.m.msg || '');
+    bar.hidden = !h; bar.innerHTML = h;
+  };
+  setInterval(() => { try { A.paintOpsBar(); } catch (e) {} }, 60000);
   A.onLevels = function () { renderDrawer(); if (currentPage === 'levels') A.renderLevels && A.renderLevels(); };
   A.onSvc = function () {
     if (currentPage === 'category' && curCatType) renderCategory(curCatType);
     A.checkRestock();
     if (currentPage === 'apilink') A.renderApi && A.renderApi();
   };
-  A.blocked = function () { if (A.ops && A.ops.purchasesOff) { toast((A.ops.message || 'الشراء متوقف مؤقتاً للصيانة') + ' 🛠️'); return true; } return false; };
+  A.blocked = function () { if (A.ops && A.ops.purchasesOff) { toast((A.ops.message || 'الشراء متوقف مؤقتاً للصيانة') + ' 🛠️'); return true; } const ms = A.maintState(); if (ms && ms.on) { toast((ms.m.msg || 'الموقع بصيانة مجدولة') + ' 🛠️'); return true; } return false; };
 
   // ───────── التوفر ─────────
   A.isNa = function (type, name, idx, ex) {
@@ -5912,6 +6051,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     try { const r = new URLSearchParams(location.search).get('ref'); if (r && /^[A-Za-z0-9]{10,128}$/.test(r) && !localStorage.getItem('armex_ref')) localStorage.setItem('armex_ref', r); } catch (e) {}
   })();
   A.onAuth = function (u) {
+    try { window.ARMEX_TG && window.ARMEX_TG.auth(u); } catch (e) {}
     if (!u) return;
     const F = fb();
     try {
@@ -6110,10 +6250,11 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       ${s === 'approved' ? `<button type="button" data-a="inv" data-id="${esc(o.id)}">🧾 فاتورة</button>` : ''}
       ${(s === 'approved' || s === 'rejected') && A.pmap()[o.key] ? `<button type="button" data-a="re" data-id="${esc(o.id)}">🔁 اطلب مرة ثانية</button>` : ''}
       <button type="button" data-a="help" data-id="${esc(o.id)}">🆘 مشكلة بالطلب؟</button></div>`;
+    const thx = (s === 'approved' && Date.now() - tms(o) < 3 * 864e5) ? `<div class="ord-thx">${esc((ARMEX.ops && ARMEX.ops.thanks) || 'شكراً لثقتك بـ ARMEX STORE، نورتنا. وإذا صار أي شي احكينا بأي وقت.')}</div>` : '';
     const lv = o.disc ? `<div class="ord-eta">🏷 ${o.coupon ? 'كود ' + esc(o.coupon) : 'خصم مستواك'} ${esc(o.disc)}%</div>` : '';
     return `<div class="op-card ord-x"><div style="min-width:0;flex:1"><div class="on">${esc(o.name || 'طلب')}</div>
       <div class="ot">${new Date(tms(o)).toLocaleString('ar')}</div>${rejTxt(o)}
-      ${eta ? `<div class="ord-eta">⏱ المدة المتوقعة: ${esc(eta)}</div>` : ''}${hours && !hours.open ? `<div class="ord-eta">${hours.txt}</div>` : ''}${lv}${del}${acts}</div>
+      ${eta ? `<div class="ord-eta">⏱ المدة المتوقعة: ${esc(eta)}</div>` : ''}${hours && !hours.open ? `<div class="ord-eta">${hours.txt}</div>` : ''}${lv}${thx}${del}${acts}</div>
       <div class="oa">${fmtC(o.amount)}<small class="${st[1]}">${st[0]}</small></div></div>`;
   };
   $('ordList').addEventListener('click', async e => {
@@ -6411,7 +6552,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       if (AP.f === 'api') return r === 'api' && !na; if (AP.f === 'tg') return r === 'tg' && !na; if (AP.f === 'na') return na; return true;
     });
     const cnt = { all: Object.keys(map).length };
-    $('apChips').innerHTML = [['all', 'الكل'], ['api', 'API'], ['tg', 'تلغرام'], ['na', 'غير متوفر']].map(([k, l]) => `<button type="button" class="ord-chip fl${AP.f === k ? ' on' : ''}" data-f="${k}">${l}</button>`).join('') + '<button type="button" class="ord-chip fl" id="apRefresh">تحديث تكلفة الجملة</button>';
+    $('apChips').innerHTML = [['all', 'الكل'], ['api', 'API'], ['tg', 'تلغرام'], ['na', 'غير متوفر']].map(([k, l]) => `<button type="button" class="ord-chip fl${AP.f === k ? ' on' : ''}" data-f="${k}">${l}</button>`).join('') + '<button type="button" class="ord-chip fl" id="apRefresh">تحديث تكلفة الجملة</button><button type="button" class="ord-chip fl" id="apAuto">حدد المضاعف تلقائياً</button>';
     box.innerHTML = keys.slice(0, AP.limit).map(k => {
       const p = map[k], na = A.isNa(p.cat, p.name, p.idx, p.ex), r = route(k), m = (AP.smap.map || {})[k] || {}, ov = over[k] || {};
       const sell = state.prices[k], cu = costUsd(m);
@@ -6425,6 +6566,45 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
         ${mg != null ? '<div class="ap-mg ' + (mg < 0 ? 'neg' : '') + '">' + (mg < 0 ? 'بتبيع بخسارة: ' : 'هامش الربح: ') + mg + '%</div>' : ''}</div>`;
     }).join('') || '<div class="hist-empty">ما في نتائج</div>';
     if (keys.length > AP.limit) box.insertAdjacentHTML('beforeend', `<button type="button" class="pg-btn" id="apMore">عرض المزيد (${keys.length - AP.limit})</button>`);
+  }
+
+  // ───────── تحديد مضاعف الكمية تلقائياً ─────────
+  const AQ = { rows: [] };
+  const nums = (t) => (String(t || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).match(/\d[\d,]*(?:\.\d+)?/g) || []).map(x => +x.replace(/,/g, '')).filter(x => x > 0);
+  function suggestQm(p, m) {
+    const cur = +m.qm > 0 ? +m.qm : 1;
+    if (p.ex && p.ex.q > 1) return { v: p.ex.q, why: 'الحد الأدنى للكمية ' + p.ex.q, ok: true, cur };
+    const mine = nums(p.name), sup = nums(m.pname);
+    if (mine.length !== 1) return { v: null, why: mine.length ? 'أكتر من رقم باسم الخدمة' : 'ما في رقم باسم الخدمة', ok: false, cur };
+    const n = mine[0];
+    if (!sup.length) return { v: n, why: 'اسم المورّد بدون رقم (سعر الوحدة)', ok: true, cur };
+    if (sup.length === 1 && sup[0] === n) return { v: 1, why: 'نفس رقم المورّد (باقة جاهزة)', ok: true, cur };
+    if (sup.length === 1 && n % sup[0] === 0) return { v: n / sup[0], why: n + ' ÷ ' + sup[0], ok: false, cur };
+    return { v: null, why: 'أرقام المورّد مختلفة', ok: false, cur };
+  }
+  function autoQm() {
+    const map = A.pmap(), sm = AP.smap.map || {}; AQ.rows = [];
+    Object.keys(sm).forEach(k => { const m = sm[k], p = map[k]; if (!p || !m || !(+m.sid > 0)) return; const r = suggestQm(p, m); AQ.rows.push({ k, name: p.name, ...r }); });
+    let ov = $('aqOv');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'aqOv'; ov.className = 'ap-ov'; document.body.appendChild(ov); ov.addEventListener('click', onAq); }
+    const ch = AQ.rows.filter(r => r.v != null && r.v !== r.cur), same = AQ.rows.filter(r => r.v != null && r.v === r.cur).length, no = AQ.rows.filter(r => r.v == null);
+    ov.innerHTML = `<div class="ap-pk"><h3>تحديد المضاعف تلقائياً</h3><p class="st-note">بيقرأ الرقم من اسم الخدمة ويقارنو مع اسم منتج المورّد. المعلّم بصح مضمون، والباقي (بدون تعليم) راجعو قبل التطبيق. ما بيلمس شي ما اخترتو.</p>
+      <div id="aqL">${ch.length ? ch.map(r => `<label class="aq-r"><input type="checkbox" data-aq="${esc(r.k)}" ${r.ok ? 'checked' : ''}><span><b>${esc(r.name)}</b><small>الحالي ${r.cur} ← المقترح <b>${r.v}</b> · ${esc(r.why)}</small></span></label>`).join('') : '<div class="hist-empty">كل المضاعفات الحالية مطابقة للمقترح</div>'}</div>
+      ${same ? `<p class="st-note">${same} خدمة مضاعفها صحيح أصلاً.</p>` : ''}
+      ${no.length ? `<details class="aq-no"><summary>${no.length} خدمة ما قدرنا نحدد لها (عدّلها يدوياً)</summary>${no.slice(0, 60).map(r => `<div class="aq-n">${esc(r.name)} <small>${esc(r.why)}</small></div>`).join('')}</details>` : ''}
+      <div class="mini-row">${ch.length ? '<button type="button" class="mb pri" data-aqgo="1">تطبيق المحدد</button>' : ''}<button type="button" class="mb" data-close="1">إغلاق</button></div></div>`;
+    ov.classList.add('open');
+  }
+  async function onAq(e) {
+    const ov = $('aqOv');
+    if (e.target === ov || (e.target.dataset && e.target.dataset.close)) { ov.classList.remove('open'); return; }
+    if (e.target.dataset && e.target.dataset.aqgo) {
+      const sel = Array.from(ov.querySelectorAll('input[data-aq]:checked')).map(i => i.dataset.aq), upd = {};
+      AQ.rows.filter(r => sel.includes(r.k)).forEach(r => { upd[r.k] = { qm: r.v }; });
+      if (!sel.length) { toast('ما اخترت شي'); return; }
+      e.target.disabled = true;
+      try { const f = F(); await f.setDoc(f.doc(f.db, 'supplierMap', 'main'), { map: upd }, { merge: true }); A.log('مضاعف كمية تلقائي', sel.length + ' خدمة'); toast('✅ تم تحديث ' + sel.length + ' خدمة'); ov.classList.remove('open'); } catch (er) { toast(errMsg(er)); e.target.disabled = false; }
+    }
   }
   async function saveMap(key, patch) { const f = F(); await f.setDoc(f.doc(f.db, 'supplierMap', 'main'), { map: { [key]: patch } }, { merge: true }); }
   async function loadCatalog() {
@@ -6496,6 +6676,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     const chip = e.target.closest('[data-f]'); if (chip && chip.classList.contains('ord-chip')) { AP.f = chip.dataset.f; AP.limit = 40; drawApiList(); return; }
     if (e.target.id === 'apMore') { AP.limit += 60; drawApiList(); return; }
     if (e.target.id === 'apRefresh') { refreshCosts(e.target); return; }
+    if (e.target.id === 'apAuto') { autoQm(); return; }
     if (e.target.id === 'apTest') {
       const b = e.target; b.disabled = true; drawApiStat('⏳ جاري الاتصال...');
       try { const j = await A.call('/api/test', {}); drawApiStat('الاتصال شغّال — رصيدك: <b>' + esc(j.balance) + '</b>' + (j.email ? ' (' + esc(j.email) + ')' : '')); }
@@ -6537,9 +6718,26 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
         <div class="mini-set"><label>أقصى طلبات بالدقيقة<input id="gdMin" type="number" min="1" value="${esc(o.limMin || '')}" placeholder="8"></label><label>أقصى طلبات بالساعة<input id="gdHour" type="number" min="1" value="${esc(o.limHour || '')}" placeholder="60"></label></div>
         <div class="mini-set"><label>تنبيه شحن أكبر من ($)<input id="gdDep" type="number" min="1" value="${esc(o.bigDepUsd || '')}" placeholder="50"></label><label>أقصى قيمة لطلب ($)<input id="gdMax" type="number" min="0" value="${esc(o.maxOrderUsd || '')}" placeholder="0 = بلا حد"></label><button type="button" class="mb pri" id="gdSave">حفظ</button></div>
         <h4 class="st-h">آخر نشاط مريب</h4><div id="gdList"><div class="hist-empty">جاري التحميل...</div></div></div>
+      <div class="auth-box wallet-box st-card"><h3>الولاء والإشعارات</h3>
+        <p class="st-note">هدية كود خصم لمرة وحدة بتوصل الزبون بعد عدد طلبات منفذة (بالموقع وعلى تلغرام إذا مربوط). خانة فاضية = القيمة الافتراضية.</p>
+        <label class="ops-sw"><input type="checkbox" id="lyOn" ${o.loyOn === false ? '' : 'checked'}><span>تفعيل مكافأة الولاء</span></label>
+        <div class="mini-set"><label>كل كم طلب<input id="lyEvery" type="number" min="1" value="${esc(o.loyEvery || '')}" placeholder="10"></label><label>الخصم %<input id="lyPct" type="number" min="1" max="50" value="${esc(o.loyPct || '')}" placeholder="5"></label><label>صلاحية (يوم)<input id="lyDays" type="number" min="1" value="${esc(o.loyDays || '')}" placeholder="14"></label></div>
+        <div class="mini-set"><label>تأخر الطلب بعد (دقيقة)<input id="lyDelay" type="number" min="5" value="${esc(o.delayMin || '')}" placeholder="45"></label><label>رصيد منخفض تحت ($)<input id="lyLow" type="number" min="0" step="0.5" value="${esc(o.lowBalUsd || '')}" placeholder="1"></label></div>
+        <div class="mini-set"><label>تذكير الغايب بعد (يوم)<input id="lyNudgeD" type="number" min="7" value="${esc(o.nudgeDays || '')}" placeholder="30"></label><label>خصم التذكير %<input id="lyNudgeP" type="number" min="1" max="50" value="${esc(o.nudgePct || '')}" placeholder="5"></label></div>
+        <div class="order-field"><textarea id="lyThanks" rows="2" maxlength="300" placeholder="رسالة الشكر بعد تنفيذ الطلب (اتركها فاضية للنص الافتراضي)">${esc(o.thanks || '')}</textarea></div>
+        <div class="mini-row"><button type="button" class="mb pri" id="lySave">حفظ</button></div></div>
+      <div class="auth-box wallet-box st-card"><h3>صيانة مجدولة</h3>
+        <p class="st-note">بتحدد وقت البداية والنهاية. قبل الموعد بـ 48 ساعة بيظهر شريط تنبيه للزبائن، ووقت الصيانة بيتوقف الشراء تلقائياً وبيرجع لحاله بعد النهاية. الأدمن بيضل شغّال.</p>
+        <div class="mini-set"><label>من<input id="mtFrom" type="datetime-local" value="${o.maint && +o.maint.from ? new Date(+o.maint.from - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 16) : ''}"></label><label>إلى<input id="mtTo" type="datetime-local" value="${o.maint && +o.maint.to ? new Date(+o.maint.to - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 16) : ''}"></label></div>
+        <div class="order-field"><textarea id="mtMsg" rows="2" maxlength="200" placeholder="رسالة للزبائن (مثلاً: رح نحدّث الموقع ونرجع أحلى)">${esc(o.maint && o.maint.msg || '')}</textarea></div>
+        <div class="mini-row"><button type="button" class="mb pri" id="mtSave">حفظ الصيانة</button><button type="button" class="mb" id="mtAnn">أعلن على تلغرام</button><button type="button" class="mb no" id="mtClr">إلغاء الصيانة</button></div></div>
+      <div class="auth-box wallet-box st-card"><h3>طلبات متأخرة</h3>
+        <p class="st-note">الطلبات المعلّقة أو قيد التنفيذ أكتر من المدة المحددة بالأعلى (الافتراضي 45 دقيقة). بادر بالتواصل قبل ما الزبون يسأل.</p>
+        <div class="mini-row"><button type="button" class="mb" id="lateRef">تحديث</button></div>
+        <div id="lateList"><div class="hist-empty">جاري التحميل...</div></div></div>
       <div class="auth-box wallet-box st-card"><h3>الإحالات</h3><div id="opRefs"><div class="hist-empty">جاري التحميل...</div></div></div>
       <div class="auth-box wallet-box st-card"><h3>سجل عمليات الأدمن</h3><div id="opLog"><div class="hist-empty">جاري التحميل...</div></div></div>`;
-    A.loadRefs(); A.loadLog(); A.loadCoupons(); A.loadGuard();
+    A.loadRefs(); A.loadLog(); A.loadCoupons(); A.loadGuard(); A.loadLate();
   };
   A.loadRefs = async function () {
     const box = $('opRefs'); if (!box) return;
@@ -6585,7 +6783,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
   };
   A.loadCoupons = async function () {
     const box = $('cpnList'); if (!box) return;
-    try { CPN.rows = (await getAll(F().query(F().collection(F().db, 'coupons'), F().limit(200)))).sort((a, b) => (+b.createdAt || 0) - (+a.createdAt || 0)); A.drawCoupons(); }
+    try { CPN.rows = (await getAll(F().query(F().collection(F().db, 'coupons'), F().where('manual', '==', true), F().limit(200)))).sort((a, b) => (+b.createdAt || 0) - (+a.createdAt || 0)); A.drawCoupons(); }
     catch (e) { box.innerHTML = '<div class="msg-box err" style="display:block">' + esc(errMsg(e)) + '</div>'; }
   };
   A.loadGuard = async function () {
@@ -6606,7 +6804,7 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       try {
         const ref = f.doc(f.db, 'coupons', code);
         if ((await f.getDoc(ref)).exists()) { toast('هالكود موجود من قبل'); return; }
-        await f.setDoc(ref, { code, pct, maxUses: mx, used: 0, active: true, expiresAt: days ? Date.now() + days * 864e5 : 0, createdAt: Date.now() });
+        await f.setDoc(ref, { code, pct, maxUses: mx, used: 0, active: true, manual: true, expiresAt: days ? Date.now() + days * 864e5 : 0, createdAt: Date.now() });
         A.log('كود خصم جديد', code + ' — ' + pct + '%' + (mx ? ' — حتى ' + mx : '') + (days ? ' — ' + days + ' يوم' : ''));
         ['cpnCode', 'cpnPct', 'cpnMax', 'cpnDays'].forEach(i => { $(i).value = ''; });
         toast('✅ انضاف الكود ' + code); A.loadCoupons();
@@ -6629,6 +6827,57 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
       const n = id => Math.max(0, +toLatinDigits($(id).value) || 0);
       const d = { limMin: n('gdMin'), limHour: n('gdHour'), bigDepUsd: n('gdDep'), maxOrderUsd: n('gdMax') };
       try { await f.setDoc(f.doc(f.db, 'settings', 'ops'), d, { merge: true }); A.log('حماية النشاط', d.limMin + '/د ، ' + d.limHour + '/س ، شحن $' + d.bigDepUsd + ' ، طلب $' + d.maxOrderUsd); toast('✅ تم الحفظ'); } catch (err) { toast(errMsg(err)); }
+    }
+  });
+
+  // ───────── طلبات متأخرة + ولاء + صيانة (أدمن) ─────────
+  const LATE = { rows: [] };
+  A.loadLate = async function () {
+    const box = $('lateList'); if (!box) return;
+    try {
+      const f = F(), lim = (+(A.ops || {}).delayMin > 0 ? +A.ops.delayMin : 45) * 60e3, now = Date.now();
+      const rows = await getAll(f.query(f.collection(f.db, 'orders'), f.where('status', 'in', ['pending', 'processing']), f.limit(150)));
+      LATE.rows = rows.map(o => ({ o, age: now - (ms(o.createdAt) || now) })).filter(x => x.age > lim).sort((a, b) => b.age - a.age);
+      box.innerHTML = LATE.rows.length ? LATE.rows.slice(0, 30).map(({ o, age }) => `<div class="cpn-row"><div class="cpn-i"><b>${esc(o.name || 'طلب')}</b><small>${esc(o.userName || o.email || '')} · متأخر ${age >= 3600e3 ? Math.floor(age / 3600e3) + ' س ' + Math.round(age % 3600e3 / 60e3) + ' د' : Math.round(age / 60e3) + ' د'} · ${o.status === 'processing' ? 'قيد التنفيذ' : 'معلّق'}</small></div><button type="button" class="mb" data-late-tg="${esc(o.id)}">اعتذار تلغرام</button><button type="button" class="mb" data-late-cp="${esc(o.id)}">نسخ اعتذار</button></div>`).join('') : '<div class="hist-empty">ما في طلبات متأخرة، ممتاز</div>';
+    } catch (e) { box.innerHTML = '<div class="msg-box err" style="display:block">' + esc(errMsg(e)) + '</div>'; }
+  };
+  document.addEventListener('click', async e => {
+    const t = e.target, f = F();
+    if (t.id === 'lateRef') { A.loadLate(); return; }
+    const tg = t.closest && t.closest('[data-late-tg]'), cp = t.closest && t.closest('[data-late-cp]');
+    if (tg) {
+      tg.disabled = true;
+      try { const j = await A.call('/tg/apology', { orderId: tg.dataset.lateTg }); toast(j.sent ? 'انبعتت رسالة الاعتذار' : 'الزبون مو مربوط بتلغرام، استخدم "نسخ اعتذار"'); } catch (er) { toast(er.message || 'تعذّر الإرسال'); } finally { tg.disabled = false; }
+      return;
+    }
+    if (cp) {
+      const r = LATE.rows.find(x => x.o.id === cp.dataset.lateCp); const txt = 'أهلاً ' + ((r && r.o.userName) || '') + '، نعتذر عن تأخر طلبك (' + ((r && r.o.name) || '') + '). عم نتابعو ومنخبرك فور ما يخلص. شكراً لصبرك وثقتك فينا.';
+      try { await navigator.clipboard.writeText(txt); toast('تم نسخ نص الاعتذار'); } catch (er) { toast(txt); }
+      return;
+    }
+    if (t.id === 'lySave') {
+      const n = id => Math.max(0, +toLatinDigits($(id).value) || 0);
+      const d = { loyOn: $('lyOn').checked, loyEvery: n('lyEvery'), loyPct: n('lyPct'), loyDays: n('lyDays'), delayMin: n('lyDelay'), lowBalUsd: n('lyLow'), nudgeDays: n('lyNudgeD'), nudgePct: n('lyNudgeP'), thanks: $('lyThanks').value.trim().slice(0, 300) };
+      try { await f.setDoc(f.doc(f.db, 'settings', 'ops'), d, { merge: true }); A.log('إعدادات الولاء والإشعارات', (d.loyOn ? 'ولاء كل ' + (d.loyEvery || 10) + ' طلب' : 'الولاء موقوف')); toast('✅ تم الحفظ'); } catch (er) { toast(errMsg(er)); }
+      return;
+    }
+    if (t.id === 'mtSave' || t.id === 'mtClr') {
+      let m = null;
+      if (t.id === 'mtSave') {
+        const a = new Date($('mtFrom').value).getTime(), b = new Date($('mtTo').value).getTime();
+        if (!(a > 0) || !(b > a)) { toast('حدد وقت بداية ونهاية صحيح (النهاية بعد البداية)'); return; }
+        if (b < Date.now()) { toast('وقت النهاية لازم يكون بالمستقبل'); return; }
+        m = { from: a, to: b, msg: $('mtMsg').value.trim().slice(0, 200) };
+      }
+      try { await f.setDoc(f.doc(f.db, 'settings', 'ops'), { maint: m || { from: 0, to: 0, msg: '' } }, { merge: true }); A.log('صيانة مجدولة', m ? new Date(m.from).toLocaleString('ar') + ' ← ' + new Date(m.to).toLocaleString('ar') : 'إلغاء'); toast(m ? '✅ تم حفظ الصيانة' : 'تم إلغاء الصيانة'); } catch (er) { toast(errMsg(er)); }
+      return;
+    }
+    if (t.id === 'mtAnn') {
+      const ma = new Date($('mtFrom').value).getTime(), mb = new Date($('mtTo').value).getTime(), msg = $('mtMsg').value.trim();
+      if (!(ma > 0) || !(mb > ma)) { toast('احفظ وقت الصيانة أولاً'); return; }
+      const fm = x => new Date(x).toLocaleString('ar', { dateStyle: 'short', timeStyle: 'short' });
+      if (!(await askDialog({ icon: '📢', title: 'إعلان على تلغرام', text: 'رح تنبعت رسالة لكل الزبائن المربوطين عن الصيانة. متأكد؟', ok: 'إرسال', cancel: 'إلغاء' }))) return;
+      try { const j = await A.call('/tg/announce', { text: 'صيانة مجدولة للموقع من ' + fm(ma) + ' إلى ' + fm(mb) + '. ' + msg }); toast('انبعتت لـ ' + j.sent + ' زبون'); } catch (er) { toast(er.message || 'تعذّر الإرسال'); }
     }
   });
   $('body-ops').addEventListener('click', async e => {

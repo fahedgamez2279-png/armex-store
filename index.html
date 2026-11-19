@@ -1436,6 +1436,19 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 #pxCard{margin-bottom:10px}
 
 
+
+/* ═════ v10: تصغير بطاقات الأدمن + محفظتي ═════ */
+.ops-sw{padding:5px 0;gap:8px;font-size:13px;line-height:1.4}
+.ops-sw input[type=checkbox]{width:18px!important;height:18px!important;min-width:18px;flex:none;padding:0;margin:0}
+.st-card .order-field{min-height:0;padding:0}
+#opMsg,#lyThanks,#mtMsg{display:block;width:100%;box-sizing:border-box;min-height:0!important;height:50px;padding:8px 12px;font:600 12.5px/1.5 'Cairo',sans-serif!important;resize:none;overflow:auto}
+#opMsg::placeholder,#lyThanks::placeholder,#mtMsg::placeholder{font-size:12px;opacity:.6}
+#opSave{height:38px;padding:0 18px;font-size:14px}
+.mini-set.col label{flex:1 1 100%}
+.mini-set input[type=datetime-local]{-webkit-appearance:none;appearance:none;display:block;min-width:0;max-width:100%;height:36px;line-height:34px;padding:0 10px;font-size:13px;text-align:right}
+.wl-links{display:flex;gap:8px;margin:4px 0 10px}
+.wl-links a{flex:1;text-align:center;padding:10px 8px;border-radius:14px;border:1.5px solid rgba(138,43,226,.5);background:var(--card-bg);color:inherit;text-decoration:none;font:800 13.5px 'Cairo',sans-serif}
+
 /* ═════ v9: تلغرام + ولاء + صيانة ═════ */
 .dw-tg{display:block;width:calc(100% - 32px);margin:0 16px 10px;padding:9px 12px;border-radius:12px;border:1px solid rgba(138,43,226,.55);background:rgba(138,43,226,.14);color:#fff;font:800 13px 'Cairo',sans-serif;cursor:pointer}
 .dw-tg[hidden]{display:none!important}
@@ -1794,13 +1807,14 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
     <div class="pg">
       <h2 class="pg-title">محفظتي</h2>
       <div class="wl-cards" id="wlCards"></div>
-      <div class="ord-dates">
+      <div class="wl-links"><a href="#/orders">طلباتي</a><a href="#/payments">دفعاتي</a></div>
+      <div class="ord-dates" style="display:none">
         <button type="button" class="dt-f" id="wlFrom"><small>من</small><span id="wlFromV"></span></button>
         <button type="button" class="dt-f" id="wlTo"><small>إلى</small><span id="wlToV"></span></button>
       </div>
-      <div class="ord-chips" id="wlChips"></div>
-      <div class="ord-total">إجمالي : <b id="wlTotalV" dir="ltr"></b></div>
-      <div class="op-list" id="wlList"></div>
+      <div class="ord-chips" id="wlChips" style="display:none"></div>
+      <div class="ord-total" style="display:none">إجمالي : <b id="wlTotalV" dir="ltr"></b></div>
+      <div class="op-list" id="wlList" style="display:none"></div>
     </div>
   </div>
 
@@ -6712,8 +6726,8 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     setT('ops', 'العمليات والأمان');
     const o = A.ops || {}, body = $('body-ops');
     body.innerHTML = hdrBtns() + `<div class="auth-box wallet-box st-card"><h3>مفتاح الإيقاف الطارئ</h3><p class="st-note">بيوقف الشراء فوراً بدون ما تعدّل كود. استعمله إذا صار خلل أو شكّيت بتسريب التوكن.</p>
-      <label class="ops-sw"><input type="checkbox" id="opPur" ${o.purchasesOff ? 'checked' : ''}><span>⛔ إيقاف كل الشراء</span></label>
-      <label class="ops-sw"><input type="checkbox" id="opApi" ${o.apiOff ? 'checked' : ''}><span>🔌 إيقاف الربط مع المورّد (الطلبات كلها لتلغرام)</span></label>
+      <label class="ops-sw"><input type="checkbox" id="opPur" ${o.purchasesOff ? 'checked' : ''}><span>إيقاف كل الشراء</span></label>
+      <label class="ops-sw"><input type="checkbox" id="opApi" ${o.apiOff ? 'checked' : ''}><span>إيقاف الربط مع المورّد (الطلبات كلها لتلغرام)</span></label>
       <div class="order-field"><textarea id="opMsg" rows="2" maxlength="200" placeholder="رسالة تظهر للزبائن (اختياري)">${esc(o.message || '')}</textarea></div>
       <button type="button" class="pg-btn" id="opSave">حفظ</button></div>
       <div class="auth-box wallet-box st-card"><h3>أكواد الخصم</h3>
@@ -6733,12 +6747,12 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
         <div class="mini-set"><label>كل كم طلب<input id="lyEvery" type="number" min="1" value="${esc(o.loyEvery || '')}" placeholder="10"></label><label>الخصم %<input id="lyPct" type="number" min="1" max="50" value="${esc(o.loyPct || '')}" placeholder="5"></label><label>صلاحية (يوم)<input id="lyDays" type="number" min="1" value="${esc(o.loyDays || '')}" placeholder="14"></label></div>
         <div class="mini-set"><label>تأخر الطلب بعد (دقيقة)<input id="lyDelay" type="number" min="5" value="${esc(o.delayMin || '')}" placeholder="45"></label><label>رصيد منخفض تحت ($)<input id="lyLow" type="number" min="0" step="0.5" value="${esc(o.lowBalUsd || '')}" placeholder="1"></label></div>
         <div class="mini-set"><label>تذكير الغايب بعد (يوم)<input id="lyNudgeD" type="number" min="7" value="${esc(o.nudgeDays || '')}" placeholder="30"></label><label>خصم التذكير %<input id="lyNudgeP" type="number" min="1" max="50" value="${esc(o.nudgePct || '')}" placeholder="5"></label></div>
-        <div class="order-field"><textarea id="lyThanks" rows="2" maxlength="300" placeholder="رسالة الشكر بعد تنفيذ الطلب (اتركها فاضية للنص الافتراضي)">${esc(o.thanks || '')}</textarea></div>
+        <div class="order-field"><textarea id="lyThanks" rows="2" maxlength="300" placeholder="رسالة شكر بعد التنفيذ (فاضية = الافتراضي)">${esc(o.thanks || '')}</textarea></div>
         <div class="mini-row"><button type="button" class="mb pri" id="lySave">حفظ</button></div></div>
       <div class="auth-box wallet-box st-card"><h3>صيانة مجدولة</h3>
         <p class="st-note">بتحدد وقت البداية والنهاية. قبل الموعد بـ 48 ساعة بيظهر شريط تنبيه للزبائن، ووقت الصيانة بيتوقف الشراء تلقائياً وبيرجع لحاله بعد النهاية. الأدمن بيضل شغّال.</p>
-        <div class="mini-set"><label>من<input id="mtFrom" type="datetime-local" value="${o.maint && +o.maint.from ? new Date(+o.maint.from - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 16) : ''}"></label><label>إلى<input id="mtTo" type="datetime-local" value="${o.maint && +o.maint.to ? new Date(+o.maint.to - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 16) : ''}"></label></div>
-        <div class="order-field"><textarea id="mtMsg" rows="2" maxlength="200" placeholder="رسالة للزبائن (مثلاً: رح نحدّث الموقع ونرجع أحلى)">${esc(o.maint && o.maint.msg || '')}</textarea></div>
+        <div class="mini-set col"><label>من<input id="mtFrom" type="datetime-local" value="${o.maint && +o.maint.from ? new Date(+o.maint.from - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 16) : ''}"></label><label>إلى<input id="mtTo" type="datetime-local" value="${o.maint && +o.maint.to ? new Date(+o.maint.to - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 16) : ''}"></label></div>
+        <div class="order-field"><textarea id="mtMsg" rows="2" maxlength="200" placeholder="رسالة للزبائن (اختياري)">${esc(o.maint && o.maint.msg || '')}</textarea></div>
         <div class="mini-row"><button type="button" class="mb pri" id="mtSave">حفظ الصيانة</button><button type="button" class="mb" id="mtAnn">أعلن على تلغرام</button><button type="button" class="mb no" id="mtClr">إلغاء الصيانة</button></div></div>
       <div class="auth-box wallet-box st-card"><h3>طلبات متأخرة</h3>
         <p class="st-note">الطلبات المعلّقة أو قيد التنفيذ أكتر من المدة المحددة بالأعلى (الافتراضي 45 دقيقة). بادر بالتواصل قبل ما الزبون يسأل.</p>

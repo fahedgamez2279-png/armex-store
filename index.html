@@ -1507,16 +1507,16 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 .light-mode .dw-acc{color:#25104a}
 
 /* ═══ v11 تصغير ═══ */
-.pg-btn.sm,.st-card .pg-btn,#view-admin .pg-btn{width:auto;min-width:120px;padding:0 20px;height:36px;font-size:13px;display:block;margin-inline:auto}
+.pg-btn.sm,.st-card .pg-btn,#view-admin .pg-btn{width:100%;padding:0 20px;height:40px;font-size:14px;display:block}
 #view-admin .balance-card{padding:10px 14px}#view-admin .balance-amount{font-size:26px;line-height:1.2}#view-admin .balance-card small{font-size:12px}
 .admin-card{padding:12px 14px;margin-bottom:8px}.admin-card .ref{font-size:14px;padding:6px}
 .admin-btns{gap:6px;margin-top:8px}.admin-btns .form-btn{padding:0!important;height:32px;font-size:12.5px!important;border-radius:10px}
 .admin-card .form-btn.ghost{padding:6px 10px;font-size:12px}.admin-row{margin:6px 0}.admin-row input{height:32px;padding:0 8px;font-size:13px}
-#tdBody .td-g{grid-template-columns:repeat(3,1fr);gap:5px}#tdBody .td-c{padding:6px 3px;border-radius:10px}#tdBody .td-c b{font-size:15px}#tdBody .td-c span{font-size:10.5px}
+#tdBody .td-g{display:flex;flex-wrap:wrap;gap:6px}#tdBody .td-c{flex:1 1 calc(33.3% - 6px);min-width:92px;padding:7px 4px;border-radius:10px}#tdBody .td-c b{font-size:15px}#tdBody .td-c span{font-size:10.5px}
 #tdBody .td-r{padding:5px 0;font-size:12px}#tdBody .st-card{padding:10px 12px}#tdBody .st-h{margin:10px 0 4px;font-size:12.5px}
 #body-ops .st-card h3,#body-levels .st-card h3{font-size:14px;margin-bottom:5px}
 #body-ops textarea{min-height:0;height:40px;font-size:12.5px;padding:6px 8px}
-#body-levels .lv-set{grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:6px;margin:6px 0}
+#body-levels .lv-set{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:6px 0}
 #body-levels .lv-set input,#body-levels .lv-set select{padding:4px 6px;height:30px;border-radius:9px;font-size:12.5px}
 #body-levels .lv-set label{font-size:10.5px;gap:2px}#body-levels .lv-set b{font-size:12.5px}
 .cp-box{max-width:240px}.cp-box .order-input{height:30px;font-size:12.5px;border-radius:10px;padding:0 8px}.cp-box button{height:30px;padding:0 12px;font-size:12px;border-radius:10px}
@@ -1546,9 +1546,17 @@ header .auth-buttons a.btn-login svg,header .auth-buttons a.btn-register svg{wid
 #vrFormBox>.fld-stack{display:grid;grid-template-columns:1fr 1fr;gap:10px}#vrFormBox .order-field input,#vrFormBox .order-field select{height:38px;font-size:13px;padding:0 10px;border-radius:11px}
 #vrFormBox .vr-wide{grid-column:1/-1}#vrFormBox .order-field label{font-size:11.5px}
 .vr-ups{grid-template-columns:1fr 1fr;gap:8px}.vr-up{min-height:46px;padding:8px 10px;border-radius:13px;font-size:11.5px;gap:8px}.vr-up .ic{font-size:17px}.vr-up img{width:34px;height:34px}.vr-up:nth-child(3){grid-column:1/-1}
-#vrFormBox .pg-btn,#view-security .pg-btn{width:auto;min-width:130px;height:36px;padding:0 20px;font-size:13px;display:block;margin-inline:auto}
-#view-security .auth-box{padding:12px 14px}#view-security h2{font-size:15px}#view-security .pg-lead,.mfa-note{font-size:12px}.mfa-step{font-size:13px;margin:8px 0 4px}.mfa-qr{width:min(55%,180px)}
+#vrFormBox .pg-btn,#view-security .pg-btn{width:100%;height:42px;padding:0 20px;font-size:14px;display:block}
+#view-security .auth-box{padding:12px 14px}#view-security .auth-box h2{font-size:15px}#view-security .pg-lead,.mfa-note{font-size:12px}.mfa-step{font-size:13px;margin:8px 0 4px}.mfa-qr{width:min(55%,180px)}
 .wl-cards{gap:6px}.wl-card{padding:7px 6px}.wl-card b{font-size:14px}.wl-card.bal b{font-size:16px}.wl-card span{font-size:10.5px}
+
+/* ═══ v11 إصلاحات ═══ */
+.st-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin-bottom:8px}.st-grid>.st-kpi:last-child:nth-child(odd){grid-column:1/-1}
+.st-kpi{padding:7px 6px;border-radius:12px}.st-kpi span{font-size:10.5px}.st-kpi b{font-size:15px;margin:2px 0 1px}.st-grid.sm .st-kpi b{font-size:13px}.st-d{font-size:10px}
+.st-bars{gap:6px}.st-row{font-size:11.5px}.st-u{padding:6px 0}.st-hours{height:70px}
+.admin-btns>:last-child:nth-child(odd){grid-column:1/-1}
+.order-title{font-size:14px;line-height:1.35}
+.ref-btns .pay-copy{background:linear-gradient(135deg,#7b2cd8,#a64bff);color:#fff;border:none;min-width:110px;box-shadow:0 4px 14px rgba(123,44,216,.35)}
 </style>
 <script>
 /* ألوان الموقع: بنسحب لون الواجهة بس (CSS) وبتضل الصور بألوانها */
@@ -3242,7 +3250,7 @@ function openOrder(name, ex) {
   const mail = !!ex.mail, step = !!ex.stepper, contact = !!ex.contact;
   const custom = air || plain || app || lst || skin || mail || step || contact;
   orderCurrent = { name, ex, app, air, plain, lst, skin, mail, step, contact };
-  document.getElementById('orderTitle').textContent = name;
+  document.getElementById('orderTitle').textContent = dispName(name);
   const priceEl = document.getElementById('orderPrice');
   updateOrderPrice();
   orderNumber.hidden = custom; orderNumber.value = '';
@@ -3356,6 +3364,7 @@ orderNumber.addEventListener('input', () => {
   orderNumber.value = toLatinDigits(orderNumber.value).replace(/\D/g, '');
   clearOrderErr();
 });
+orderSel.addEventListener('change', () => { clearOrderErr(); updateOrderTotal(); });
 orderQty.addEventListener('input', () => {
   orderQty.value = toLatinDigits(orderQty.value).replace(/\D/g, '');
   if (orderCurrent && orderCurrent.skin) { const mx = orderCurrent.ex.qmax || 100; if (+orderQty.value > mx) orderQty.value = String(mx); }
@@ -3478,8 +3487,8 @@ function renderCategory(type) {
     d.className = 'category-card product-card' + (img ? ' has-cover' : '') + (ex.na ? ' unavailable' : '');
     d.setAttribute('role', 'button');
     d.innerHTML = img
-      ? `<div class="cat-cover"><img decoding="async" alt="${name}" src="${img}">${ex.na ? '<span class="na-badge">غير متوفر</span>' : ''}</div><div class="cat-name">${name}</div>${ph}${ex.na ? '<div class="pkg-na">غير متوفر حالياً</div>' : ''}`
-      : `<div class="cat-icon">${icon}</div><div class="cat-name">${name}</div>${ph}`;
+      ? `<div class="cat-cover"><img decoding="async" alt="${name}" src="${img}">${ex.na ? '<span class="na-badge">غير متوفر</span>' : ''}</div><div class="cat-name">${dispName(name)}</div>${ph}${ex.na ? '<div class="pkg-na">غير متوفر حالياً</div>' : ''}`
+      : `<div class="cat-icon">${icon}</div><div class="cat-name">${dispName(name)}</div>${ph}`;
     d.addEventListener('click', () => {
       if (ex.go) { location.hash = '#/category/' + ex.go; return; }
       if (ex.na) { ARMEX.onNaTap(type, name, idx, ex); return; }
@@ -3553,6 +3562,7 @@ const state = { fb: null, user: null, profile: null, deposits: [], ready: false,
 const isAdmin = () => !!(state.user && state.user.emailVerified && CONFIG.ADMIN_EMAILS.includes((state.user.email || '').toLowerCase()));
 const fmt = n => (Math.round((+n || 0) * 1000) / 1000).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 3 }) + ' ' + CONFIG.CURRENCY;
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const dispName = n => String(n).replace(/\s+ف$/, '');
 const tms = d => (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now();
 
 function hashPass(str) {   // هاش سريع (يُستعمل لمفاتيح الإيصالات فقط)
@@ -4470,6 +4480,10 @@ function fmtPrice(usd) {
 function updateOrderPrice() {
   const el = $('orderPrice'); if (!el) return;
   if (!orderCurrent) { el.hidden = true; return; }
+  if (orderCurrent.air || orderCurrent.lst) {
+    const v = parseFloat(orderSel.value);
+    if (isFinite(v) && v > 0) { el.dir = 'ltr'; el.textContent = fmtPrice(v); el.hidden = false; orderTotal.textContent = fmtPrice(v); return; }
+  }
   let p = ARMEX.effC(curCatType, orderCurrent.name, curProdIdx, getPrice(curCatType, orderCurrent.name, curProdIdx), orderCurrent.ex);
   if (p == null && orderCurrent.ex.price != null) p = +orderCurrent.ex.price;
   if (p == null || !isFinite(p)) { el.hidden = true; orderTotal.textContent = ''; return; }
@@ -6352,14 +6366,14 @@ const ARMEX = window.ARMEX = { ops: {}, levels: {}, svc: { over: {}, down: {} },
     const g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, '#12002b'); g.addColorStop(1, '#2a0a55'); x.fillStyle = g; x.fillRect(0, 0, W, H);
     x.strokeStyle = '#FFD700'; x.lineWidth = 4; x.strokeRect(24, 24, W - 48, H - 48);
     x.direction = 'rtl'; x.textAlign = 'center';
-    x.fillStyle = '#FFD700'; x.font = 'bold 46px ' + font; x.fillText('ARMEX STORE 👑', W / 2, 110);
+    x.fillStyle = '#FFD700'; x.font = 'bold 46px ' + font; x.fillText('ARMEX STORE', W / 2, 110);
     x.fillStyle = '#fff'; x.font = 'bold 30px ' + font; x.fillText('فاتورة طلب', W / 2, 165);
     x.strokeStyle = 'rgba(255,215,0,.4)'; x.lineWidth = 2; x.beginPath(); x.moveTo(80, 195); x.lineTo(W - 80, 195); x.stroke();
     const rows = [['الخدمة', o.name || ''], ['المبلغ', fmtC(o.amount) + (o.usd ? '  ($' + o.usd + ')' : '')], ['الحالة', (ORD_ST[o.status || 'pending'] || ORD_ST.pending)[0]], ['التاريخ', new Date(tms(o)).toLocaleString('ar')], ['الزبون', (state.profile && state.profile.name) || accName()], ['رقم الطلب', String(o.id || '').slice(-14)]];
     if (o.disc) rows.splice(2, 0, [o.coupon ? 'كود الخصم ' + o.coupon : 'خصم المستوى', o.disc + '%']);
     let y = 270; x.textAlign = 'right';
     rows.forEach(([k, v]) => { x.fillStyle = '#c9b6ff'; x.font = '26px ' + font; x.fillText(k, W - 90, y); x.textAlign = 'left'; x.fillStyle = '#fff'; x.font = 'bold 28px ' + font; let t = String(v); while (x.measureText(t).width > 330 && t.length > 4) t = t.slice(0, -2); x.fillText(t === String(v) ? t : t + '…', 90, y); x.textAlign = 'right'; y += 82; });
-    x.textAlign = 'center'; x.fillStyle = '#FFD700'; x.font = 'bold 28px ' + font; x.fillText('شكراً لثقتك بنا 💜', W / 2, H - 90);
+    x.textAlign = 'center'; x.fillStyle = '#FFD700'; x.font = 'bold 28px ' + font; x.fillText('شكراً لثقتك بنا', W / 2, H - 90);
     c.toBlob(async blob => {
       if (!blob) { toast('تعذّر إنشاء الفاتورة'); return; }
       const file = new File([blob], 'armex-invoice.png', { type: 'image/png' });
